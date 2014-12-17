@@ -1,4 +1,4 @@
-# Project Name #
+# Boundry #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,29 +16,39 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## Market ##
+  > Event organizers and event participants.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Event Organizers: Create interactive maps that respond to your users'
+  > location data. Analyze that data with a robust suite of visualization tools.
+  > Event Participants: Get location-based event information and exclusive special offers. 
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Big, multi-vendor events are really hard to navigate. Directories and maps
+  > are scarce and easily lost. 
+  > 
+  >
+  > Further, from an organizer's perspective, it's extremely difficult to capture data on event-goers--where
+  > did they spend their time / money? Which offerings were most worth their
+  > while?
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > We build a platform for large event organizers to delineate specific zones
+  > within their event space, with automatic user interactions based on user movement.
+  > Users get a live, customized map of the event on their mobile device, which shows
+  > their location as well as special offers or other media as configured by the
+  > organizer.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "We want to transform how consumers interact with large events."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Do you have an e-mail address? Then you're good.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "Boundry made it so much easier to keep track of where we were at the
+  > festival, and the discounts were amazing."
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Interested? Hit us UP at boundry.io.
