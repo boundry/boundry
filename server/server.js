@@ -17,3 +17,5 @@ var port = process.env.PORT || 8000;
 console.log('Server listening on ' + port);
 
 app.use(routeHandler).listen(port);
+
+module.exports = app;
