@@ -1,6 +1,8 @@
 //Require endpoints from folders
+var express = require('express');
+var mobileRouter = express.Router();
 
-var mobileRouter = function(req, res) {
+var getEvents = function(req, res) {
   res.json([
     {
       eventName: 'sampleEvent',
@@ -16,5 +18,8 @@ var mobileRouter = function(req, res) {
     }
   ]);
 }
+
+//mobile routes
+mobileRouter.get('/events', getEvents);
 
 module.exports = mobileRouter;
