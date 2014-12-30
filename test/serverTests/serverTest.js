@@ -14,7 +14,7 @@ describe('Server Tests', function() {
 
           assert.isArray(events);
 
-          assert.isObject(events[0])
+          assert.isObject(events[0]);
           assert.isArray(events[0].regions);
           assert.isString(events[0].eventName);
 

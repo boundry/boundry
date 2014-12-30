@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var cors = require('cors');
 
-var routeHandler = require('./routeHandler')
+var routeHandler = require('./routeHandler');
 
 var app = express();
 
