@@ -5,10 +5,10 @@ var mobileRouter = express.Router();
 var getEvents = function(req, res) {
   res.json([
     {
-      "eventName":"sampleEvent",
-      "regions":[{
-        "regionName":"sampleRegion1",
-        "coordinates":[
+      'eventName':'sampleEvent',
+      'regions':[{
+        'regionName':'sampleRegion1',
+        'coordinates':[
           [37.789174,-122.419292],
           [37.783510,-122.417961],
           [37.785901,-122.411334],
@@ -16,8 +16,8 @@ var getEvents = function(req, res) {
         ]
       },
       {
-        "regionName":"sampleRegion2",
-        "coordinates":[
+        'regionName':'sampleRegion2',
+        'coordinates':[
           [37.791052,-122.414916],
           [37.785901,-122.411334],
           [37.787050, -122.409188],
@@ -25,8 +25,8 @@ var getEvents = function(req, res) {
         ]
       },
       {
-        "regionName":"sampleRegion3",
-        "coordinates":[
+        'regionName':'sampleRegion3',
+        'coordinates':[
           [37.791646,-122.408154],
           [37.787050, -122.409188],
           [37.785505,-122.405334],
@@ -34,8 +34,8 @@ var getEvents = function(req, res) {
         ]
       },
       {
-        "regionName":"sampleRegion4",
-        "coordinates":[
+        'regionName':'sampleRegion4',
+        'coordinates':[
           [37.783510,-122.417961],
           [37.780220,-122.415816],
           [37.782291,-122.408976],
@@ -43,8 +43,8 @@ var getEvents = function(req, res) {
         ]
       },
       {
-        "regionName":"sampleRegion5",
-        "coordinates":[
+        'regionName':'sampleRegion5',
+        'coordinates':[
           [37.787050,-122.409188],
           [37.785901,-122.411334],
           [37.782291,-122.408976],
@@ -53,7 +53,7 @@ var getEvents = function(req, res) {
       }]
     }
   ]);
-}
+};
 
 //mobile routes
 mobileRouter.get('/events', getEvents);

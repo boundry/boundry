@@ -1,6 +1,5 @@
 var express = require('express');
 var routeHandler = express.Router();
-var path = require('path');
 
 var mobileRouter = require('./routes/mobile/mobileRouter');
 var webRouter = require('./routes/web/webRouter');

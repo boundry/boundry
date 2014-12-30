@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
-    "test": "./node_modules/.bin/mocha -R spec ./tests/**"
+    "test": "./node_modules/.bin/mocha -R spec ./test/**"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "mocha": "^2.0.1",
+    "mocha-jshint": "0.0.9",
     "sinon": "^1.12.2",
     "supertest": "^0.15.0"
   },
