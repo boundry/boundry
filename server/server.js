@@ -10,7 +10,7 @@ var app = express();
 //Define middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan());
+app.use(morgan('combined'));
 
 //Application
 var port = process.env.PORT || 8000;
