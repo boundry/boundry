@@ -67,10 +67,10 @@ var getActions = function(req, res) {
 
   //send over dummy data for now
   var message = 
-    regionId === '1' ? ['imma action!'] : 
-    regionId === '2' ? ['imma action too'] :
-    regionId === '3' ? ['imma action three!'] :
-    regionId === '4' ? ['dont forget me!'] : ['im alive!'];
+    regionId === 'sampleRegion1' ? ['imma action!'] : 
+    regionId === 'sampleRegion2' ? ['imma action too'] :
+    regionId === 'sampleRegion3' ? ['imma action three!'] :
+    regionId === 'sampleRegion4' ? ['dont forget me!'] : ['im alive!'];
 
   res.send(message);
 };
