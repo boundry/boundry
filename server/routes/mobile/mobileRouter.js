@@ -72,7 +72,7 @@ var getActions = function(req, res) {
     regionId === '3' ? ['imma action three!'] :
     regionId === '4' ? ['dont forget me!'] : ['im alive!'];
 
-  res.send([message]);
+  res.send(message);
 };
 
 //mobile routes
