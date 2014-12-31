@@ -1,6 +1,6 @@
 //Require endpoints from folders
 var express = require('express');
-var mobileRouter = express.Router();
+var mobileApiRouter = express.Router();
 
 var fakeData = [
   {
@@ -76,7 +76,7 @@ var getActions = function(req, res) {
 };
 
 //mobile routes
-mobileRouter.get('/events', getEvents);
-mobileRouter.get('/actions/:regionId', getActions);
+mobileApiRouter.get('/events', getEvents);
+mobileApiRouter.get('/actions/:regionId', getActions);
 
-module.exports = mobileRouter;
+module.exports = mobileApiRouter;
