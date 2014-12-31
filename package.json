@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
-    "postinstall": "bower install",
+    "postinstall": "npm install bower && bower install && npm uninstall bower",
     "test": "./node_modules/.bin/mocha -R spec ./test/**"
   },
   "repository": {
