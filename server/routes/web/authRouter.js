@@ -1,6 +1,6 @@
-// var express = require('express');
-// var authRouter = express.Router();
-// var models = require('../db/db.js');
+var express = require('express');
+var authRouter = express.Router();
+// var models = require('../../db/db');
 
 // authRouter.checkLogin = function(req,res) {
 //   var name = req.body.name;
@@ -22,6 +22,8 @@
 //       }
 //   });
 // };
+
+// // .....CREATE SESSIONS
 
 // authRouter.checkSignup = function(req,res) {
 //   var name = req.body.name;
@@ -45,4 +47,4 @@
 //   });
 // };
 
-// module.exports = authRouter;
+module.exports = authRouter;
