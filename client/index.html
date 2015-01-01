@@ -8,16 +8,15 @@
 </head>
 <body>
   <form>
-    <input type="text">lat</input>
-    <input type="text">lng</input>
-    <button>submit</button>
+
+     <input id="addressInput" type="textbox" placeholder="enter address"></input>
+    <input type="button" value="Find" onclick="getAddress()">
+
   </form>
   <div id='map'></div>
+  <div id="regionList"></div>
 
-  <div id="vertices2"></div>
-  <input type="text" name="vertices" value="" id="vertices"/>
-
-  <script  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing"></script>
+  <script  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry,places"></script>
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="./scripts/index.js"></script>
 
