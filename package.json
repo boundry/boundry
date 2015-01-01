@@ -5,8 +5,10 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
+    "preinstall": "./npm-prestart.sh",
     "postinstall": "npm install bower && bower install && npm uninstall bower",
-    "test": "./node_modules/.bin/mocha -R spec ./test/**"
+    "test": "./node_modules/.bin/mocha -R spec ./test/**",
+    "posttest": "./npm-posttest.sh"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
     "chai": "^1.10.0",
     "mocha": "^2.0.1",
     "mocha-jshint": "0.0.9",
+    "mysql": "^2.5.4",
     "sinon": "^1.12.2",
     "supertest": "^0.15.0"
   },
@@ -31,7 +34,6 @@
     "cors": "^2.5.2",
     "express": "^4.10.6",
     "knex": "^0.7.3",
-    "morgan": "^1.5.0",
-    "mysql": "^2.5.4"
+    "morgan": "^1.5.0"
   }
 }
