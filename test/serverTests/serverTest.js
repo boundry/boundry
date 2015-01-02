@@ -45,6 +45,7 @@ var knex = require('knex')(dbConfig.database);
 console.log("CONNECTING TO DB: ", dbConfig.database.connection);
 
 describe('Database Unit Tests', function () {
+  this.timeout(10000); //10 sec timeout
 
   //Drop all tables and remake them
   before(function(done) {
