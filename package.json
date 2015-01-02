@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./server/server.js",
     "postinstall": "npm install bower && bower install && npm uninstall bower",
-    "test": "./node_modules/.bin/mocha -R spec ./test/**"
+    "test": "./node_modules/.bin/mocha -R spec ./test/**",
+    "ltest": "export LOCAL_DB_TESTING='true' && ./node_modules/.bin/mocha -R spec ./test/** && unset LOCAL_DB_TESTING"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "supertest": "^0.15.0"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^2.4.0",
     "body-parser": "^1.10.0",
     "bookshelf": "^0.7.9",
     "cors": "^2.5.2",
