@@ -1,11 +1,11 @@
 var dbConfig;
 
 if (process.env.NODE_ENV === 'production') {
-  dbConfig = require('./../../knexfile').production;
+  dbConfig = require('./../../knexfile').production; //prod
 } else if (process.env.LOCAL_DB_TESTING){
-  dbConfig = require('./../../knexfile').development;
+  dbConfig = require('./../../knexfile').development; //local testing
 } else {
-  dbConfig = require('./../../knexfile').staging;
+  dbConfig = require('./../../knexfile').staging; //Remote testing DB for CircleCI
 }
 
 
