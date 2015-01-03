@@ -1,27 +1,22 @@
 <!doctype html>
-<html>
+<html ng-app='boundry'>
 <head>
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="./bower_components/angular/angular.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry,places"></script>
+  <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="./app/app.js"></script>
+  <script src="./app/eventEditor/eventEditorCtrl.js"></script>
+
+  <meta charset="utf-8" />
   <title>Boundry</title>
-
-
 
 </head>
 <body>
-  <form>
 
-     <input id="addressInput" type="textbox" placeholder="enter address"></input>
+  <div ui-view></div>
 
-    <input type="button" value="Find" onclick="getAddress()">
-
-  </form>
-  <div id='map'></div>
-  <div id="regionList"></div>
-
-  <script  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry,places"></script>
-  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="./app/app.js"></script>
 
   <link rel="stylesheet" href="./styles/index.css">
-
 </body>
 </html>
