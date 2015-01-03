@@ -5,8 +5,6 @@ var path = require('path');
 
 var mobileApiRouter = require('./routes/mobile/mobileApiRouter');
 var webApiRouter = require('./routes/web/webApiRouter');
-var webRouter = require('./routes/web/webRouter');
-
 
 //serve signup page as default
 routeHandler.get('/', function(req, res) {
@@ -18,7 +16,8 @@ routeHandler.use(express.static(__dirname + './../client'));
 
 routeHandler.use('/api/mobile', mobileApiRouter);
 routeHandler.use('/api/web', webApiRouter);
-routeHandler.use('*', webRouter);
 
+// webRouter.post('/signup', authRouter.checkSignup);
+// webRouter.post('/login', authRouter.checkLogin);
 
 module.exports = routeHandler;
