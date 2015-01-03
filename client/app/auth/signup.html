@@ -5,9 +5,9 @@
 </head>
 <body>
   <h1>Signup</h1>
-  <form>
-    <div>email: <input type="email"></div>
-    <div>password: <input type="password"></div>
+  <form action="/signup" method="POST">
+    <div>email: <input type="email" name="email"></div>
+    <div>password: <input type="password" name="password"></div>
     <div>re-enter password: <input type="password"></div>
     <div><button type="submit">Submit</button></div>
   </form>
