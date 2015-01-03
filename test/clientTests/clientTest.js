@@ -1,3 +1,4 @@
+// var assert = require('chai').assert;
 var assert = chai.assert;
 
 describe('something', function() {
