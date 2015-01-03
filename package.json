@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./server/server.js",
     "postinstall": "npm install bower && bower install && npm uninstall bower",
-    "test": "./node_modules/.bin/mocha -R spec ./test/**",
+    "test": "mocha -R spec ./test/serverTests/** && ./node_modules/karma/bin/karma start",
     "ltest": "export LOCAL_DB_TESTING='true' && ./node_modules/.bin/mocha -R spec ./test/** && unset LOCAL_DB_TESTING"
   },
   "repository": {
@@ -21,8 +21,14 @@
   "homepage": "https://github.com/boundry/boundry",
   "devDependencies": {
     "chai": "^1.10.0",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-sinon": "^1.0.4",
     "mocha": "^2.0.1",
     "mocha-jshint": "0.0.9",
+    "phantomjs": "^1.9.13",
     "sinon": "^1.12.2",
     "supertest": "^0.15.0"
   },
