@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+  <title>Signup</title>
+</head>
+<body>
+  <h1>Signup</h1>
+    <form>
+      <div>name: <input type="text" ng-model="name"></div>
+      <div>email: <input type="email" ng-model="email"></div>
+      <div>password: <input type="password" ng-model="firstPassword"></div>
+      <div>re-enter password: <input type="password" ng-model="secondPassword"></div>
+      <div><button ng-click="submitSignup(name, email, firstPassword, secondPassword)">Submit</button></div>
+    </form>
+</body>
+</html>
