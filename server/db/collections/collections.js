@@ -21,6 +21,10 @@ var makeCollections = function (bookshelfObject, models) {
     model: models.Action
   });
 
+  collections.LocationData = bookshelfObject.Collection.extend({
+    model: models.LocationData
+  });
+
   return collections;
 };
 
