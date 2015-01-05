@@ -29,7 +29,11 @@ var makeModels = function (bookshelfObject) {
     checkPassword: function (password) {
       var compare = bluebird.promisify(bcrypt.compare);
       return compare(password, this.get('password'))
-        .then(function (isMatch) {
+        .then(function (isMatch, err) {
+          if (err) {
+            console.log(err);
+          }
+          console.log('isMatch', isMatch);
           return isMatch;
         });
     },

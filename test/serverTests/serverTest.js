@@ -4,6 +4,9 @@ var assert = require('chai').assert;
 
 var models = require('./../../server/db/db').models;
 var collections = require('./../../server/db/db').collections;
+var webApiRouter = require('./../../server/routes/web/webApiRouter');
+var mobileApiRouter = require('./../../server/routes/mobile/mobileApiRouter');
+var authRouter = require('./../../server/routes/web/authRouter');
 
 var dbConfig; 
 
@@ -66,12 +69,10 @@ describe('Database Unit Tests', function () {
       email: 'test@org.com',
       password: 'testpass'
     })
-    .save()
-
-    .then(function(model) {
+    .save().then(function(model) {
       new models.Organizer({ name: 'Test org' })
         .fetch()
-        .then(function( model ) {
+        .then(function(model) {
           //Assert that it fetches properly
           assert.equal(model.get('name'), 'Test org', 'should be same');
           done();
@@ -79,40 +80,37 @@ describe('Database Unit Tests', function () {
           done(err);
         });
     });
-  })
+  });
 
-  //Below tests are not finished yet; they should be linked to the above
-  //organizer
   //Create a new event
   it('should save a new event for that organizer', function (done) {
     //Save a new Event model
     new models.Event({
       name: 'My Event',
       start_time: '2004-05-23T14:25:10',
-      end_time: '2004-05-23T14:25:10'
+      end_time: '2004-05-23T14:25:10',
+      organizer_id: 1
     }).save()
-
     .then(function(model) {
       new models.Event({ name: 'My Event' })
         .fetch()
         .then(function( model ) {
-          //Assert that it fetches properly
+           //Assert that it fetches properly
           assert.equal(model.get('name'), 'My Event', 'should be same');
           done();
         }).catch(function (err) {
           done(err);
         });
-    })
-  })
+      });
+  });
 
-  //Create a new region
-  it('should save a new region for that organizer', function (done) {
+  it('should save a new region for an event', function (done) {
     //Save a new region model
     new models.Region({
       name: 'My Region',
-      coordinates: 'test coordinates'
+      coordinates: 'test coordinates',
+      event_id: 1
     }).save()
-
     .then(function(model) {
       new models.Region({ name: 'My Region' })
         .fetch()
@@ -124,5 +122,78 @@ describe('Database Unit Tests', function () {
           done(err);
         });
     })
-  })
+  });
+  //user is mobile client
+  it('should save a new user for an event', function (done) {
+    new models.User({
+      id: '1'
+    }).save(null, {method: 'insert'})
+    .then(function(model) {
+      new models.User({ id: '1'})
+        .fetch()
+        .then(function( model ) {
+          //Assert that it fetches properly
+          assert.equal(model.get('id'), '1', 'should be same');
+          done();
+        }).catch(function (err) {
+          done(err);
+        });
+    })
+  });
+  //save action
+  it('should save an action for a region', function (done) {
+    new models.Action({
+      name: 'Sale!',
+      action_data: '50% off',
+      region_id: 1
+    }).save()
+    .then(function(model) {
+      new models.Action({ name: 'Sale!'})
+        .fetch()
+        .then(function( model ) {
+          //Assert that it fetches properly
+          assert.equal(model.get('name'), 'Sale!', 'should be same');
+          done();
+        }).catch(function (err) {
+          done(err);
+        });
+    })
+  });
+  it('should signup a new org successfully', function(done) {
+    request(app)
+      .post('/signup')
+      .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
+      .expect(200, done);
+  });
+
+  it('should return error if attempting to signup with a used email', function(done) {
+    request(app)
+      .post('/signup')
+      .send({ name: 'testName2', email: 'test@gmail.com', password: 'testpw2'})
+      .expect(302, done); //302 - redirect to signup
+  });
+ 
+  it('should login a new org successfully', function(done) {
+    request(app)
+      .post('/login')
+      .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
+      .expect(200, done);
+  });
+
+  it('should return error if attempting to login with a wrong password', function(done) {
+    request(app)
+      .post('/login')
+      .send({ name: 'testName', password: 'tpw'})
+      .expect(302, done);
+  });
 });
+
+//get to mobileApiRouter
+//post to mobileApiRouter
+//get to webApiRouter
+//post to webApiRouter
+//post to login
+//post to signin
+
+
+
