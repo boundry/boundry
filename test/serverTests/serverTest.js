@@ -159,6 +159,29 @@ describe('Database Unit Tests', function () {
         });
     })
   });
+
+  //Create a new locationData entry
+  it('should save location data from a user', function (done) {
+    //Save a new region model
+    new models.LocationData({
+      latitude: 127.098374,
+      longitude: 127.123456
+    }).save()
+
+    .then(function(model) {
+      new models.LocationData({ latitude: 127.098374 })
+        .fetch()
+        .then(function( model ) {
+          //Assert that it fetches properly
+          assert.equal(model.get('latitude'), 127.098374, 'should be same');
+          assert.equal(model.get('longitude'), 127.123456, 'should be same');
+          done();
+        }).catch(function (err) {
+          done(err);
+        });
+    })
+  });
+  
   it('should signup a new org successfully', function(done) {
     request(app)
       .post('/signup')

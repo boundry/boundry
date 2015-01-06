@@ -49,6 +49,16 @@ exports.up = function(knex) {
           action.timestamps();
         })
 
+        .createTable('locationData', function (locationData) {
+          locationData.increments('id').primary();
+          locationData.decimal('latitude', 10, 6);
+          locationData.decimal('longitude', 10, 6);
+          locationData.integer('user_id', 10).unsigned().references('user.id');
+          locationData.integer('event_id', 10).unsigned().references('event.id');
+          locationData.integer('region_id', 10).unsigned().references('region.id');
+          locationData.timestamps();
+        })
+
         .then(function() {
           console.log('ALL TABLES MADE');
         })
@@ -68,7 +78,8 @@ exports.down = function(knex) {
       'event_user',
       'event',
       'user',
-      'organizer'
+      'organizer',
+      'locationData'
     ];
   })
   .reduce(function(memo, table) {

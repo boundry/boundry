@@ -51,6 +51,11 @@ var makeModels = function (bookshelfObject) {
     //Has many Events (many to many)
     events: function() {
       return this.belongsToMany(models.Event); //M-to-M requires belongsToMany
+    },
+
+    //Has many LocationData
+    locationData: function() {
+      return this.hasMany(models.LocationData);
     }
   });
 
@@ -70,6 +75,11 @@ var makeModels = function (bookshelfObject) {
       //Has many Users (many to many)
     users: function() {
       return this.belongsToMany(models.User); //M-to-M requires belongsToMany
+    },
+
+    //Has many LocationData
+    locationData: function() {
+      return this.hasMany(models.LocationData);
     }
   });
 
@@ -85,6 +95,11 @@ var makeModels = function (bookshelfObject) {
       //Has many Actions
     actions: function() {
       return this.hasMany(models.Action);
+    },
+
+    //Has many LocationData
+    locationData: function() {
+      return this.hasMany(models.LocationData);
     }
   });
 
@@ -92,6 +107,27 @@ var makeModels = function (bookshelfObject) {
   models.Action = bookshelfObject.Model.extend({
     tableName: 'action',
     hasTimestamps: true,
+
+    //Belongs to a Region
+    region: function() {
+      return this.belongsTo(models.Region);
+    }
+  });
+
+  //LocationData - 
+  models.LocationData = bookshelfObject.Model.extend({
+    tableName: 'locationData',
+    hasTimestamps: true,
+
+    //Belongs to a User
+    user: function() {
+      return this.belongsTo(models.User);
+    },
+
+    //Belongs to an Event
+    event: function() {
+      return this.belongsTo(models.Event);
+    },
 
     //Belongs to a Region
     region: function() {
