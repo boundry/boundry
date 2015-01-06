@@ -38,9 +38,8 @@ describe('Server Integration Tests', function() {
         });
     });
   });
-
   describe('Auth', function() {
-    
+
   });
 });
 
@@ -181,42 +180,6 @@ describe('Database Unit Tests', function () {
         });
     })
   });
-  
-  it('should signup a new org successfully', function(done) {
-    request(app)
-      .post('/signup')
-      .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
-      .expect(200, done);
-  });
 
-  it('should return error if attempting to signup with a used email', function(done) {
-    request(app)
-      .post('/signup')
-      .send({ name: 'testName2', email: 'test@gmail.com', password: 'testpw2'})
-      .expect(302, done); //302 - redirect to signup
-  });
- 
-  it('should login a new org successfully', function(done) {
-    request(app)
-      .post('/login')
-      .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
-      .expect(200, done);
-  });
-
-  it('should return error if attempting to login with a wrong password', function(done) {
-    request(app)
-      .post('/login')
-      .send({ name: 'testName', password: 'tpw'})
-      .expect(302, done);
-  });
 });
-
-//get to mobileApiRouter
-//post to mobileApiRouter
-//get to webApiRouter
-//post to webApiRouter
-//post to login
-//post to signin
-
-
 
