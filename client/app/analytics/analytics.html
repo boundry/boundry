@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+
+    <meta charset="utf-8">  <!-- it's important for d3.js -->
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/d3/d3.js"></script>
+    <script src="../../bower_components/nvd3/nv.d3.js"></script> <!-- or use another assembly -->
+    <script src="../../bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+    <link rel="stylesheet" href="../../bower_components/nvd3/nv.d3.css">
+
+    <link rel="stylesheet" href="../../bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="../../bower_components/underscore/underscore.js"></script>
+
+    <script src="analyticsServices.js"></script>
+    <script src="analyticsCtrl.js"></script>
+    <script src="analyticsHeatMapCtrl.js"></script>
+
+
+<!-- googlemaps stuff -->
+
+
+    <style>
+      html, body, #map {
+        height: 500px;
+        width: 500px;
+        /*margin: 0px;*/
+        /*padding: 0px*/
+      }
+      #panel {
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
+    <script>
+
+
+    </script>
+
+
+  </head>
+
+  <body>
+    <h1>Data Analytics</h1>
+    <div id="example"></div>
+    <div id="slider"></div>
+
+    <div ng-app="boundry.analytics">
+      <div ng-controller="analyticsCtrl">
+      {{sample}}
+      {{timeIntervalString()}}
+        <!-- <input ng-model="sample"></input> -->
+          <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
+          <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
+          <nvd3 ng-show="dataViewSelection.options" options="dataViewSelection.options" data="dataViewSelection.data"></nvd3>
+          <div ng-show='dataViewSelection.name === "Heat Map"'>
+            <div id="panel">
+              <button ng-click="toggleHeatmap()">Toggle Heatmap</button>
+              <button ng-click="changeGradient()">Change gradient</button>
+              <button ng-click="changeRadius()">Change radius</button>
+              <button ng-click="changeOpacity()">Change opacity</button>
+              <!-- <button ng-click="renderSlider('hours')">render slider</button> -->
+            </div>
+            <div id="map"></div>
+          </div>
+      </div>
+    </div>
+
+  </body>
+
+
+
+
+
+
+
+</html>

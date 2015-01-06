@@ -22,6 +22,11 @@ angular
       url: '/event',
       templateUrl: 'app/eventEditor/eventEditor.html',
       controller: 'EventEditorCtrl',
+   })
+   .state('analytics', {
+      templateUrl: 'app/analytics/analytics.html',
+      controller: 'analytics',
+      url:'/analytics'
    });
 
    uiGmapGoogleMapApiProvider.configure({
