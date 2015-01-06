@@ -2,11 +2,17 @@
   <h1>EVENT EDITOR<h2>
   <form>
     <input id="addressInput" type="textbox" placeholder="enter address"></input>
-    <input type="button" value="Find" ng-click="getAddress()">
+    <input type="button" value="Find" ng-click="getAddresses()">
   </form>
 
-  <div id='map'></div>
+  <ui-gmap-google-map center='mapOptions.center' zoom='mapOptions.zoom'>
 
-  <div id="regionList"></div>
+    <ui-gmap-drawing-manager
+        options='drawingManagerOptions'
+        control='drawingManagerControl'
+        static='map.static'>
+    </ui-gmap-drawing-manager>
+
+  </ui-gmap-google-map>
 
 </div>

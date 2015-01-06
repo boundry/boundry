@@ -3,9 +3,10 @@ angular
     'boundry.eventEditor',
     'boundry.authLogin',
     'boundry.authSignup',
-    'ui.router'
+    'ui.router',
+    'uiGmapgoogle-maps'
   ])
-.config(function($stateProvider, $httpProvider) {
+.config(['$stateProvider', '$httpProvider', 'uiGmapGoogleMapApiProvider', function($stateProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
   $stateProvider
    .state('login', {
       url : '/login',
@@ -20,13 +21,17 @@ angular
    .state('eventEditor', {
       url: '/event',
       templateUrl: 'app/eventEditor/eventEditor.html',
-      controller: 'eventEditorCtrl',
+      controller: 'EventEditorCtrl',
    })
 
+   uiGmapGoogleMapApiProvider.configure({
+     v: '3.18',
+     libraries: 'drawing, geometry, places'
+   });
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
   //$httpProvider.interceptors.push('AttachTokens');
-});
+}]);
 
 //Store user/event data
 //.service()
