@@ -10,23 +10,17 @@ authRouter.checkLogin = function(req,res) {
     function(org) {
       if (!org) {
         //redirect to login
-        res.redirect('/login');
+        res.sendStatus(400, 'duplicate email');
       } else {
-        console.log('in here check pw');
-
         org.checkPassword(password)
         .then(function(isMatch) {
           if (isMatch) {
-            console.log('password matches');
-          //util.createSession(req,res,org);
-            res.sendStatus(200);
+            util.createSession(req,res,org);
           } else {
-            console.log('not match');
-            res.redirect('/login');          
+            res.sendStatus(400, 'unmatched password');
           }
         })
         .catch(function(err) {
-          console.log('catch');
         });
       }
   });
@@ -46,15 +40,28 @@ authRouter.checkSignup = function(req,res) {
           password: password
         });
         newOrg.save().then(function(savedOrg) {
-        // util.createSession(req,res,savedOrg);
-        res.sendStatus(200);
+        res.sendStatus(200,'created organizer');
         });
       } else {
-        console.log('could not sign up');
-        res.redirect('/signup');
-
+        res.sendStatus(400,'cannot create organizer');
       }
   });
 };
 
+authRouter.checkLogout = function(req,res) {
+  console.log('in checklogout',req.cookies);
+  // req.session.cookie.user = 'testUser';
+  if (req.cookies.user) {
+    util.destroySession(req,res);
+  } else {
+    res.sendStatus(400,'no one to log out');
+  }
+};
+
 module.exports = authRouter;
+
+
+
+
+
+

@@ -33,7 +33,6 @@ var makeModels = function (bookshelfObject) {
           if (err) {
             console.log(err);
           }
-          console.log('isMatch', isMatch);
           return isMatch;
         });
     },

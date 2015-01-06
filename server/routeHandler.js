@@ -21,5 +21,6 @@ routeHandler.use('/api/web', webApiRouter);
 
 routeHandler.post('/signup', authRouter.checkSignup);
 routeHandler.post('/login', authRouter.checkLogin);
+routeHandler.get('/logout', authRouter.checkLogout);
 
 module.exports = routeHandler;
