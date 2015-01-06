@@ -10,7 +10,7 @@ var authRouter = require('./routes/web/authRouter');
 
 //serve signup page as default
 routeHandler.get('/', function(req, res) {
-  res.sendFile(path.resolve(__dirname + '/../client/signup.html'));
+  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 });
 
 //serve all static files

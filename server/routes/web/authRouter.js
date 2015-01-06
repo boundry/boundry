@@ -4,9 +4,9 @@ var models = require('../../db/db').models;
 var util = require('./../../../lib/utility');
 
 authRouter.checkLogin = function(req,res) {
-  var name = req.body.name;
+  var email = req.body.email;
   var password = req.body.password;
-  new models.Organizer({name: name}).fetch().then(
+  new models.Organizer({email: email}).fetch().then(
     function(org) {
       if (!org) {
         //redirect to login

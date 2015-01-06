@@ -1,29 +1,31 @@
 angular
   .module('boundry', [
     'boundry.eventEditor',
+    'boundry.authLogin',
+    'boundry.authSignup',
     'ui.router'
   ])
 .config(function($stateProvider, $httpProvider) {
-    $stateProvider
-     .state('signin', {
-        url : '/signin',
-        templateUrl: 'app/auth/signin.html',
-        controller: 'AuthController',
-     })
-     .state('signup', {
-        templateUrl: 'app/auth/signup.html',
-        controller: 'AuthController',
-        url:'/signup'
-     })
-     .state('eventEditor', {
-        templateUrl: 'app/eventEditor/eventEditor.html',
-        controller: 'eventEditorCtrl',
-        url:'/event'
-     })
+  $stateProvider
+   .state('login', {
+      url : '/login',
+      templateUrl: 'app/auth/login/login.html',
+      controller: 'AuthLoginCtrl',
+   })
+   .state('signup', {
+      url: '/signup',
+      templateUrl: 'app/auth/signup/signup.html',
+      controller: 'AuthSignupCtrl',
+   })
+   .state('eventEditor', {
+      url: '/event',
+      templateUrl: 'app/eventEditor/eventEditor.html',
+      controller: 'eventEditorCtrl',
+   })
 
-    // We add our $httpInterceptor into the array
-    // of interceptors. Think of it like middleware for your ajax calls
-    //$httpProvider.interceptors.push('AttachTokens');
+  // We add our $httpInterceptor into the array
+  // of interceptors. Think of it like middleware for your ajax calls
+  //$httpProvider.interceptors.push('AttachTokens');
 });
 
 //Store user/event data
