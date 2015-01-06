@@ -43,14 +43,14 @@ describe('Auth and Session Tests', function() {
     request(app)
       .post('/signup')
       .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
-      .expect(200, done)
+      .expect(201, done)
   });
   
   it('should return error if attempting to signup with a used email', function(done) {
     request(app)
       .post('/signup')
       .send({ name: 'testName2', email: 'test@gmail.com', password: 'testpw2'})
-      .expect(400, done); 
+      .expect(403, done); 
   });
  
 
@@ -69,12 +69,10 @@ describe('Auth and Session Tests', function() {
     request(app)
       .post('/login')
       .send({ name: 'testName', password: 'tpw'})
-      .expect(400, done);
+      .expect(401, done);
   });
 
   it ('should redirect when logout if a user is logged in', function(done) {
-
-
     request(app)
       .get('/logout')
       .set('Cookie', ['user=hi'])

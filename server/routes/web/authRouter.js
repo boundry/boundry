@@ -9,15 +9,14 @@ authRouter.checkLogin = function(req,res) {
   new models.Organizer({email: email}).fetch().then(
     function(org) {
       if (!org) {
-        //redirect to login
-        res.sendStatus(400, 'duplicate email');
+        res.sendStatus(401);  //unsuccessful login
       } else {
         org.checkPassword(password)
         .then(function(isMatch) {
           if (isMatch) {
-            util.createSession(req,res,org);
+            util.createSession(req,res,org);  //successful login
           } else {
-            res.sendStatus(400, 'unmatched password');
+            res.sendStatus(401);  //unsuccessful login           
           }
         })
         .catch(function(err) {
@@ -40,10 +39,10 @@ authRouter.checkSignup = function(req,res) {
           password: password
         });
         newOrg.save().then(function(savedOrg) {
-        res.sendStatus(200,'created organizer');
+          res.sendStatus(201);  //account successfully created
         });
       } else {
-        res.sendStatus(400,'cannot create organizer');
+        res.sendStatus(403);  //email is already in use, forbidden
       }
   });
 };
