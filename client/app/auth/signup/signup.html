@@ -10,7 +10,7 @@
       <div>name: <input type="text" ng-model="name"></div>
       <div>email: <input type="email" ng-model="email"></div>
       <div>password: <input type="password" ng-model="firstPassword"></div>
-      <div>re-enter password: <input type="password" ng-model="secondPassword"></div>
+      <div>re-enter password: <input type="password" ng-model="secondPassword"><span ng-hide="arePasswordsEqual(firstPassword, secondPassword)">Passwords are not the same</span></div>
       <div><button ng-click="submitSignup(name, email, firstPassword, secondPassword)">Submit</button></div>
     </form>
 
