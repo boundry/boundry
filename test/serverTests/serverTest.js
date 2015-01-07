@@ -82,7 +82,7 @@ describe('Database Unit Tests', function () {
   });
 
   //Create a new event
-  it('should save a new event for that organizer', function (done) {
+  it('should save two new event for that organizer', function (done) {
     //Save a new Event model
     new models.Event({
       name: 'My Event',
@@ -96,6 +96,23 @@ describe('Database Unit Tests', function () {
         .then(function( model ) {
            //Assert that it fetches properly
           assert.equal(model.get('name'), 'My Event', 'should be same');
+          // done();
+        }).catch(function (err) {
+          done(err);
+        });
+      });
+      new models.Event({
+      name: 'Another One',
+      start_time: '2005-05-23T14:25:10',
+      end_time: '2005-05-23T14:25:10',
+      organizer_id: 1
+    }).save()
+    .then(function(model) {
+      new models.Event({ name: 'Another One' })
+        .fetch()
+        .then(function( model ) {
+           //Assert that it fetches properly
+          assert.equal(model.get('name'), 'Another One', 'should be same');
           done();
         }).catch(function (err) {
           done(err);
@@ -107,7 +124,7 @@ describe('Database Unit Tests', function () {
     //Save a new region model
     new models.Region({
       name: 'My Region',
-      coordinates: 'test coordinates',
+      region_attr: 'test coordinates',
       event_id: 1
     }).save()
     .then(function(model) {
