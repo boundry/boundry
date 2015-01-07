@@ -46,10 +46,8 @@ angular
 
     })
     .catch(function(err) {
-      console.log("Could not load api", err);
+      console.log('Could not load api', err);
     });
-
-
-  };
+  }
 
 

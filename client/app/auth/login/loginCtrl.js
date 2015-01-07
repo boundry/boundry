@@ -1,6 +1,6 @@
 angular
   .module('boundry.authLogin')
-  .controller('AuthLoginCtrl', AuthLoginCtrl)
+  .controller('AuthLoginCtrl', AuthLoginCtrl);
 
 AuthLoginCtrl.$inject = ['$scope', '$http'];
 function AuthLoginCtrl($scope, $http) {
