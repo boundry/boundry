@@ -9,6 +9,7 @@
     <div>email: <input type="email" ng-model="email"></div>
     <div>password: <input type="password" ng-model="password"></div>
     <div><button ng-click="submitLogin(email, password)">Submit</button></div>
+    <div ng-show="hasError">{{errorMessage}}</div>
   </form>
 </body>
 </html>
