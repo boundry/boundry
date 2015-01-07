@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./server/server.js",
     "postinstall": "npm install bower && bower install && npm uninstall bower",
-    "test": "mocha -R spec ./test/serverTests/** && ./node_modules/karma/bin/karma start",
+    "test": "npm run serverTests && npm run clientTests && npm run lintTests",
+    "lintTests": "mocha -R spec ./test/jshint.spec.js",
+    "serverTests": "mocha -R spec ./test/serverTests/**",
+    "clientTests": "./node_modules/karma/bin/karma start",
     "ltest": "export LOCAL_DB_TESTING='true' && ./node_modules/.bin/mocha -R spec ./test/serverTests/** && unset LOCAL_DB_TESTING"
   },
   "repository": {

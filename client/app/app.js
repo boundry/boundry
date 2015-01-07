@@ -22,7 +22,7 @@ angular
       url: '/event',
       templateUrl: 'app/eventEditor/eventEditor.html',
       controller: 'EventEditorCtrl',
-   })
+   });
 
    uiGmapGoogleMapApiProvider.configure({
      v: '3.18',
