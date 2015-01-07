@@ -13,7 +13,8 @@ angular
     uiGmapLogger.doLog = true;
     angular.extend($scope, EventEditorFactory);
     
-    $scope.boundaries = [];
+    //TODO: Get polygons from server
+    $scope.polygons = [];
     $scope.drawingManagerControl = {};
 
     //uiGmpaGoogleMapApi is a promise. "then" callback provides the google.maps
@@ -39,8 +40,14 @@ angular
         if (!$scope.drawingManagerControl.getDrawingManager) {
           return;
         }
+        //When a new polygon is drawn, make a new Polygon object and store it
         google.maps.event.addListener($scope.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function (polygon) {
-          console.log(polygon.overlay.getPath().getArray());
+          console.log('polygon', polygon);
+          $scope.polygons.push($scope.Polygon(polygon.overlay.getPath().getArray()));
+          //Here, polygon belongs to the Drawing Manager. Empty the path so we
+          //don't display it in addition to our newly constructed polygon.
+          polygon.overlay.setPath([]);           
+          $scope.$apply(); //Re-render map from newly updated scope storage
         });
       });
 
