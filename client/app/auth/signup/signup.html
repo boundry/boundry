@@ -5,6 +5,7 @@
 </head>
 <body>
   <h1>Signup</h1>
+    <div>
     <form>
       <div>name: <input type="text" ng-model="name"></div>
       <div>email: <input type="email" ng-model="email"></div>
@@ -12,5 +13,7 @@
       <div>re-enter password: <input type="password" ng-model="secondPassword"></div>
       <div><button ng-click="submitSignup(name, email, firstPassword, secondPassword)">Submit</button></div>
     </form>
+
+    <div ng-show="hasError">{{errorMessage}}</div>
 </body>
 </html>
