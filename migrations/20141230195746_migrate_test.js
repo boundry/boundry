@@ -53,9 +53,9 @@ exports.up = function(knex) {
           locationData.increments('id').primary();
           locationData.decimal('latitude', 10, 6);
           locationData.decimal('longitude', 10, 6);
-          locationData.integer('user_id', 10).unsigned().references('user.id');
-          locationData.integer('event_id', 10).unsigned().references('event.id');
-          locationData.integer('region_id', 10).unsigned().references('region.id');
+          locationData.string('user_id', 255); //NEED
+          locationData.integer('event_id', 10).unsigned(); //NEED
+          locationData.integer('region_id', 10).unsigned(); //NEED
           locationData.timestamps();
         })
 
@@ -86,6 +86,7 @@ exports.down = function(knex) {
     return knex.schema.dropTableIfExists(table).then(function() { return memo++; });
   }, 0)
   .finally(function(){
+    console.log('TABLES DROPPED');
     return knex.raw('SET foreign_key_checks = 1;');
   });
 };
