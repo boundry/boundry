@@ -8,36 +8,36 @@ var webApiRouter = require('./../../server/routes/web/webApiRouter');
 var mobileApiRouter = require('./../../server/routes/mobile/mobileApiRouter');
 var authRouter = require('./../../server/routes/web/authRouter');
 
-var dbConfig; 
+// var dbConfig; 
 
 
-//If LOCAL_DB_TESTING is set, use a local db called 'boundrydb_test'. Otherwise
-//use the staging database on Heroku. This is for DB testing in CircleCI.
-if (process.env.LOCAL_DB_TESTING) {
-  dbConfig = require('./../../knexfile').development;
-} else {
-  dbConfig = require('./../../knexfile').staging;
-}
+// //If LOCAL_DB_TESTING is set, use a local db called 'boundrydb_test'. Otherwise
+// //use the staging database on Heroku. This is for DB testing in CircleCI.
+// if (process.env.LOCAL_DB_TESTING) {
+//   dbConfig = require('./../../knexfile').development;
+// } else {
+//   dbConfig = require('./../../knexfile').staging;
+// }
 
-//If LOCAL_DB_TESTING is set, use a local db called 'boundrydb_test'. Otherwise
+// //If LOCAL_DB_TESTING is set, use a local db called 'boundrydb_test'. Otherwise
 
-var knex = require('knex')(dbConfig.database);  
-console.log("CONNECTING TO DB: ", dbConfig.database.connection);
+// var knex = require('knex')(dbConfig.database);  
+// console.log("CONNECTING TO DB: ", dbConfig.database.connection);
 
 
 describe('Auth and Session Tests', function() {
   this.timeout(10000); //10 sec timeout
 
   //Drop all tables and remake them
-  before(function(done) {
-    return knex.migrate.rollback(dbConfig)
-    .then(function() {
-      return knex.migrate.latest(dbConfig);
-    })
-    .then(function() {
-      done();
-    })
-  });
+  // before(function(done) {
+  //   return knex.migrate.rollback(dbConfig)
+  //   .then(function() {
+  //     return knex.migrate.latest(dbConfig);
+  //   })
+  //   .then(function() {
+  //     done();
+  //   })
+  // });
 
   it('should signup a new org successfully', function(done) {
     request(app)
