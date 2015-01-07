@@ -6,6 +6,7 @@ AuthSignupCtrl.$inject = ['$scope', '$http', '$state'];
 function AuthSignupCtrl($scope, $http, $state) {
   $scope.hasError = false;
   $scope.errorMessage = '';
+  $scope.arePasswordsEqual = true;
 
   //send the signup information to the server if valid
   $scope.submitSignup = function(name, email, firstPassword, secondPassword) {
@@ -25,5 +26,14 @@ function AuthSignupCtrl($scope, $http, $state) {
         $scope.errorMessage = 'Email already in use';
       }
     }
+  };
+
+  //verifies if the two passwords are equal
+  $scope.arePasswordsEqual = function(first, second) {
+    if (!second) {
+      return true;
+    }
+    
+    return second && first === second;
   };
 }
