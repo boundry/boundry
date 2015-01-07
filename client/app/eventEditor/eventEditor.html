@@ -10,9 +10,24 @@
     <ui-gmap-drawing-manager
         options='drawingManagerOptions'
         control='drawingManagerControl'
-        static='map.static'>
+        static='mapOptions.static'>
     </ui-gmap-drawing-manager>
 
+    <ui-gmap-polygon
+      ng-repeat="poly in polygons"
+      path='poly.region_attr.coordinates'
+      fill='poly.region_attr.fill'
+      stroke='poly.region_attr.stroke'
+      clickable='true'
+      draggable='true'
+      editable='true'
+      visible='true'>
+    </ui-gmap-polygon>
+
   </ui-gmap-google-map>
+
+  <button ng-click="savePolygons()">SAVE</button>
+  <button ng-click="getPolygons()">RETRIEVE</button>
+  <div ng-model="polygons">{{ polygons }}</div>
 
 </div>
