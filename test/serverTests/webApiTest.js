@@ -33,29 +33,30 @@ var testEventNoId = {
         'region_name':'regName1',
         'region_id':null,
         'region_attr':{  
-           'coordinates':[  
-              {  
-                 'latitude':37.8031975582087,
-                 'longitude':-122.41825103759766
-              },
-              {  
-                 'latitude':37.80211248443386,
-                 'longitude':-122.41026878356934
-              },
-              {  
-                 'latitude':37.79709381086916,
-                 'longitude':-122.41498947143555
-              }
-           ],
-           'fill':{  
-              'color':'#DDA078 ',
-              'opacity':0.3
-           },
-           'stroke':{  
-              'color':'#DDA078 ',
-              'weight':3,
-              'opacity':0.3
-           }
+            'aa':'df'
+           // 'coordinates':[  
+           //    {  
+           //       'latitude':37.8031975582087,
+           //       'longitude':-122.41825103759766
+           //    },
+           //    {  
+           //       'latitude':37.80211248443386,
+           //       'longitude':-122.41026878356934
+           //    },
+           //    {  
+           //       'latitude':37.79709381086916,
+           //       'longitude':-122.41498947143555
+           //    }
+           // ],
+           // 'fill':{  
+           //    'color':'#DDA078 ',
+           //    'opacity':0.3
+           // },
+           // 'stroke':{  
+           //    'color':'#DDA078 ',
+           //    'weight':3,
+           //    'opacity':0.3
+           // }
         },
         'actions':[  
 
@@ -64,30 +65,31 @@ var testEventNoId = {
      {  
         'region_name':'regName2',
         'region_id':null,
-        'region_attr':{  
-           'coordinates':[  
-              {  
-                 'latitude':37.79024344937056,
-                 'longitude':-122.42571830749512
-              },
-              {  
-                 'latitude':37.78997213484954,
-                 'longitude':-122.41936683654785
-              },
-              {  
-                 'latitude':37.78434213374121,
-                 'longitude':-122.42168426513672
-              }
-           ],
-           'fill':{  
-              'color':'#40E989 ',
-              'opacity':0.3
-           },
-           'stroke':{  
-              'color':'#40E989 ',
-              'weight':3,
-              'opacity':0.3
-           }
+        'region_attr':{ 
+          'cor':'adsf' 
+           // 'coordinates':[  
+           //    {  
+           //       'latitude':37.79024344937056,
+           //       'longitude':-122.42571830749512
+           //    },
+           //    {  
+           //       'latitude':37.78997213484954,
+           //       'longitude':-122.41936683654785
+           //    },
+           //    {  
+           //       'latitude':37.78434213374121,
+           //       'longitude':-122.42168426513672
+           //    }
+           // ],
+           // 'fill':{  
+           //    'color':'#40E989 ',
+           //    'opacity':0.3
+           // },
+           // 'stroke':{  
+           //    'color':'#40E989 ',
+           //    'weight':3,
+           //    'opacity':0.3
+           // }
         },
         'actions':[  
 
@@ -107,29 +109,30 @@ var testEventWithId = {
         'region_name':'regName1',
         'region_id':null,
         'region_attr':{  
-           'coordinates':[  
-              {  
-                 'latitude':37.8031975582087,
-                 'longitude':-122.41825103759766
-              },
-              {  
-                 'latitude':37.80211248443386,
-                 'longitude':-122.41026878356934
-              },
-              {  
-                 'latitude':37.79709381086916,
-                 'longitude':-122.41498947143555
-              }
-           ],
-           'fill':{  
-              'color':'#DDA078 ',
-              'opacity':0.3
-           },
-           'stroke':{  
-              'color':'#DDA078 ',
-              'weight':3,
-              'opacity':0.3
-           }
+            'aa':'df'
+           // 'coordinates':[  
+           //    {  
+           //       'latitude':37.8031975582087,
+           //       'longitude':-122.41825103759766
+           //    },
+           //    {  
+           //       'latitude':37.80211248443386,
+           //       'longitude':-122.41026878356934
+           //    },
+           //    {  
+           //       'latitude':37.79709381086916,
+           //       'longitude':-122.41498947143555
+           //    }
+           // ],
+           // 'fill':{  
+           //    'color':'#DDA078 ',
+           //    'opacity':0.3
+           // },
+           // 'stroke':{  
+           //    'color':'#DDA078 ',
+           //    'weight':3,
+           //    'opacity':0.3
+           // }
         },
         'actions':[  
 
@@ -138,30 +141,31 @@ var testEventWithId = {
      {  
         'region_name':'regName2',
         'region_id':null,
-        'region_attr':{  
-           'coordinates':[  
-              {  
-                 'latitude':37.79024344937056,
-                 'longitude':-122.42571830749512
-              },
-              {  
-                 'latitude':37.78997213484954,
-                 'longitude':-122.41936683654785
-              },
-              {  
-                 'latitude':37.78434213374121,
-                 'longitude':-122.42168426513672
-              }
-           ],
-           'fill':{  
-              'color':'#40E989 ',
-              'opacity':0.3
-           },
-           'stroke':{  
-              'color':'#40E989 ',
-              'weight':3,
-              'opacity':0.3
-           }
+        'region_attr':{ 
+          'cor':'adsf' 
+           // 'coordinates':[  
+           //    {  
+           //       'latitude':37.79024344937056,
+           //       'longitude':-122.42571830749512
+           //    },
+           //    {  
+           //       'latitude':37.78997213484954,
+           //       'longitude':-122.41936683654785
+           //    },
+           //    {  
+           //       'latitude':37.78434213374121,
+           //       'longitude':-122.42168426513672
+           //    }
+           // ],
+           // 'fill':{  
+           //    'color':'#40E989 ',
+           //    'opacity':0.3
+           // },
+           // 'stroke':{  
+           //    'color':'#40E989 ',
+           //    'weight':3,
+           //    'opacity':0.3
+           // }
         },
         'actions':[  
 
@@ -240,7 +244,7 @@ describe('webApiRouter Integration Tests', function() {
     //     .set('Cookie', ['email=test%40org.com'])
     //     .end(function(err, res) {
     //       console.log(res);
-    //       assert.equal(res.body[0].id, 3, 'should be same');
+    //       assert.equal(res.body[0].event_id, 3, 'should be same');
     //       done();
     //   });
     //     // .expect(400, done);

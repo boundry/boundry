@@ -94,10 +94,10 @@ var getRegions = function(req,res) {
     new models.Organizer({email: orgEmail}).fetchAll().then(function(found) {
       if (found) {
         collections.Regions.query()//({where: {id: eventId}}).fetch()
-        .where({id: eventId})
+        .where({event_id: eventId})
         .then(function(allRegions) {
           // console.log('evev', eventId);
-          // console.log('HERE',allRegions);
+          console.log('HEREREG',allRegions);
           res.status(200).send(allRegions);
         })
         .catch(function(err) {
