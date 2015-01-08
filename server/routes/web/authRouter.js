@@ -14,7 +14,8 @@ authRouter.checkLogin = function(req,res) {
         org.checkPassword(password)
         .then(function(isMatch) {
           if (isMatch) {
-            util.createSession(req,res,org);  //successful login
+            //email passed to be stored as cookie
+            util.createSession(req,res,email);
           } else {
             res.sendStatus(401);  //unsuccessful login           
           }
@@ -48,9 +49,7 @@ authRouter.checkSignup = function(req,res) {
 };
 
 authRouter.checkLogout = function(req,res) {
-  console.log('in checklogout',req.cookies);
-  // req.session.cookie.user = 'testUser';
-  if (req.cookies.user) {
+  if (req.cookies.email) {
     util.destroySession(req,res);
   } else {
     res.sendStatus(400,'no one to log out');

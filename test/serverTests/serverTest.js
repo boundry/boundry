@@ -38,9 +38,6 @@ describe('Server Integration Tests', function() {
         });
     });
   });
-  describe('Auth', function() {
-
-  });
 });
 
 var knex = require('knex')(dbConfig.database);  

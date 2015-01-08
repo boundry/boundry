@@ -190,7 +190,7 @@ describe('webApiRouter Integration Tests', function() {
     it('should return array of all events when GET /api/web/organizer/events', function(done) {
       request(app)
         .get('/api/web/organizer/test@org.com/events')
-        .set('Cookie', ['user=hi'])
+        .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
           var events = res.body;
           assert.isObject(events[0]);
@@ -203,7 +203,7 @@ describe('webApiRouter Integration Tests', function() {
       request(app)
         .post('/api/web/organizer/test@org.com/events')
         .send(testEventNoId)
-        .set('Cookie', ['user=hi'])
+        .set('Cookie', ['email=test%40org.com'])
         .end(function(err, res) {
           console.log(res.request._data.eventName);
           assert.equal(res.request._data.eventName, 'musicFestival', 'should be same');
@@ -213,9 +213,9 @@ describe('webApiRouter Integration Tests', function() {
 
     it('should update event to event and region tables when POST /api/web/organizer/events', function(done) {
       request(app)
-        .post('/api/web/organizer/test@org.com/events')
+        .post('/api/web/organizer/test%40org.com/events')
         .send(testEventWithId)
-        .set('Cookie', ['user=hi'])
+        .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
           console.log(res.request._data.eventName);
           assert.equal(res.request._data.eventName, 'musicFest2', 'should be same');

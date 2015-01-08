@@ -59,8 +59,7 @@ describe('Auth and Session Tests', function() {
       .post('/login')
       .send({ name: 'testName', email: 'test@gmail.com', password: 'testpw'})
       .end(function(err, res) {
-        console.log('asdf');
-        assert.equal('user=cookie!; Path=/',res.headers['set-cookie'][0], 'should be same');
+        assert.equal('email=test%40gmail.com; Path=/',res.headers['set-cookie'][0], 'should be same');
         done();
       });
   });
@@ -72,10 +71,10 @@ describe('Auth and Session Tests', function() {
       .expect(401, done);
   });
 
-  it ('should redirect when logout if a user is logged in', function(done) {
+  it ('should send 200 when logout if a user is logged in', function(done) {
     request(app)
       .get('/logout')
-      .set('Cookie', ['user=hi'])
+      .set('Cookie', ['email=anothertest%40gmail.com'])
       .expect(200, done);
 
   });
