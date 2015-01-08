@@ -34,7 +34,7 @@ exports.up = function(knex) {
 
         .createTable('region', function (region) {
           region.increments('id').primary();
-          region.string('name', 255);
+          region.string('region_name', 255);
           region.text('region_attr'); //text type allows > 255 chars
           region.integer('event_id', 10).unsigned().references('event.id');
           region.timestamps();

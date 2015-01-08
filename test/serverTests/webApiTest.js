@@ -211,6 +211,9 @@ describe('webApiRouter Integration Tests', function() {
         });
     });
 
+
+
+
     it('should update event to event and region tables when POST /api/web/organizer/events', function(done) {
       request(app)
         .post('/api/web/organizer/test%40org.com/events')
@@ -229,6 +232,19 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventWithId)
         .expect(400, done);
     });
+
+    // works on npm run ltest but not npm test
+    // it('should GET /organizer/:email/:event_id/regions with right info', function(done) {
+    //   request(app)
+    //     .get('/api/web/organizer/test@org.com/3/regions')
+    //     .set('Cookie', ['email=test%40org.com'])
+    //     .end(function(err, res) {
+    //       console.log(res);
+    //       assert.equal(res.body[0].id, 3, 'should be same');
+    //       done();
+    //   });
+    //     // .expect(400, done);
+    // });
 
   });
 

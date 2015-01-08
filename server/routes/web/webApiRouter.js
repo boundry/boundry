@@ -42,9 +42,8 @@ var postEvent = function(req,res) {
           .then(function(orgEvent) {
             res.status(300).send('updated');
           });
-
         } else {
-          //new event
+          //save new event to event table
           new models.Event({
             name: eventName,
             start_time: startTime,
@@ -56,22 +55,70 @@ var postEvent = function(req,res) {
           })
           .catch(function(err) {
             console.log('error:', err);
-          });
+          }); 
         }
       }
+      //get event_id for region just saved and store region data to table
+      collections.Events.query()
+      .where({organizer_id:found.attributes.id, name:eventName})
+      .then(function(foundEv) {
+        if (foundEv.length > 0) {
+          var evId = foundEv[0].id;
+          //save to region table region attr
+          regions.forEach(function(region) {
+            new models.Region({
+              region_name: region.region_name,
+              region_attr: JSON.stringify(region.region_attr),
+              event_id: evId
+            }).save()
+            .then(function(savedReg) {
+              res.status(200).send('saved a region');
+            })
+            .catch(function(err) {
+              console.log('reg saving err: ' + err);
+            });
+          });
+        }
+      });
     });
   } else {
     res.status(400).send('not logged in. cannot post.');
   }
 };
 
+var getRegions = function(req,res) {
+  if (util.isLoggedIn(req,res)) {
+    var orgEmail = req.params.email;
+    var eventId = req.params.event_id;
+    console.log('in get regions', orgEmail, eventId);
+    new models.Organizer({email: orgEmail}).fetchAll().then(function(found) {
+      if (found) {
+        collections.Regions.query()//({where: {id: eventId}}).fetch()
+        .where({id: eventId})
+        .then(function(allRegions) {
+          // console.log('evev', eventId);
+          // console.log('HERE',allRegions);
+          res.status(200).send(allRegions);
+        })
+        .catch(function(err) {
+          console.log('getreg err', err);
+        });
+      }
+    });
+  } else {
+    res.status(400).send('not authorized to get regions');
+  }
+};
+
+
 webApiRouter.get('/organizer/:email/events', getEvents);
 webApiRouter.post('/organizer/:email/events', postEvent);
+webApiRouter.get('/organizer/:email/:event_id/regions', getRegions);
+
 
 //endpt for actions
 //check if region has id
 //given eventid -> get regions
 
-// webApiRouter.get('/organizer/:email/:id/regions', getRegions);
 
 module.exports = webApiRouter;

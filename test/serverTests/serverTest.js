@@ -120,16 +120,16 @@ describe('Database Unit Tests', function () {
   it('should save a new region for an event', function (done) {
     //Save a new region model
     new models.Region({
-      name: 'My Region',
+      region_name: 'My Region',
       region_attr: 'test coordinates',
       event_id: 1
     }).save()
     .then(function(model) {
-      new models.Region({ name: 'My Region' })
+      new models.Region({ region_name: 'My Region' })
         .fetch()
         .then(function( model ) {
           //Assert that it fetches properly
-          assert.equal(model.get('name'), 'My Region', 'should be same');
+          assert.equal(model.get('region_name'), 'My Region', 'should be same');
           done();
         }).catch(function (err) {
           done(err);
