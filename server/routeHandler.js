@@ -30,8 +30,8 @@ routeHandler.get('/logout', authRouter.checkLogout);
 
 //Send back sample polygon data
 routeHandler.get('/polygontest', function(req, res) {
-  var result = [{'region_name':null,'region_id':null,'region_attr':{'coordinates':[{'latitude':37.789632990297335,'longitude':-122.43344306945801},{'latitude':37.78881903702128,'longitude':-122.41988182067871},{'latitude':37.78230708804992,'longitude':-122.4261474609375}],'fill':{'color':'#0C04E0','opacity':0.3},'stroke':{'color':'#0C04E0','weight':3,'opacity':0.3}},'actions':[]},
-  {'region_name':null,'region_id':null,'region_attr':{'coordinates':[{'latitude':37.80844468221533,'longitude':-122.43247747421265},{'latitude':37.80340948481957,'longitude':-122.43159770965576},{'latitude':37.80417241558344,'longitude':-122.42537498474121},{'latitude':37.805986463750365,'longitude':-122.42552518844604}],'fill':{'color':'#7EBF71','opacity':0.3},'stroke':{'color':'#7EBF71','weight':3,'opacity':0.3}},'actions':[]}];
+  var result = [{'region_name':'BBBBBBBBBBBBBBBBBBB','region_id':1234,'region_attr':{'coordinates':[{'latitude':37.789632990297335,'longitude':-122.43344306945801},{'latitude':37.78881903702128,'longitude':-122.41988182067871},{'latitude':37.78230708804992,'longitude':-122.4261474609375}],'fill':{'color':'#0C04E0','opacity':0.3},'stroke':{'color':'#0C04E0','weight':3,'opacity':0.3}},'actions':[]},
+  {'region_name':'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','region_id':5678,'region_attr':{'coordinates':[{'latitude':37.80844468221533,'longitude':-122.43247747421265},{'latitude':37.80340948481957,'longitude':-122.43159770965576},{'latitude':37.80417241558344,'longitude':-122.42537498474121},{'latitude':37.805986463750365,'longitude':-122.42552518844604}],'fill':{'color':'#7EBF71','opacity':0.3},'stroke':{'color':'#7EBF71','weight':3,'opacity':0.3}},'actions':[]}];
 
   var payload = JSON.stringify(result);
   res.send(200, payload);

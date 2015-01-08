@@ -22,7 +22,23 @@ angular
         longitude: -122.419292
       },
       zoom: 14,
-      static: false
+      static: false,
+      events: {
+        'click': function ( polygon, eventName, model, args ) {
+          //Everything within this handler function gets called TWICE per event,
+          //for some stupid reason. This timeout crap is a hacky workaround.
+          //Outer 'this' is the internal angular-google-maps model used to gen
+          //the GoogleMaps Polygon object
+          //Clear the first setTimeout before it has a chance to run
+          clearTimeout(this.doNotTriggerTwiceTimeout); 
+          //The second setTimeout will run, 50ms after the dumb second
+          //invocation of this whole handler.
+          this.doNotTriggerTwiceTimeout = setTimeout(function(){
+            //This stuff will get called once per click
+            console.log('POLYGON CLICKED', model.$parent.poly); //Polygon object from server
+          }, 50);         
+        }
+      }
     };
 
     var out = {

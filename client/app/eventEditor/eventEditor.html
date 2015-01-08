@@ -15,6 +15,7 @@
 
     <ui-gmap-polygon
       ng-repeat="poly in polygons"
+      events='mapOptions.events'
       path='poly.region_attr.coordinates'
       fill='poly.region_attr.fill'
       stroke='poly.region_attr.stroke'
