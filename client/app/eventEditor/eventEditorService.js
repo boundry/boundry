@@ -16,40 +16,46 @@ angular
       strokeColor: 'red'
     };
 
-    var mapOptions = { 
+    var basicOptions = { 
       center: { 
         latitude: 37.789174,
         longitude: -122.419292
       },
       zoom: 14,
-      static: false,
-      events: {
-        'click': function ( polygon, eventName, model, args ) {
-          //Everything within this handler function gets called TWICE per event,
-          //for some stupid reason. This timeout crap is a hacky workaround.
-          //Outer 'this' is the internal angular-google-maps model used to gen
-          //the GoogleMaps Polygon object
-          //Clear the first setTimeout before it has a chance to run
-          clearTimeout(this.doNotTriggerTwiceTimeout); 
-          //The second setTimeout will run, 50ms after the dumb second
-          //invocation of this whole handler.
-          this.doNotTriggerTwiceTimeout = setTimeout(function(){
-            //This stuff will get called once per click
-            console.log('POLYGON CLICKED', model.$parent.poly); //Polygon object from server
-          }, 50);         
-        }
-      }
     };
 
-    var out = {
-      mapOptions: mapOptions,
+    var extraOptions = {
+      panControl: false,
+      streetViewControl: false
+    }
+
+    var polygonEvents = {
+      'click': function ( polygon, eventName, model, args ) {
+        //Everything within this handler function gets called TWICE per event,
+        //for some stupid reason. This timeout crap is a hacky workaround.
+        //Outer 'this' is the internal angular-google-maps model used to gen
+        //the GoogleMaps Polygon object
+        //Clear the first setTimeout before it has a chance to run
+        clearTimeout(this.doNotTriggerTwiceTimeout); 
+        //The second setTimeout will run, 50ms after the dumb second
+        //invocation of this whole handler.
+        this.doNotTriggerTwiceTimeout = setTimeout(function(){
+          //This stuff will get called once per click
+          console.log('POLYGON CLICKED', model.$parent.poly); //Polygon object from server
+        }, 50);         
+      }
+    }
+
+    //EXPORTS
+    return {
+      basicOptions: basicOptions,
+      extraOptions: extraOptions,
       polygonOptions: polygonOptions,
+      polygonEvents: polygonEvents,
       Polygon: Polygon,
       savePolygons: savePolygons,
       getPolygons: getPolygons
     };
-
-    return out;
 
     //Polygon constructor. Takes gMaps path array, converts key strings, adds
     //our default properties, and returns the polygon object
@@ -90,38 +96,29 @@ angular
     //Retrieves all polygons for a given eventId
     function getPolygons (eventId) {
       var scope = this;
-      var request = $http({
-        method: 'GET', 
-        url: '/polygontest'
-      });
 
-      return request.then(function(result) {
-        //Save polygons to scope. Validate missing data?
-        result.data.forEach(function(polygon) {
-          scope.polygons.push(polygon);
-        });
-      }, function(error) {
-        console.log(error);
-      });
+      $http.get('/polygontest')
+      //$http.get('/api/web/organizer/test@org.com/events')
+        .success(function(data) {
+          data.forEach(function(polygon) {
+            scope.polygons.push(polygon);
+          });
+        })
+        .error(logError);
     }
 
     //POSTs polygon data to server for saving
     //Needs Event ID and user auth
     function savePolygons () {
       var scope = this;
-      var request = $http({
-        method: 'POST', 
-        url: '/polygontest',
-        data: JSON.stringify(scope.polygons)
-      });
+      var data = JSON.stringify(scope.polygons);
 
-      return request.then (function(success) {
-        console.log(success);
-      }, function(error) {
-        console.log(error);
-      });
+      $http.post('/polygontest', data)
+        .success(logSuccess)
+        .error(logError);
     }
 
+    
     function getRandomColor() {
       var letters = '0123456789ABCDEF'.split('');
       var color = '#';
@@ -129,6 +126,12 @@ angular
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
+    }
+    function logSuccess (data, status) {
+      console.log(data, status);
+    } 
+    function logError (error) {
+      console.log(error);
     }
 
 }

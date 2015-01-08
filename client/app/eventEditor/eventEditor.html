@@ -5,7 +5,9 @@
     <input type="button" value="Find" ng-click="getAddresses()">
   </form>
 
-  <ui-gmap-google-map center='mapOptions.center' zoom='mapOptions.zoom'>
+  <ui-gmap-google-map center='basicOptions.center' 
+  zoom='basicOptions.zoom'
+  options='extraOptions'>
 
     <ui-gmap-drawing-manager
         options='drawingManagerOptions'
@@ -15,7 +17,7 @@
 
     <ui-gmap-polygon
       ng-repeat="poly in polygons"
-      events='mapOptions.events'
+      events='polygonEvents'
       path='poly.region_attr.coordinates'
       fill='poly.region_attr.fill'
       stroke='poly.region_attr.stroke'

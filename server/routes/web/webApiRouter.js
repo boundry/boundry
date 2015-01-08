@@ -5,8 +5,10 @@ var models = require('../../db/db').models;
 var collections = require('../../db/db').collections;
 var util = require('./../../../lib/utility');
 
+//should pull events and their regions
 var getEvents = function(req,res) {
-  if (util.isLoggedIn(req,res)) {
+  if (true) {
+  //if (util.isLoggedIn(req,res)) {
     var orgEmail = req.params.email;
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {
