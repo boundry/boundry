@@ -34,17 +34,13 @@ var postEvent = function(req,res) {
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {
         //existing event
-          console.log('old found', eventName);
-
         if (eventId !== null) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
           .update({name:eventName})
           // .save(data)
           .then(function(orgEvent) {
-            console.log('asdf',orgEvent);  
             res.status(300).send('updated');
-
           });
 
         } else {
@@ -56,7 +52,6 @@ var postEvent = function(req,res) {
             organizer_id: found.attributes.id
           }).save()
           .then(function(savedEvent) {
-            console.log('saving event!!');
             res.status(200).send('created event');
           })
           .catch(function(err) {
@@ -75,9 +70,8 @@ webApiRouter.post('/organizer/:email/events', postEvent);
 
 //endpt for actions
 //check if region has id
-
-// webApiRouter.get('/organizer/:id/regions', getRegions);
-
 //given eventid -> get regions
+
+// webApiRouter.get('/organizer/:email/:id/regions', getRegions);
 
 module.exports = webApiRouter;
