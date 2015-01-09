@@ -1,5 +1,7 @@
 <div>
 <h1>Event Dashboard</h1>
-<div ng-model='eventData'>{{ eventData }}</div>
+
+<div ng-repeat='event in eventData' ui-sref='eventEditor({eventId: event.id,
+  regions: event.regions})'> {{ event.name }} {{ event.id }}</div>
 
 </div>
