@@ -1,30 +1,21 @@
 angular
-  .module('boundry.authSignup')
+  .module('boundry.auth')
   .controller('AuthSignupCtrl', AuthSignupCtrl);
 
-AuthSignupCtrl.$inject = ['$scope', '$http', '$state'];
-function AuthSignupCtrl($scope, $http, $state) {
+AuthSignupCtrl.$inject = ['$scope', '$http', '$state', 'AuthFactory'];
+function AuthSignupCtrl($scope, $http, $state, AuthFactory) {
+
   $scope.hasError = false;
   $scope.errorMessage = '';
   $scope.arePasswordsEqual = true;
 
-  //send the signup information to the server if valid
+  //submit signup information to factory if valid
   $scope.submitSignup = function(name, email, firstPassword, secondPassword) {
     if (email && firstPassword && firstPassword === secondPassword) {
-      var payload = { name: name, email: email, password: firstPassword };
-
-      $http.post('/signup', payload)
-        .success(success)
-        .error(error);
-
-      function success(data, status) {
-        $state.go('eventEditor');
-      }
-
-      function error(data, status) {
+      AuthFactory.signup(name, email, firstPassword, function(errorMessage) {
         $scope.hasError = true;
-        $scope.errorMessage = 'Email already in use';
-      }
+        $scope.errorMessage = errorMessage;
+      });
     }
   };
 
