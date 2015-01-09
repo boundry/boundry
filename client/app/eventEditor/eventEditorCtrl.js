@@ -7,7 +7,8 @@ angular
     '$http',
     'EventEditorFactory',
     'uiGmapGoogleMapApi',
-    'uiGmapLogger'];
+    'uiGmapLogger'
+  ];
 
   function EventEditorCtrl ($scope, $http, EventEditorFactory, uiGmapGoogleMapApi, uiGmapLogger) {
     uiGmapLogger.doLog = true;

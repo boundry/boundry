@@ -1,5 +1,6 @@
 angular
   .module('boundry', [
+    'boundry.eventDashboard',
     'boundry.eventEditor',
     'boundry.authLogin',
     'boundry.authSignup',
@@ -17,6 +18,11 @@ angular
       url: '/signup',
       templateUrl: 'app/auth/signup/signup.html',
       controller: 'AuthSignupCtrl',
+   })
+   .state('eventDashboard', {
+      url: '/eventdash',
+      templateUrl: 'app/eventDashboard/eventDashboard.html',
+      controller: 'EventDashboardCtrl',
    })
    .state('eventEditor', {
       url: '/event',

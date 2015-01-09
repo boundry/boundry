@@ -18,7 +18,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 
 //Application
 var port = process.env.PORT || 8000;
