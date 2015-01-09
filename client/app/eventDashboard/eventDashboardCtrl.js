@@ -4,18 +4,16 @@ angular
 
   EventDashboardCtrl.$inject = [
     '$scope',
-    '$stateParams',
     'EventDashboardFactory'
   ];
 
-  function EventDashboardCtrl ($scope, $stateParams, EventDashboardFactory, uiGmapGoogleMapApi) {
+  function EventDashboardCtrl ($scope, EventDashboardFactory, uiGmapGoogleMapApi) {
     angular.extend($scope, EventDashboardFactory);
 
-    $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in $stateParams.organizer
+    $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in email pulled from dashboard factory which is pulled from auth factory 
       .success(function(data) {
         $scope.setEventData(data); //Set data on factory
         $scope.eventData = $scope.getEventData();
-        console.log($scope.eventData);
       })
       .error(function(error) {
         console.log(error);

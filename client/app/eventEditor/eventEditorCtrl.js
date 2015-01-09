@@ -7,20 +7,22 @@ angular
     '$http',
     '$stateParams',
     'EventEditorFactory',
-    'EventDashboardFactory',
     'uiGmapGoogleMapApi',
     'uiGmapLogger'
   ];
 
-  function EventEditorCtrl ($scope, $http, $stateParams, EventEditorFactory, EventDashboardFactory, uiGmapGoogleMapApi, uiGmapLogger) {
-    console.log($stateParams);
-    console.log(EventDashboardFactory.getEventData());
+  function EventEditorCtrl ($scope, $http, $stateParams, EventEditorFactory, uiGmapGoogleMapApi, uiGmapLogger) {
 
     uiGmapLogger.doLog = true;
     angular.extend($scope, EventEditorFactory);
+
+
+    //Take data from EventDashboard (via EventEditorFactory) and save to scope
+    $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
+    console.log('currEventData', $scope.currEventData);
     
     //TODO: Get polygons from server
-    $scope.polygons = [];
+    $scope.polygons = []; //gmap directive pulls from here to render shapes
     $scope.drawingManagerControl = {};
 
     //uiGmpaGoogleMapApi is a promise. "then" callback provides the google.maps

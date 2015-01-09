@@ -2,9 +2,9 @@ angular
   .module('boundry.eventEditor', [])
   .factory('EventEditorFactory', EventEditorFactory);
   
-  EventEditorFactory.$inject = ['$http'];
+  EventEditorFactory.$inject = ['$http', 'EventDashboardFactory'];
 
-  function EventEditorFactory ($http) {
+  function EventEditorFactory ($http, EventDashboardFactory) {
     //TODO: Break all these options into a separate config file
     var polygonOptions = {
       fillColor: '#ffff00',
@@ -51,11 +51,15 @@ angular
     return {
       basicOptions: basicOptions,
       extraOptions: extraOptions,
+
       polygonOptions: polygonOptions,
       polygonEvents: polygonEvents,
       Polygon: Polygon,
+
       savePolygons: savePolygons,
-      getPolygons: getPolygons
+      getPolygonsFromServer: getPolygonsFromServer,
+
+      grabEventData: grabEventData
     };
 
     //Polygon constructor. Takes gMaps path array, converts key strings, adds
@@ -95,7 +99,7 @@ angular
     }
 
     //Retrieves all polygons for a given eventId
-    function getPolygons (eventId) {
+    function getPolygonsFromServer (eventId) {
       var scope = this;
 
       //$http.get('/polygontest')
@@ -106,6 +110,20 @@ angular
           });
         })
         .error(logError);
+    }
+
+    //Gets event data for specific event from Dashboard Factory
+    function grabEventData(eventId) {
+      //Grab all event data from Dashboard Service
+      var allEvents = EventDashboardFactory.getEventData();
+
+      //Match with the given eventId
+      for (var i = 0; i < allEvents.length; i++) {
+        if (parseInt(eventId) === allEvents[i].id) {
+          return allEvents[i];
+        }
+      }
+      console.log('Could not get event data for event id: ', eventId);
     }
 
     //POSTs polygon data to server for saving
