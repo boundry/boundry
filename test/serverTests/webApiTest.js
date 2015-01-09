@@ -243,7 +243,6 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventNoId)
         .set('Cookie', ['email=test%40org.com'])
         .end(function(err, res) {
-          console.log(res.request._data.eventName);
           assert.equal(res.request._data.eventName, 'musicFestival', 'should be same');
           done();
         });
@@ -258,7 +257,6 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventWithId)
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
-          console.log('qwerqwer',res.request._data);
           assert.equal(res.request._data.eventName, 'musicFest2', 'should be same');
           assert.equal(res.request._data.regions[0].region_id, 2, 'should be same');
 
@@ -273,13 +271,12 @@ describe('webApiRouter Integration Tests', function() {
         .expect(400, done);
     });
 
-    // // works on npm run ltest but not npm test
+    // works on npm run ltest but not npm test
     // it('should GET /organizer/:email/:event_id/regions with right info', function(done) {
     //   request(app)
     //     .get('/api/web/organizer/test@org.com/3/regions')
     //     .set('Cookie', ['email=test%40org.com'])
     //     .end(function(err, res) {
-    //       console.log(res);
     //       assert.equal(res.body[0].event_id, 3, 'should be same');
     //       done();
     //   });

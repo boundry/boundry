@@ -61,7 +61,6 @@ var postEvent = function(req,res) {
                 .update({region_name:region.region_name, region_attr: JSON.stringify(region.region_attr)
                 })
                 .then(function(reg) {
-                  console.log('updatedReg!');
                   // res.status(300).send('updated');
                 });
               //new region
@@ -100,15 +99,12 @@ var postEvent = function(req,res) {
                 //save to region table region attr
                 regions.forEach(function(region) {
                   //check if have regionId (existing)
-                  console.log('af',region);
                     new models.Region({
                       region_name: region.region_name,
                       region_attr: JSON.stringify(region.region_attr),
                       event_id: evId
                     }).save()
                     .then(function(savedReg) {
-                      // console.log('savedreg', savedReg);
-                      res.status(200).send('saved ev and region');
                     })
                     .catch(function(err) {
                       throw(err);
@@ -116,6 +112,7 @@ var postEvent = function(req,res) {
                 });
               }
             });
+          res.status(200).send('saved ev and region');
           })
           .catch(function(err) {
             console.log('error:', err);
