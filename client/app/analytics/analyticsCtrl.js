@@ -21,15 +21,17 @@ angular
 
     $scope.views = AnalyticsFactory.views;
     $scope.events = [{name: 'event1'}, {name: 'event2'}];
+    $scope.regions = AnalyticsFactory.regions;
 
     // $scope.changeEvent = function() {
     // }
 
     $scope.changeView = function() {
       if($scope.dataViewSelection.name === 'Heat Map') {
-        console.log('yeeeee');
         $scope.renderSlider('hours');
-        HeatMapFactory.initialize();
+        HeatMapFactory.initializeOnce();
+      } else if ($scope.dataViewSelection.name === 'Line Chart') {
+        AnalyticsFactory.lineChartFilter();
       }
     };
 
