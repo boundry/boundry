@@ -48,6 +48,7 @@ function AuthFactory($http, $state, $cookies) {
     //callback for successful signup
     function success() {
       user.email = email;
+      $cookies.email = email;
       $state.go('eventEditor');
     }
 
