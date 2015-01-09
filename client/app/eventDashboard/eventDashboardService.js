@@ -2,12 +2,14 @@ angular
   .module('boundry.eventDashboard', [])
   .factory('EventDashboardFactory', EventDashboardFactory);
 
-  EventDashboardFactory.$inject = ['$http'];
+  EventDashboardFactory.$inject = ['$http', 'AuthFactory'];
 
-  function EventDashboardFactory ($http) {
+  function EventDashboardFactory ($http, AuthFactory) {
     var eventData; //Set by controller after promise returns
+    var currentOrganizerEmail = AuthFactory.getEmail();
 
     return {
+      currentOrganizerEmail: currentOrganizerEmail,
       getEvents: getEvents,
       setEventData: setEventData,
       getEventData: getEventData

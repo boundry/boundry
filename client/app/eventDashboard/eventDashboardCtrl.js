@@ -11,7 +11,7 @@ angular
   function EventDashboardCtrl ($scope, $stateParams, EventDashboardFactory, uiGmapGoogleMapApi) {
     angular.extend($scope, EventDashboardFactory);
 
-    $scope.getEvents($stateParams.organizerEmail) //Get events for organizer, passing in $stateParams.organizer
+    $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in $stateParams.organizer
       .success(function(data) {
         $scope.setEventData(data); //Set data on factory
         $scope.eventData = $scope.getEventData();
