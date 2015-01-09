@@ -37,13 +37,13 @@ var getEvents = function(req,res) {
 //post update
 //should save to the events table and regions table
 var postEvent = function(req,res) {
-  if (util.isLoggedIn(req,res)) {
-    var orgEmail = req.params.email;
-    //create object to save
-    var eventName = req.body.eventName;
-    var startTime = req.body.start_time;
-    var regions = req.body.regions;
-    var eventId = req.body.event_id;
+ if (util.isLoggedIn(req,res)) {
+   var orgEmail = req.params.email;
+   //create object to save
+   var eventName = req.body.eventName;
+   var startTime = req.body.start_time;
+   var regions = req.body.regions;
+   var eventId = req.body.event_id;
 
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {

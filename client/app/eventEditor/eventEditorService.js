@@ -5,6 +5,7 @@ angular
   EventEditorFactory.$inject = ['$http'];
 
   function EventEditorFactory ($http) {
+    //TODO: Break all these options into a separate config file
     var polygonOptions = {
       fillColor: '#ffff00',
       fillOpacity: 0.3,
@@ -27,7 +28,7 @@ angular
     var extraOptions = {
       panControl: false,
       streetViewControl: false
-    }
+    };
 
     var polygonEvents = {
       'click': function ( polygon, eventName, model, args ) {
@@ -44,7 +45,7 @@ angular
           console.log('POLYGON CLICKED', model.$parent.poly); //Polygon object from server
         }, 50);         
       }
-    }
+    };
 
     //EXPORTS
     return {
@@ -97,8 +98,8 @@ angular
     function getPolygons (eventId) {
       var scope = this;
 
-      $http.get('/polygontest')
-      //$http.get('/api/web/organizer/test@org.com/events')
+      //$http.get('/polygontest')
+      $http.get('/api/web/organizer/test@org.com/events')
         .success(function(data) {
           data.forEach(function(polygon) {
             scope.polygons.push(polygon);
@@ -133,5 +134,4 @@ angular
     function logError (error) {
       console.log(error);
     }
-
 }

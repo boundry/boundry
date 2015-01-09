@@ -1,13 +1,24 @@
 <div>
-  <h1>EVENT EDITOR<h2>
+  <h1>My Enormous San Fran Event</h1>
   <form>
     <input id="addressInput" type="textbox" placeholder="enter address"></input>
     <input type="button" value="Find" ng-click="getAddresses()">
   </form>
 
+  <!--<script type="text/ng-template" id="searchBox.template.html">-->
+    <!--<input type="text"  placeholder="Search Address"/>-->
+  <!--</script>-->
+
   <ui-gmap-google-map center='basicOptions.center' 
   zoom='basicOptions.zoom'
   options='extraOptions'>
+
+    <!--<ui-gmap-search-box-->
+      <!--template='searchBoxOptions.template'-->
+      <!--position='searchBoxOptions.position'-->
+      <!--events='searchBoxEvents'-->
+      <!-->-->
+    <!--</ui-gmap-search-box>-->
 
     <ui-gmap-drawing-manager
         options='drawingManagerOptions'
