@@ -35,8 +35,14 @@ angular
       url:'/analytics'
     });
 
-  //send all other urls to /login
-  $urlRouterProvider.otherwise('/login');
+  //send base url to either login or dashboard depending if user is authenticated
+  $urlRouterProvider.when('', ['$state', 'AuthFactory', function($state, AuthFactory) {
+    if (AuthFactory.isLoggedIn()) {
+      $state.go('eventDashboard');
+    } else {
+      $state.go('login');      
+    }
+  }]);
 
    uiGmapGoogleMapApiProvider.configure({
      v: '3.18',
