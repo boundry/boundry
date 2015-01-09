@@ -18,27 +18,6 @@ if (process.env.LOCAL_DB_TESTING) {
   dbConfig = require('./../../knexfile').staging;
 }
 
-describe('Server Integration Tests', function() {
-
-  describe('API', function() {
-
-    it('should return array of all events when queried at /api/mobile/events', function(done) {
-      request(app)
-        .get('/api/mobile/events')
-        .end(function(err, res) {
-          var events = res.body;
-
-          assert.isArray(events);
-
-          assert.isObject(events[0]);
-          assert.isArray(events[0].regions);
-          assert.isString(events[0].eventName);
-
-          done();
-        });
-    });
-  });
-});
 
 var knex = require('knex')(dbConfig.database);  
 console.log("CONNECTING TO DB: ", dbConfig.database.connection);
@@ -158,6 +137,11 @@ describe('Database Unit Tests', function () {
     new models.Action({
       name: 'Sale!',
       action_data: '50% off',
+      region_id: 1
+    }).save()
+    new models.Action({
+      name: 'Park Coupon',
+      action_data: 'get free stuff',
       region_id: 1
     }).save()
     .then(function(model) {
