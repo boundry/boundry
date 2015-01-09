@@ -40,6 +40,7 @@ authRouter.checkSignup = function(req,res) {
           password: password
         });
         newOrg.save().then(function(savedOrg) {
+          res.cookie('email', email);
           res.sendStatus(201);  //account successfully created
         });
       } else {
