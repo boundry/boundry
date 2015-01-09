@@ -23,7 +23,7 @@
 
 
     <style>
-      html, body, #map {
+      #map {
         height: 500px;
         width: 500px;
         /*margin: 0px;*/
@@ -57,7 +57,7 @@
         <!-- <input ng-model="sample"></input> -->
           <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
           <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
-          <nvd3 ng-show="dataViewSelection.options" options="dataViewSelection.options" data="dataViewSelection.data"></nvd3>
+          <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
           <div ng-show='dataViewSelection.name === "Heat Map"'>
             <div id="panel">
               <button ng-click="toggleHeatmap()">Toggle Heatmap</button>
