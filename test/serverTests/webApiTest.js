@@ -107,9 +107,9 @@ var testEventWithId = {
   [  
      {  
         'region_name':'regName1',
-        'region_id':null,
+        'region_id':2,
         'region_attr':{  
-            'aa':'df'
+            'updatedVs':'df'
            // 'coordinates':[  
            //    {  
            //       'latitude':37.8031975582087,
@@ -140,9 +140,42 @@ var testEventWithId = {
      },
      {  
         'region_name':'regName2',
-        'region_id':null,
+        'region_id':3,
         'region_attr':{ 
           'cor':'adsf' 
+           // 'coordinates':[  
+           //    {  
+           //       'latitude':37.79024344937056,
+           //       'longitude':-122.42571830749512
+           //    },
+           //    {  
+           //       'latitude':37.78997213484954,
+           //       'longitude':-122.41936683654785
+           //    },
+           //    {  
+           //       'latitude':37.78434213374121,
+           //       'longitude':-122.42168426513672
+           //    }
+           // ],
+           // 'fill':{  
+           //    'color':'#40E989 ',
+           //    'opacity':0.3
+           // },
+           // 'stroke':{  
+           //    'color':'#40E989 ',
+           //    'weight':3,
+           //    'opacity':0.3
+           // }
+        },
+        'actions':[  
+
+        ]
+     },
+     {  
+        'region_name':'regName3',
+        'region_id':null,
+        'region_attr':{ 
+          'anotherrgcor':'addddsf' 
            // 'coordinates':[  
            //    {  
            //       'latitude':37.79024344937056,
@@ -197,6 +230,7 @@ describe('webApiRouter Integration Tests', function() {
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
           var events = res.body;
+          // console.log(events);
           assert.isObject(events[0]);
           assert.isObject(events[1]);
           done();
@@ -224,8 +258,10 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventWithId)
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
-          console.log(res.request._data.eventName);
+          console.log('qwerqwer',res.request._data);
           assert.equal(res.request._data.eventName, 'musicFest2', 'should be same');
+          assert.equal(res.request._data.regions[0].region_id, 2, 'should be same');
+
           done();
         });
     });
@@ -237,7 +273,7 @@ describe('webApiRouter Integration Tests', function() {
         .expect(400, done);
     });
 
-    // works on npm run ltest but not npm test
+    // // works on npm run ltest but not npm test
     // it('should GET /organizer/:email/:event_id/regions with right info', function(done) {
     //   request(app)
     //     .get('/api/web/organizer/test@org.com/3/regions')
