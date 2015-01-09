@@ -20,12 +20,12 @@ angular
       controller: 'AuthSignupCtrl',
    })
    .state('eventDashboard', {
-      url: '/eventdash',
+      url: '/events/{organizerEmail}',
       templateUrl: 'app/eventDashboard/eventDashboard.html',
       controller: 'EventDashboardCtrl',
    })
    .state('eventEditor', {
-      url: '/event',
+      url: '/editor/{eventId}',
       templateUrl: 'app/eventEditor/eventEditor.html',
       controller: 'EventEditorCtrl',
    })

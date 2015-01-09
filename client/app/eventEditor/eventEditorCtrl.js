@@ -5,12 +5,17 @@ angular
   EventEditorCtrl.$inject = [
     '$scope',
     '$http',
+    '$stateParams',
     'EventEditorFactory',
+    'EventDashboardFactory',
     'uiGmapGoogleMapApi',
     'uiGmapLogger'
   ];
 
-  function EventEditorCtrl ($scope, $http, EventEditorFactory, uiGmapGoogleMapApi, uiGmapLogger) {
+  function EventEditorCtrl ($scope, $http, $stateParams, EventEditorFactory, EventDashboardFactory, uiGmapGoogleMapApi, uiGmapLogger) {
+    console.log($stateParams);
+    console.log(EventDashboardFactory.getEventData());
+
     uiGmapLogger.doLog = true;
     angular.extend($scope, EventEditorFactory);
     
