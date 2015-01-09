@@ -49,7 +49,7 @@ function AuthFactory($http, $state, $cookies) {
     function success() {
       user.email = email;
       $cookies.email = email;
-      $state.go('eventEditor');
+      $state.go('eventDashboard');
     }
 
     //callback for unsuccessful signup
