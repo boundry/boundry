@@ -14,9 +14,10 @@ describe('MobileAPI Integration Tests', function() {
       request(app)
         .get('/api/mobile/events')
         .end(function(err, res) {
+          console.log('test!',res.body);
           var events = res.body;
           assert.isArray(events);
-          assert.equal(events[2].name, 'musicFestival', 'should be same');
+          assert.equal(events[2].name, 'musicFest2', 'should be same');
           done();
         });
     });

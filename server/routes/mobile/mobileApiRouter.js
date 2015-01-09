@@ -8,6 +8,7 @@ var getEvents = function(req, res) {
   new collections.Events()
   .fetch({withRelated: ['regions']})
   .then(function(orgEvents) {
+    console.log(orgEvents.models);
     orgEvents.models.forEach(function(orgEv) {
      orgEv.attributes.regions = [];
      //for every region, push region attr to event.regions
@@ -15,6 +16,7 @@ var getEvents = function(req, res) {
          orgEv.attributes.regions.push(reg.attributes);
        });
     });
+    console.log('qqwer');
       res.status(200).send(orgEvents.models);
   })
   .catch(function(err) {

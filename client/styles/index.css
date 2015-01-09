@@ -1,11 +1,4 @@
-#map {
-  width: 600px;
-  height: 500px;
-  /*if nothing loaded will have solid color #CCC*/
-  background-color: #CCC; 
-}
-
 #vertices {
   width: 100%;
 }
-.angular-google-map-container { height: 300px; }
+.angular-google-map-container { height: 600px; }
