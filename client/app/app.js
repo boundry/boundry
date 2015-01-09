@@ -7,7 +7,7 @@ angular
     'ui.router',
     'uiGmapgoogle-maps'
   ])
-.config(['$stateProvider', '$httpProvider', 'uiGmapGoogleMapApiProvider', function($stateProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'uiGmapGoogleMapApiProvider', function($stateProvider, $urlRouterProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
   $stateProvider
     .state('login', {
       url : '/login',
@@ -35,6 +35,9 @@ angular
       url:'/analytics'
     });
 
+  //send all other urls to /login
+  $urlRouterProvider.otherwise('/login');
+
    uiGmapGoogleMapApiProvider.configure({
      v: '3.18',
      libraries: 'drawing, geometry, places'
@@ -56,7 +59,7 @@ angular
     if (AuthFactory.isLoggedIn()) {
       if (toState.name === 'login' || toState.name === 'signup') {
         event.preventDefault();
-        $state.go('eventEditor');
+        $state.go('eventDashboard');
       }
     }
 

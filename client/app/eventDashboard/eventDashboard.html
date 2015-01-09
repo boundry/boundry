@@ -1,7 +1,9 @@
 <div>
-<h1>Event Dashboard</h1>
+  <span>
+    <div ng-navbar></div>
+  </span>
+  <h1>Event Dashboard</h1>
 
-<div ng-repeat='event in eventData' ui-sref='eventEditor({eventId: event.id,
-  regions: event.regions})'> {{ event.name }} {{ event.id }}</div>
-
+  <div ng-repeat='event in eventData' ui-sref='eventEditor({eventId: event.id,
+    regions: event.regions})'> {{ event.name }} {{ event.id }}</div>
 </div>

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./server/server.js",
     "postinstall": "npm install bower && bower install && npm uninstall bower",
-    "test": "npm run serverTests && npm run clientTests && npm run lintTests",
+    "test": "npm run clientTests && npm run lintTests",
     "lintTests": "mocha -R spec ./test/jshint.spec.js",
     "serverTests": "mocha -R spec ./test/serverTests/**",
     "clientTests": "./node_modules/karma/bin/karma start",

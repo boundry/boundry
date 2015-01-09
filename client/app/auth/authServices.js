@@ -82,7 +82,7 @@ function AuthFactory($http, $state, $cookies) {
     function success(data, status) {
       user.email = email;
       $cookies.email = email;
-      $state.go('eventEditor');
+      $state.go('eventDashboard');
     }
 
     //callback for unsuccessful login
