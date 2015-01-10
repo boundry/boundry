@@ -61,8 +61,6 @@ function AnalyticsFactory(HeatMapFactory) {
 
 	function filterDataByHour(hour, dataArray) {
 		var filteredData = _.filter(dataArray, function(element){
-			console.log(hour);
-			console.log(element.timestamp);
 			return hour <= element.timestamp && element.timestamp < (hour+1);
 		});
 		return filteredData;
@@ -74,7 +72,6 @@ function AnalyticsFactory(HeatMapFactory) {
     var min = rangeArray[0];
     var max = rangeArray[1];
     var finalData = views[0].data;
-    console.log(1234,lineChartData);
 
     for (var i = 0; i < finalData.length; i++) {
       var filteredData = _.filter(lineChartData[finalData[i].key], function(tuple) {
@@ -772,21 +769,18 @@ function HeatMapFactory() {
 
 // fetch data for event
 // filter data
-	function filterDataByHour(hour, dataArray) {
+	function filterDataByTime(timePoint, dataArray) {
 		var filteredData = _.filter(dataArray, function(element){
-			console.log(hour);
-			console.log(element.timestamp);
-			return hour <= element.timestamp && element.timestamp < (hour+1);
+			return (timePoint - 60/2)/60 <= element.timestamp && element.timestamp < (timePoint + 60/2)/60;
 		});
 		return filteredData;
 	}
 
 //rerender with filteredData
-	function reRender(hour){
-		var filteredData = filterDataByHour(hour, preprocessedSampleData);
+	function renderHeatmap(timePoint){
+		var filteredData = filterDataByTime(timePoint, preprocessedSampleData);
 		var processedData = processData(filteredData);
 		pointArray = new google.maps.MVCArray(processedData);
-		console.log('hehehehe', pointArray);
 		heatmap.setMap(null);
 		heatmap = new google.maps.visualization.HeatmapLayer({
 		  data: pointArray
@@ -802,7 +796,6 @@ function HeatMapFactory() {
 			var dataPoint = new google.maps.LatLng(dataArray[i].latitude, dataArray[i].longitude);
 			outputArray.push(dataPoint);
 		}
-		console.log(outputArray);
 		return outputArray;
 	}
 
@@ -869,7 +862,7 @@ function HeatMapFactory() {
   	changeGradient: changeGradient,
   	changeRadius: changeRadius,
   	changeOpacity: changeOpacity,
-  	reRender: reRender,
+  	renderHeatmap: renderHeatmap,
   	preprocessedSampleData: preprocessedSampleData
   }; 
 }
