@@ -2,3 +2,10 @@
   width: 100%;
 }
 .angular-google-map-container { height: 600px; }
+
+.evSpan {
+  float: left;
+}
+input {
+  margin-right: 10px;
+}
