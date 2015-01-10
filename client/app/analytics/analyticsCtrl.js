@@ -6,19 +6,6 @@ angular
 
   function analyticsCtrl ($scope, $http, AnalyticsFactory, HeatMapFactory) {
 
-    $scope.sample = 0;
-    $scope.timeIntervalString = function(){
-      var amOrPm = '';
-      if ($scope.sample < 12) {
-        amOrPm = 'AM';
-      } else {
-        amOrPm = 'PM';
-      }
-      var hour = ($scope.sample === 0 || $scope.sample === 12) ? 12 : ($scope.sample % 12);
-      var str = '' + hour + ':00' + amOrPm;
-      return str;
-    };
-
     $scope.views = AnalyticsFactory.views;
     $scope.events = [{name: 'event1'}, {name: 'event2'}];
     $scope.regions = AnalyticsFactory.regions;
@@ -28,7 +15,7 @@ angular
 
     $scope.changeView = function() {
       if($scope.dataViewSelection.name === 'Heat Map') {
-        $scope.renderHeatSlider('hours');
+        $scope.renderHeatmapSlider();
         HeatMapFactory.initializeOnce();
       } else if ($scope.dataViewSelection.name === 'Line Chart') {
         AnalyticsFactory.prepareData();
@@ -37,32 +24,63 @@ angular
       }
     };
 
-    $scope.renderHeatSlider = function(timeMetric) {
-      var min = 0;
-      var max = 0;
-
-      if (timeMetric === 'hours') {
-        min = 0;
-        max = 23;
-      }
-      //else if other incremental option
+    $scope.renderHeatmapSlider = function() {
+      var bucketSize = 1 * 60; //turn hours to minutes
+      var startTime = 0;
+      var endTime = 24 * 60; //turn hours to minutes
+      var step = 1; //minutes
 
       $('#slider').slider({
-        min: min,
-        max: max
+        min: startTime + bucketSize/2,
+        max: endTime - bucketSize/2,
+        step: step,
+        animate: 'fast'
       });
 
       $('#slider').slider({
         slide: function (event, ui) {
+
+          $('#heatmapSlider').val( 
+            changeToModTwelve( Math.floor(( ui.value - bucketSize/2 )/60) ) + //hour
+            ':' +
+            pad( ( ui.value - bucketSize/2 ) % 60 ) + //minutes
+            determineAmOrPm( Math.floor(( ui.value - bucketSize/2 )/60) ) +
+            ' - ' +
+            changeToModTwelve( Math.floor(( ui.value + bucketSize/2 )/60) ) + //hour
+            ':' +
+            pad( ( ui.value + bucketSize/2 ) % 60 ) + //minutes
+            determineAmOrPm( Math.floor(( ui.value + bucketSize/2 )/60) )
+          );
+
           $scope.$apply(function () {
-            $scope.sample = $('#slider').slider('value');
             //rerender heat map with each value
-            console.log(ui.value);
-            // console.log(HeatMapFactory.reRender);
-            HeatMapFactory.reRender(ui.value);
+            HeatMapFactory.renderHeatmap(ui.value);
           });
+
         }     
       });
+
+      $('#heatmapSlider').val( $('#slider').slider('value') );
+
+      function pad(n) {
+          return (n < 10) ? ('0' + n) : n;
+      }
+
+      function changeToModTwelve(number) {
+        if (number === 0 || number === 12 || number === 24) {
+          return 12;
+        } else {
+          return number % 12;
+        }
+      }
+
+      function determineAmOrPm(number) {
+        if ( (0 <= number && number < 12) || number === 24) {
+          return 'AM';
+        } else if (12 <= number && number < 24) {
+          return 'PM';
+        }
+      }
     };
 
     $scope.renderLineChartSlider = function() {

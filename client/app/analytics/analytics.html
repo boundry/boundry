@@ -35,6 +35,9 @@
         padding: 5px;
         border: 1px solid #999;
       }
+      #slider {
+        width: 500px;
+      }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
     <script>
@@ -48,7 +51,13 @@
   <body>
     <h1>Data Analytics</h1>
     <div id="example"></div>
+
+    <p>
+      <label for="heatmapSlider">Time Interval:</label>
+      <input type="text" id="heatmapSlider" readonly>
+    </p>
     <div id="slider"></div>
+
     <p>
       <label for="timeIntervalSlider">Time Interval:</label>
       <input type="text" id="timeIntervalSlider" readonly>
@@ -57,8 +66,6 @@
 
     <div ng-app="boundry.analytics">
       <div ng-controller="analyticsCtrl">
-      {{sample}}
-      {{timeIntervalString()}}
           <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
           <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
           <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
