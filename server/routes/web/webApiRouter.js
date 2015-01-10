@@ -5,30 +5,41 @@ var models = require('../../db/db').models;
 var collections = require('../../db/db').collections;
 var util = require('./../../../lib/utility');
 
-//should pull events and their regions
+//should pull events and their regions for a given org email
 var getEvents = function(req,res) {
-  if (true) {
-  //if (util.isLoggedIn(req,res)) {
+  if (util.isLoggedIn(req,res)) {
     var orgEmail = req.params.email;
+    //Get organizer ID. Inefficient but that's what we're getting from client
+    //for now
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
-      if (found) {
+      if (found) { //Organizer exists
         var finalObj = [];
-             new collections.Events({'organizer_id': found.attributes.id})
-             .fetch({withRelated: ['regions']})
-             .then(function(orgEvents) {
-               orgEvents.models.forEach(function(orgEv) {
-                orgEv.attributes.regions = [];
-
+        collections.Events //Get Organizer's events
+          .query('where', 'organizer_id', '=', found.get('id'))
+          .fetch({withRelated: ['regions']})
+          .then(function(events) {
+            if (events.length !== 0) { //Organizer has events
+              events.models.forEach(function(ev) {
+                ev.attributes.regions = [];
                 //for every region, push region attr to event.regions
-                  orgEv.relations.regions.models.forEach(function(reg) {
-                    orgEv.attributes.regions.push(reg.attributes);
-                  });
-               });
-                 res.status(200).send(orgEvents.models);
-             });
-           }
-         });
-       } 
+                ev.relations.regions.models.forEach(function(reg) {
+                  //We stringify this field on saving, so we have to parse it out here
+                  //reg.attributes.region_attr = JSON.parse(reg.attributes.region_attr);                     
+                  ev.attributes.regions.push(reg.attributes);
+                });
+              });
+            } 
+            res.status(200).send(events.models);
+          })
+        .catch(function(error) {
+          res.send(500);
+          throw error;
+        });
+      } else { //Organizer does not exist
+        res.status(400).send('Organizer with email ', orgEmail, ' not found');
+      }
+    });
+  } 
   else {
     res.status(400).send('not logged in. cannot get.');
   }
@@ -40,25 +51,28 @@ var postEvent = function(req,res) {
  if (util.isLoggedIn(req,res)) {
    var orgEmail = req.params.email;
    //create object to save
-   var eventName = req.body.eventName;
+   var eventName = req.body.name;
    var startTime = req.body.start_time;
-   var eventCenter = JSON.stringify(req.body.event_center);
    var regions = req.body.regions;
-   var eventId = req.body.event_id;
+   var eventId = req.body.id;
 
+   //TODO: We don't need to check the orgEmail. Just take the provided
+   //eventID; if it's null, make a new one and save it with the provided
+   //orgEmail, saving the regions as well. If it already exists, update it and
+   //update it's regions as well.
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {
         //existing event
         if (eventId !== null) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
-          .update({name:eventName, event_center: eventCenter})
+          .update({name:eventName})
           .then(function(orgEvent) {
             regions.forEach(function(region) {
               //existing region
-              if (region.region_id) {
+              if (region.id) {
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.region_id})
+                .where({ event_id: eventId,id: region.id})
                 .update({region_name:region.region_name, region_attr: JSON.stringify(region.region_attr)
                 })
                 .then(function(reg) {
