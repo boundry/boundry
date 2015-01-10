@@ -6,7 +6,9 @@ angular
 
   function EventDashboardFactory ($http, AuthFactory) {
     var eventData; //Set by controller after promise returns
-    var currentOrganizerEmail = AuthFactory.getEmail();
+    //TODO: This should be called anew from the controller, so the email doesn't
+    //persist here after the user logs out. 
+    var currentOrganizerEmail = AuthFactory.getEmail(); 
 
     return {
       currentOrganizerEmail: currentOrganizerEmail,

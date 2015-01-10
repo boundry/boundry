@@ -57,6 +57,7 @@ angular
       Polygon: Polygon,
 
       savePolygons: savePolygons,
+      sendEventDataToServer: sendEventDataToServer,
       getPolygonsFromServer: getPolygonsFromServer,
 
       grabEventData: grabEventData
@@ -124,6 +125,16 @@ angular
         }
       }
       console.log('Could not get event data for event id: ', eventId);
+    }
+
+    function sendEventDataToServer () {
+      var scope = this;
+      var data = scope.currEventData;
+      var organizerEmail = EventDashboardFactory.currentOrganizerEmail;
+
+      $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
+        .success(logSuccess)
+        .error(logError);
     }
 
     //POSTs polygon data to server for saving

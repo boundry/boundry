@@ -21,8 +21,6 @@ angular
     $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
     console.log('currEventData', $scope.currEventData);
     
-    //TODO: Get polygons from server
-    $scope.polygons = []; //gmap directive pulls from here to render shapes
     $scope.drawingManagerControl = {};
 
     //uiGmpaGoogleMapApi is a promise. "then" callback provides the google.maps
@@ -51,7 +49,7 @@ angular
         //When a new polygon is drawn, make a new Polygon object and store it
         google.maps.event.addListener($scope.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function (polygon) {
           console.log('polygon', polygon);
-          $scope.polygons.push($scope.Polygon(polygon.overlay.getPath().getArray()));
+          $scope.currEventData.regions.push($scope.Polygon(polygon.overlay.getPath().getArray()));
           //Here, polygon belongs to the Drawing Manager. Empty the path so we
           //don't display it in addition to our newly constructed polygon.
           polygon.overlay.setPath([]);           
