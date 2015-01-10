@@ -42,6 +42,7 @@ var postEvent = function(req,res) {
    //create object to save
    var eventName = req.body.eventName;
    var startTime = req.body.start_time;
+   var eventCenter = JSON.stringify(req.body.event_center);
    var regions = req.body.regions;
    var eventId = req.body.event_id;
 
@@ -51,7 +52,7 @@ var postEvent = function(req,res) {
         if (eventId !== null) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
-          .update({name:eventName})
+          .update({name:eventName, event_center: eventCenter})
           .then(function(orgEvent) {
             regions.forEach(function(region) {
               //existing region

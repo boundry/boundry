@@ -25,6 +25,10 @@ var authRouter = require('./../../server/routes/web/authRouter');
 var testEventNoId = {
   'eventName':'musicFestival',
   'event_id': null,
+  'event_center': { 
+        latitude: 37.789174,
+        longitude: -122.419292
+      },
   'start_time': '2004-05-23T14:25:10',
   'end_time': '15-01-06',
   'regions':
@@ -33,30 +37,30 @@ var testEventNoId = {
         'region_name':'regName1',
         'region_id':null,
         'region_attr':{  
-            'aa':'df'
-           // 'coordinates':[  
-           //    {  
-           //       'latitude':37.8031975582087,
-           //       'longitude':-122.41825103759766
-           //    },
-           //    {  
-           //       'latitude':37.80211248443386,
-           //       'longitude':-122.41026878356934
-           //    },
-           //    {  
-           //       'latitude':37.79709381086916,
-           //       'longitude':-122.41498947143555
-           //    }
-           // ],
-           // 'fill':{  
-           //    'color':'#DDA078 ',
-           //    'opacity':0.3
-           // },
-           // 'stroke':{  
-           //    'color':'#DDA078 ',
-           //    'weight':3,
-           //    'opacity':0.3
-           // }
+            // 'aa':'df'
+           'coordinates':[  
+              {  
+                 'latitude':37.8031975582087,
+                 'longitude':-122.41825103759766
+              },
+              {  
+                 'latitude':37.80211248443386,
+                 'longitude':-122.41026878356934
+              },
+              {  
+                 'latitude':37.79709381086916,
+                 'longitude':-122.41498947143555
+              }
+           ],
+           'fill':{  
+              'color':'#DDA078 ',
+              'opacity':0.3
+           },
+           'stroke':{  
+              'color':'#DDA078 ',
+              'weight':3,
+              'opacity':0.3
+           }
         },
         'actions':[  
 
@@ -66,30 +70,30 @@ var testEventNoId = {
         'region_name':'regName2',
         'region_id':null,
         'region_attr':{ 
-          'cor':'adsf' 
-           // 'coordinates':[  
-           //    {  
-           //       'latitude':37.79024344937056,
-           //       'longitude':-122.42571830749512
-           //    },
-           //    {  
-           //       'latitude':37.78997213484954,
-           //       'longitude':-122.41936683654785
-           //    },
-           //    {  
-           //       'latitude':37.78434213374121,
-           //       'longitude':-122.42168426513672
-           //    }
-           // ],
-           // 'fill':{  
-           //    'color':'#40E989 ',
-           //    'opacity':0.3
-           // },
-           // 'stroke':{  
-           //    'color':'#40E989 ',
-           //    'weight':3,
-           //    'opacity':0.3
-           // }
+          // 'cor':'adsf' 
+           'coordinates':[  
+              {  
+                 'latitude':37.79024344937056,
+                 'longitude':-122.42571830749512
+              },
+              {  
+                 'latitude':37.78997213484954,
+                 'longitude':-122.41936683654785
+              },
+              {  
+                 'latitude':37.78434213374121,
+                 'longitude':-122.42168426513672
+              }
+           ],
+           'fill':{  
+              'color':'#40E989 ',
+              'opacity':0.3
+           },
+           'stroke':{  
+              'color':'#40E989 ',
+              'weight':3,
+              'opacity':0.3
+           }
         },
         'actions':[  
 
@@ -101,6 +105,10 @@ var testEventNoId = {
 var testEventWithId = {
   'eventName':'musicFest2',
   'event_id': 3,
+  'event_center': { 
+        latitude: 37.789174,
+        longitude: -122.419292
+      },
   'start_time': '2004-05-23T14:25:10',
   'end_time': '15-01-06',
   'regions':

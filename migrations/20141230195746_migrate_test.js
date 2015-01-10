@@ -19,6 +19,7 @@ exports.up = function(knex) {
         .createTable('event', function (event) {
           event.increments('id').primary();
           event.string('name', 255);
+          event.text('event_center', 255);
           event.dateTime('start_time'); //User provided start and end times
           event.dateTime('end_time');
           event.integer('organizer_id', 10).unsigned().references('organizer.id');
