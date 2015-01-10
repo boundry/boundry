@@ -49,12 +49,16 @@
     <h1>Data Analytics</h1>
     <div id="example"></div>
     <div id="slider"></div>
+    <p>
+      <label for="timeIntervalSlider">Time Interval:</label>
+      <input type="text" id="timeIntervalSlider" readonly>
+    </p>
+    <div id="slider-range"></div>
 
     <div ng-app="boundry.analytics">
       <div ng-controller="analyticsCtrl">
       {{sample}}
       {{timeIntervalString()}}
-        <!-- <input ng-model="sample"></input> -->
           <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
           <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
           <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
@@ -64,7 +68,6 @@
               <button ng-click="changeGradient()">Change gradient</button>
               <button ng-click="changeRadius()">Change radius</button>
               <button ng-click="changeOpacity()">Change opacity</button>
-              <!-- <button ng-click="renderSlider('hours')">render slider</button> -->
             </div>
             <div id="map"></div>
           </div>

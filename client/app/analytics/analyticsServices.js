@@ -6,32 +6,13 @@ angular
 AnalyticsFactory.$inject = ['HeatMapFactory'];
 
 function AnalyticsFactory(HeatMapFactory) {
-    var preprocessedSampleData = HeatMapFactory.preprocessedSampleData;
-	console.log(preprocessedSampleData);
+  var lineChartData = {};
+  var preprocessedSampleData = HeatMapFactory.preprocessedSampleData;
   var regions = ['sampleRegion1', 'sampleRegion2', 'sampleRegion3', 'sampleRegion4'];
 
-
-	function lineChartFilter() {
-		console.log('linechartfilters');
-		console.log(views[0].data[0].values);
+	function prepareData() {
 		var objectOfRegionData = filterDataByRegion(preprocessedSampleData);
 		updateAllLineChartData(objectOfRegionData);
-		console.log(views[0].data[0].values);
-		console.log(views[0].data[0].values);
-	}
-
-	function updateAllLineChartData(dataObject) {
-		console.log('hehehe', dataObject);
-		for (var region in dataObject) {
-			for (var i = 0; i < views[0].data.length; i++) {
-				if (views[0].data[i].key === region) {
-					console.log(views[0].data[i].key);
-					console.log('hohooo',dataObject[region]);
-					views[0].data[i].values = generateLineChartData(dataObject[region]);
-					console.log(views[0].data[i].values);
-				}
-			}
-		}
 	}
 
 	// filter data by region
@@ -46,6 +27,11 @@ function AnalyticsFactory(HeatMapFactory) {
 		return objectOfRegionData;
 	}
 
+  function updateAllLineChartData(dataObject) {
+    for (var region in dataObject) {
+      lineChartData[region] = generateLineChartData(dataObject[region]);
+    }
+  }
 
 	function generateLineChartData(dataArray) {
 		var processedArray = [];
@@ -56,12 +42,6 @@ function AnalyticsFactory(HeatMapFactory) {
 			var timeFiltered = _.filter(dataArray, function(element) {
 				return i <= element.timestamp && element.timestamp < (i+1);
 			});
-			// console.log(timeFiltered);
-			// var uniqueUserFiltered = _.each(timeFiltered, function(element) {
-			// 	if (!users[element.userId]) {
-			// 		users[element.userId] = 1;
-			// 	}
-			// });
 			temp.push(i);
 			temp.push(numberOfUniqueUsers(timeFiltered));
 			processedArray.push(temp);
@@ -88,7 +68,21 @@ function AnalyticsFactory(HeatMapFactory) {
 		return filteredData;
 	}
 
+  var originalFilteredLineChartData = {};
 
+  function renderLineChart(rangeArray) {
+    var min = rangeArray[0];
+    var max = rangeArray[1];
+    var finalData = views[0].data;
+    console.log(1234,lineChartData);
+
+    for (var i = 0; i < finalData.length; i++) {
+      var filteredData = _.filter(lineChartData[finalData[i].key], function(tuple) {
+        return (min <= tuple[0] && tuple[0] <= max);
+      });
+      finalData[i].values = filteredData;
+    }
+  }
 
 	// filter data by time interval min < time < max
 	function filterDataByTimeInterval(dataArray, min, max) {
@@ -117,7 +111,7 @@ function AnalyticsFactory(HeatMapFactory) {
                 average: function(d) { return d.mean; },
 
                 color: d3.scale.category10().range(),
-                transitionDuration: 300,
+                transitionDuration: 1,
                 useInteractiveGuideline: true,
                 clipVoronoi: false,
 
@@ -139,102 +133,31 @@ function AnalyticsFactory(HeatMapFactory) {
                     axisLabelDistance: 20,
                     showMaxMin: false
                 }
+                // xDomain: [0, 24]
             }
         },
       data: [
             {
                 key: 'sampleRegion1',
                 values: [
-                [ 1, 10],
-                [ 2, 15],
-                [ 3, 20],
-                [ 4, 15],
-                [ 5, 14],
-                [ 6, 40],
-                [ 7, 12],
-                [ 8, 11],
-                [ 9, 27],
-                [11, 10],
-                [12, 15],
-                [13, 20],
-                [14, 15],
-                [15, 14],
-                [16, 40],
-                [17, 22],
-                [18, 11],
-                [19, 27]
                 ],
                 mean: 7
             },
             {
                 key: 'sampleRegion2',
                 values: [
-                [ 1, 14],
-                [ 2, 15],
-                [ 3, 22],
-                [ 4, 17],
-                [ 5, 14],
-                [ 6, 47],
-                [ 7, 13],
-                [ 8, 14],
-                [ 9, 27],
-                [11, 11],
-                [12, 15],
-                [13, 23],
-                [14, 17],
-                [15, 13],
-                [16, 42],
-                [17, 21],
-                [18, 13],
-                [19, 27]
                 ],
                 mean: 12
             },
             {
                 key: 'sampleRegion3',
                 values: [
-                [ 1, 14],
-                [ 2, 15],
-                [ 3, 22],
-                [ 4, 17],
-                [ 5, 14],
-                [ 6, 47],
-                [ 7, 13],
-                [ 8, 14],
-                [ 9, 27],
-                [11, 11],
-                [12, 15],
-                [13, 23],
-                [14, 17],
-                [15, 13],
-                [16, 42],
-                [17, 21],
-                [18, 13],
-                [19, 27]
                 ],
                 mean: 12
             },
             {
                 key: 'sampleRegion4',
                 values: [
-                [ 1, 14],
-                [ 2, 15],
-                [ 3, 22],
-                [ 4, 17],
-                [ 5, 14],
-                [ 6, 47],
-                [ 7, 13],
-                [ 8, 14],
-                [ 9, 27],
-                [11, 11],
-                [12, 15],
-                [13, 23],
-                [14, 17],
-                [15, 13],
-                [16, 42],
-                [17, 21],
-                [18, 13],
-                [19, 27]
                 ],
                 mean: 12
             }
@@ -306,7 +229,8 @@ function AnalyticsFactory(HeatMapFactory) {
   	regions: regions,
   	filterDataByRegion: filterDataByRegion,
   	filterDataByTimeInterval: filterDataByTimeInterval,
-  	lineChartFilter: lineChartFilter}; 
+  	prepareData: prepareData,
+    renderLineChart: renderLineChart}; 
 }
 
 

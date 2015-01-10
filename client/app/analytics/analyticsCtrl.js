@@ -28,14 +28,16 @@ angular
 
     $scope.changeView = function() {
       if($scope.dataViewSelection.name === 'Heat Map') {
-        $scope.renderSlider('hours');
+        $scope.renderHeatSlider('hours');
         HeatMapFactory.initializeOnce();
       } else if ($scope.dataViewSelection.name === 'Line Chart') {
-        AnalyticsFactory.lineChartFilter();
+        AnalyticsFactory.prepareData();
+        $scope.renderLineChartSlider();
+        AnalyticsFactory.renderLineChart([$('#slider-range').slider('values', 0), $('#slider-range').slider('values', 1)]);
       }
     };
 
-    $scope.renderSlider = function(timeMetric) {
+    $scope.renderHeatSlider = function(timeMetric) {
       var min = 0;
       var max = 0;
 
@@ -61,6 +63,49 @@ angular
           });
         }     
       });
+    };
+
+    $scope.renderLineChartSlider = function() {
+
+      $('#slider-range').slider({
+        animate: true,
+        range: true,
+        min: 0,
+        max: 24,
+        values: [ 10, 16 ],
+        slide: function( event, ui ) {
+          $('#timeIntervalSlider').val( 
+            changeToModTwelve(ui.values[0]) +  ':00' + determineAmOrPm(ui.values[0]) +
+            ' - ' + 
+            changeToModTwelve(ui.values[1])+  ':00' + determineAmOrPm(ui.values[1]));
+          $scope.$apply(function () {
+            AnalyticsFactory.renderLineChart(ui.values);
+          });
+        }
+      });
+      $('#timeIntervalSlider').val( 
+        changeToModTwelve( $('#slider-range').slider('values', 0) ) + ':00' + 
+        determineAmOrPm( $('#slider-range').slider('values', 0) ) +
+        ' - ' + 
+        changeToModTwelve( $('#slider-range').slider('values', 1) ) + ':00' + 
+        determineAmOrPm( $('#slider-range').slider('values', 0) ));
+  
+      function changeToModTwelve(number) {
+        if (number === 0 || number === 12 || number === 24) {
+          return 12;
+        } else {
+          return number % 12;
+        }
+      }
+
+      function determineAmOrPm(number) {
+        if ( (0 <= number && number < 12) || number === 24) {
+          return 'AM';
+        } else if (12 <= number && number < 24) {
+          return 'PM';
+        }
+      }
+
     };
 
     $scope.toggleHeatmap = HeatMapFactory.toggleHeatmap;
