@@ -30,7 +30,7 @@
     </ui-gmap-drawing-manager>
 
     <ui-gmap-polygon
-      ng-repeat="poly in polygons"
+      ng-repeat="poly in currEventData.regions"
       events='polygonEvents'
       path='poly.region_attr.coordinates'
       fill='poly.region_attr.fill'
@@ -44,7 +44,6 @@
   </ui-gmap-google-map>
 
   <button ng-click="savePolygons()">SAVE</button>
-  <button ng-click="getPolygons()">RETRIEVE</button>
-  <div ng-model="polygons">{{ polygons }}</div>
+  <div ng-model="currEventData">{{ currEventData }}</div>
 
 </div>

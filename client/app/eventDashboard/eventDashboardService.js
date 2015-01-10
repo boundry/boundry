@@ -30,7 +30,6 @@ angular
     function getEvents (organizerEmail) {
       organizerEmail = organizerEmail || 'test@org.com';
       var url = '/api/web/organizer/' + organizerEmail + '/events';
-      console.log(url);
       return $http.get(url);
     }
   }
