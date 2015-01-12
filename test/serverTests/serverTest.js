@@ -100,7 +100,7 @@ describe('Database Unit Tests', function () {
     //Save a new region model
     new models.Region({
       region_name: 'My Region',
-      region_attr: 'test coordinates',
+      region_attr: JSON.stringify({'test coordinates': 'blah'}),
       event_id: 1
     }).save()
     .then(function(model) {
