@@ -14,7 +14,7 @@ var getEvents = function(req,res) {
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) { //Organizer exists
         var finalObj = [];
-        collections.Events //Get Organizer's events
+        collections.Events //Get the Organizer's events
           .query('where', 'organizer_id', '=', found.get('id'))
           .fetch({withRelated: ['regions']})
           .then(function(events) {
@@ -24,8 +24,8 @@ var getEvents = function(req,res) {
                 //for every region, push region attr to event.regions
                 ev.relations.regions.models.forEach(function(reg) {
                   //We stringify this field on saving, so we have to parse it out here
-                  //reg.attributes.region_attr = JSON.parse(reg.attributes.region_attr);                     
-                  ev.attributes.regions.push(reg.attributes);
+                  reg.attributes.region_attr = JSON.parse(reg.attributes.region_attr);                     
+                  //ev.attributes.regions.push(reg.attributes);
                 });
               });
             } 
@@ -51,28 +51,25 @@ var postEvent = function(req,res) {
  if (util.isLoggedIn(req,res)) {
    var orgEmail = req.params.email;
    //create object to save
-   var eventName = req.body.name;
+   var eventName = req.body.eventName;
    var startTime = req.body.start_time;
+   var eventCenter = JSON.stringify(req.body.event_center);
    var regions = req.body.regions;
-   var eventId = req.body.id;
+   var eventId = req.body.event_id;
 
-   //TODO: We don't need to check the orgEmail. Just take the provided
-   //eventID; if it's null, make a new one and save it with the provided
-   //orgEmail, saving the regions as well. If it already exists, update it and
-   //update it's regions as well.
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {
         //existing event
         if (eventId !== null) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
-          .update({name:eventName})
+          .update({name:eventName, event_center: eventCenter})
           .then(function(orgEvent) {
             regions.forEach(function(region) {
               //existing region
-              if (region.id) {
+              if (region.region_id) {
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.id})
+                .where({ event_id: eventId,id: region.region_id})
                 .update({region_name:region.region_name, region_attr: JSON.stringify(region.region_attr)
                 })
                 .then(function(reg) {
