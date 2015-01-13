@@ -23,11 +23,11 @@ var authRouter = require('./../../server/routes/web/authRouter');
 // console.log("CONNECTING TO DB: ", dbConfig.database.connection);
 
 var testEventNoId = {
-  'eventName':'musicFestival',
-  'event_id': null,
+  'name':'musicFestival',
+  'id': null,
   'event_center': { 
-        latitude: 37.789174,
-        longitude: -122.419292
+        'latitude': 37.789174,
+        'longitude': -122.419292
       },
   'start_time': '2004-05-23T14:25:10',
   'end_time': '15-01-06',
@@ -103,11 +103,11 @@ var testEventNoId = {
 };
 
 var testEventWithId = {
-  'eventName':'musicFest2',
-  'event_id': 3,
+  'name':'musicFest2',
+  'id': 2,
   'event_center': { 
-        latitude: 37.789174,
-        longitude: -122.419292
+        'latitude': 37.789174,
+        'longitude': -122.419292
       },
   'start_time': '2004-05-23T14:25:10',
   'end_time': '15-01-06',
@@ -117,30 +117,30 @@ var testEventWithId = {
         'region_name':'regName1',
         'region_id':2,
         'region_attr':{  
-            'updatedVs':'df'
-           // 'coordinates':[  
-           //    {  
-           //       'latitude':37.8031975582087,
-           //       'longitude':-122.41825103759766
-           //    },
-           //    {  
-           //       'latitude':37.80211248443386,
-           //       'longitude':-122.41026878356934
-           //    },
-           //    {  
-           //       'latitude':37.79709381086916,
-           //       'longitude':-122.41498947143555
-           //    }
-           // ],
-           // 'fill':{  
-           //    'color':'#DDA078 ',
-           //    'opacity':0.3
-           // },
-           // 'stroke':{  
-           //    'color':'#DDA078 ',
-           //    'weight':3,
-           //    'opacity':0.3
-           // }
+            // 'updatedVs':'df'
+           'coordinates':[  
+              {  
+                 'latitude':37.8031975582087,
+                 'longitude':-122.41825103759766
+              },
+              {  
+                 'latitude':37.80211248443386,
+                 'longitude':-122.41026878356934
+              },
+              {  
+                 'latitude':37.79709381086916,
+                 'longitude':-122.41498947143555
+              }
+           ],
+           'fill':{  
+              'color':'#DDA078 ',
+              'opacity':0.3
+           },
+           'stroke':{  
+              'color':'#DDA078 ',
+              'weight':3,
+              'opacity':0.3
+           }
         },
         'actions':[  
 
@@ -150,30 +150,30 @@ var testEventWithId = {
         'region_name':'regName2',
         'region_id':3,
         'region_attr':{ 
-          'cor':'adsf' 
-           // 'coordinates':[  
-           //    {  
-           //       'latitude':37.79024344937056,
-           //       'longitude':-122.42571830749512
-           //    },
-           //    {  
-           //       'latitude':37.78997213484954,
-           //       'longitude':-122.41936683654785
-           //    },
-           //    {  
-           //       'latitude':37.78434213374121,
-           //       'longitude':-122.42168426513672
-           //    }
-           // ],
-           // 'fill':{  
-           //    'color':'#40E989 ',
-           //    'opacity':0.3
-           // },
-           // 'stroke':{  
-           //    'color':'#40E989 ',
-           //    'weight':3,
-           //    'opacity':0.3
-           // }
+          // 'cor':'adsf' 
+           'coordinates':[  
+              {  
+                 'latitude':37.79024344937056,
+                 'longitude':-122.42571830749512
+              },
+              {  
+                 'latitude':37.78997213484954,
+                 'longitude':-122.41936683654785
+              },
+              {  
+                 'latitude':37.78434213374121,
+                 'longitude':-122.42168426513672
+              }
+           ],
+           'fill':{  
+              'color':'#40E989 ',
+              'opacity':0.3
+           },
+           'stroke':{  
+              'color':'#40E989 ',
+              'weight':3,
+              'opacity':0.3
+           }
         },
         'actions':[  
 
@@ -183,30 +183,30 @@ var testEventWithId = {
         'region_name':'regName3',
         'region_id':null,
         'region_attr':{ 
-          'anotherrgcor':'addddsf' 
-           // 'coordinates':[  
-           //    {  
-           //       'latitude':37.79024344937056,
-           //       'longitude':-122.42571830749512
-           //    },
-           //    {  
-           //       'latitude':37.78997213484954,
-           //       'longitude':-122.41936683654785
-           //    },
-           //    {  
-           //       'latitude':37.78434213374121,
-           //       'longitude':-122.42168426513672
-           //    }
-           // ],
-           // 'fill':{  
-           //    'color':'#40E989 ',
-           //    'opacity':0.3
-           // },
-           // 'stroke':{  
-           //    'color':'#40E989 ',
-           //    'weight':3,
-           //    'opacity':0.3
-           // }
+          // 'anotherrgcor':'addddsf' 
+           'coordinates':[  
+              {  
+                 'latitude':37.79024344937056,
+                 'longitude':-122.42571830749512
+              },
+              {  
+                 'latitude':37.78997213484954,
+                 'longitude':-122.41936683654785
+              },
+              {  
+                 'latitude':37.78434213374121,
+                 'longitude':-122.42168426513672
+              }
+           ],
+           'fill':{  
+              'color':'#40E989 ',
+              'opacity':0.3
+           },
+           'stroke':{  
+              'color':'#40E989 ',
+              'weight':3,
+              'opacity':0.3
+           }
         },
         'actions':[  
 
@@ -232,6 +232,20 @@ describe('webApiRouter Integration Tests', function() {
 
   describe('API', function() {
 
+    
+
+    it('should save NEW event to event and region tables when POST /api/web/organizer/events', function(done) {
+      request(app)
+        .post('/api/web/organizer/test@org.com/events')
+        .send(testEventNoId)
+        .set('Cookie', ['email=test%40org.com'])
+        .end(function(err, res) {
+          console.log('qewr',res.request._data);
+          assert.equal(res.request._data.eventName, 'musicFestival', 'should be same');
+          done();
+        });
+    });
+
     it('should return array of all events when GET /api/web/organizer/events', function(done) {
       request(app)
         .get('/api/web/organizer/test@org.com/events')
@@ -244,19 +258,6 @@ describe('webApiRouter Integration Tests', function() {
           done();
         });
     });
-
-    it('should save NEW event to event and region tables when POST /api/web/organizer/events', function(done) {
-      request(app)
-        .post('/api/web/organizer/test@org.com/events')
-        .send(testEventNoId)
-        .set('Cookie', ['email=test%40org.com'])
-        .end(function(err, res) {
-          assert.equal(res.request._data.eventName, 'musicFestival', 'should be same');
-          done();
-        });
-    });
-
-
 
 
     it('should update event to event and region tables when POST /api/web/organizer/events', function(done) {
@@ -274,7 +275,7 @@ describe('webApiRouter Integration Tests', function() {
 
     it('should not be able to POST to /api/web/organizer/events when not logged in', function(done) {
       request(app)
-        .post('/api/web/organizer/test@org.com/events')
+        .post('/api/web/organizUper/test@org.com/events')
         .send(testEventWithId)
         .expect(400, done);
     });
