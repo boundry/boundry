@@ -51,11 +51,11 @@ var postEvent = function(req,res) {
  if (util.isLoggedIn(req,res)) {
    var orgEmail = req.params.email;
    //create object to save
-   var eventName = req.body.eventName;
+   var eventName = req.body.name;
    var startTime = req.body.start_time;
    var eventCenter = JSON.stringify(req.body.event_center);
    var regions = req.body.regions;
-   var eventId = req.body.event_id;
+   var eventId = req.body.id;
 
     new models.Organizer({email: orgEmail}).fetch().then(function(found) {
       if (found) {
