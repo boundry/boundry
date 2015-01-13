@@ -10,11 +10,23 @@ var getEvents = function(req, res) {
   .then(function(orgEvents) {
     console.log(orgEvents.models);
     orgEvents.models.forEach(function(orgEv) {
+     // orgEv.attributes.regions = [];
+     // //for every region, push region attr to event.regions
+     //   orgEv.relations.regions.models.forEach(function(reg) {
+     //     orgEv.attributes.regions.push(reg.attributes);
+     //   });
+
+     orgEv.attributes.event_center = JSON.parse(orgEv.attributes.event_center);
+     console.log('attr!!',orgEv.attributes.event_center);
      orgEv.attributes.regions = [];
      //for every region, push region attr to event.regions
-       orgEv.relations.regions.models.forEach(function(reg) {
-         orgEv.attributes.regions.push(reg.attributes);
-       });
+     orgEv.relations.regions.models.forEach(function(reg) {
+       //We stringify this field on saving, so we have to parse it out here
+       reg.attributes.region_attr = JSON.parse(reg.attributes.region_attr);                     
+       //ev.attributes.regions.push(reg.attributes);
+     });
+
+       
     });
     console.log('qqwer');
       res.status(200).send(orgEvents.models);
