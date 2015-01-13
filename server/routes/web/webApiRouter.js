@@ -31,8 +31,9 @@ var getEvents = function(req,res) {
             } 
             res.status(200).send(events.models);
           })
-        .catch(function(error) {
+        .catch(function(error, blah) {
           res.send(500);
+          console.log('THINGY', blah);
           throw error;
         });
       } else { //Organizer does not exist
@@ -57,26 +58,29 @@ var postEvent = function(req,res) {
    var regions = req.body.regions;
    var eventId = req.body.id;
 
-    new models.Organizer({email: orgEmail}).fetch().then(function(found) {
+    new models.Organizer({email: orgEmail}).fetch().then(function(found) { //TODO: Do we actually need this orgEmail check?
       if (found) {
         //existing event
         if (eventId !== null) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
           .update({name:eventName, event_center: eventCenter})
-          .then(function(orgEvent) {
+          .then(function(orgEvent) { //TODO: we don't use orgEvent anywhere
             regions.forEach(function(region) {
               //existing region
-              if (region.region_id) {
+              if (region.id !== null) {
+                console.log('UPDATING REGION', region);
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.region_id})
+                .where({ event_id: eventId,id: region.id})
                 .update({region_name:region.region_name, region_attr: JSON.stringify(region.region_attr)
                 })
                 .then(function(reg) {
+                  console.log('UPDATED REGION', reg);
                   // res.status(300).send('updated');
                 });
               //new region
               } else {
+                console.log('SAVING NEW REGION', region);
                 new models.Region({
                   region_name: region.region_name,
                   region_attr: JSON.stringify(region.region_attr),
