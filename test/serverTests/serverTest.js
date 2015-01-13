@@ -81,6 +81,10 @@ describe('Database Unit Tests', function () {
       name: 'Another One',
       start_time: '2005-05-23T14:25:10',
       end_time: '2005-05-23T14:25:10',
+      event_center: { 
+        'latitude': 37.7665211,
+        'longitude': -122.480687
+      },
       organizer_id: 1
     }).save()
     .then(function(model) {

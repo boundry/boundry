@@ -20,6 +20,9 @@ var getEvents = function(req,res) {
           .then(function(events) {
             if (events.length !== 0) { //Organizer has events
               events.models.forEach(function(ev) {
+                // console.log('55',ev.attributes);
+                ev.attributes.event_center = JSON.parse(ev.attributes.event_center);
+                console.log('attr!!',ev.attributes.event_center);
                 ev.attributes.regions = [];
                 //for every region, push region attr to event.regions
                 ev.relations.regions.models.forEach(function(reg) {
@@ -103,6 +106,7 @@ var postEvent = function(req,res) {
             name: eventName,
             start_time: startTime,
             end_time: startTime,
+            event_center: eventCenter,
             organizer_id: found.attributes.id
           }).save()
           .then(function(savedEvent) {
