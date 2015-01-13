@@ -241,7 +241,7 @@ describe('webApiRouter Integration Tests', function() {
         .set('Cookie', ['email=test%40org.com'])
         .end(function(err, res) {
           console.log('qewr',res.request._data);
-          assert.equal(res.request._data.eventName, 'musicFestival', 'should be same');
+          assert.equal(res.request._data.name, 'musicFestival', 'should be same');
           done();
         });
     });
@@ -266,7 +266,7 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventWithId)
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
-          assert.equal(res.request._data.eventName, 'musicFest2', 'should be same');
+          assert.equal(res.request._data.name, 'musicFest2', 'should be same');
           assert.equal(res.request._data.regions[0].region_id, 2, 'should be same');
 
           done();
@@ -275,7 +275,7 @@ describe('webApiRouter Integration Tests', function() {
 
     it('should not be able to POST to /api/web/organizer/events when not logged in', function(done) {
       request(app)
-        .post('/api/web/organizUper/test@org.com/events')
+        .post('/api/web/organizer/test@org.com/events')
         .send(testEventWithId)
         .expect(400, done);
     });

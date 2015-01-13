@@ -30,6 +30,7 @@ angular
       .success(function(data) {
         $scope.setEventData(data); //Set data on factory
         $scope.eventData = $scope.getEventData();
+        console.log('evdat', $scope.eventData);
       })
       .error(function(error) {
         console.log(error);
