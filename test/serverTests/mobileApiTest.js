@@ -17,7 +17,7 @@ describe('MobileAPI Integration Tests', function() {
           console.log('test!',res.body);
           var events = res.body;
           assert.isArray(events);
-          assert.equal(events[2].name, 'musicFest2', 'should be same');
+          assert.equal(events[2].name, 'musicFestival', 'should be same');
           done();
         });
     });
