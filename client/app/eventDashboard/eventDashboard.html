@@ -3,25 +3,16 @@
     <div ng-navbar></div>
   </span>
   <h1>Event Dashboard</h1>
+  <div><input type="button" value="Create New Event" ui-sref='eventEditor()'></div>
   <h3>Your Events</h3>
+
+
+
   <div ng-repeat='event in eventData'>
     <div ng-click='populateMap($index)'> <span id='evSpan'><input type="button" value="Edit" ui-sref='eventEditor({eventId: event.id,
     regions: event.regions})'>{{ event.name }}</span></div>
     
   </div>
-<!-- 
-    ui-sref='eventEditor({eventId: event.id,
-    regions: event.regions})' -->
-
-<!--   <div class="dashboardMap">
-  <ui-gmap-google-map center ="map.center" zoom="map.zoom" draggable="true" options="options" >
-
-    <
-
-  </ui-gmap-google-map>
-</div>
- -->
-      <!-- track by p.region_id -->
 
 <div ng-style="styleTest">
     <ui-gmap-google-map 
@@ -31,30 +22,6 @@
       options="options" >
        <ui-gmap-polygon static="true" ng-repeat="p in polygons" path="p.coordinates" stroke="p.stroke" visible="p.visible"
                  geodesic="p.geodesic" fill="p.fill" fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polygon>
- <!--      <ui-gmap-polygon static="true" 
-      ng-repeat="reg in polygi track by reg.id" 
-      path ="reg.path" 
-      stroke="reg.stroke" 
-      visible="reg.visible" 
-      geodesic="reg.geodesic" 
-      fill="reg.fill" 
-      draggable="false"><ui-gmap-polygon> -->
-<!-- 
-      <ui-gmap-polygon
-      ng-repeat="poly in polygons"
-      events='polygonEvents'
-      path='poly.region_attr.coordinates'
-      fill='poly.region_attr.fill'
-      stroke='poly.region_attr.stroke'
-      clickable='true'
-      draggable='true'
-      editable='true'
-      visible='true'>
-    </ui-gmap-polygon> -->
 
     </ui-gmap-google-map>
 </div>
-
-<!--   <div ng-repeat='event in eventData' ui-sref='eventEditor({eventId: event.id,
-    regions: event.regions})'> {{ event.name }} {{ event.id }}</div>
-</div> -->
