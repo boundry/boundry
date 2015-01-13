@@ -70,7 +70,7 @@ angular
       //Convert keys to 'latitude' and 'longitude', from 'k' and 'B' (gmaps)
       var polygon = {
         region_name: null, //TODO: User sets this
-        region_id: null,
+        id: null,
         region_attr: {
           coordinates: [],
           fill: null,
