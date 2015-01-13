@@ -75,7 +75,8 @@ function AnalyticsFactory(HeatMapFactory) {
 
     for (var i = 0; i < finalData.length; i++) {
       var filteredData = _.filter(lineChartData[finalData[i].key], function(tuple) {
-        return (min <= tuple[0] && tuple[0] <= max);
+        var time = tuple[0] * 60; // turn into minutes
+        return (min <= time && time <= max);
       });
       finalData[i].values = filteredData;
     }
