@@ -26,9 +26,8 @@ var getEvents = function(req, res) {
        //ev.attributes.regions.push(reg.attributes);
      });
 
-       
+
     });
-    console.log('qqwer');
       res.status(200).send(orgEvents.models);
   })
   .catch(function(err) {
@@ -38,7 +37,7 @@ var getEvents = function(req, res) {
 
 var getActions = function(req, res) {
   var regId = req.params.regionId;
-  console.log(regId);
+  // console.log(regId);
   collections.Actions.query().where({region_id: regId})
   .then(function(allActions) {
     if (allActions.length > 0) {

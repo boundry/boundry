@@ -62,9 +62,9 @@ var testEventNoId = {
               'opacity':0.3
            }
         },
-        'actions':[  
-
-        ]
+        'actions':[ {'name': 'regAction1Name',
+        'action_data': 'sale! first time'
+      }]
      },
      {  
         'region_name':'regName2',
@@ -95,9 +95,9 @@ var testEventNoId = {
               'opacity':0.3
            }
         },
-        'actions':[  
-
-        ]
+        'actions':[ {'name': 'regAction2Name',
+        'action_data': 'another sale: time'
+      }]
      }
   ]
 };
@@ -115,7 +115,7 @@ var testEventWithId = {
   [  
      {  
         'region_name':'regName1',
-        'region_id':2,
+        'region_id':3,
         'region_attr':{  
             // 'updatedVs':'df'
            'coordinates':[  
@@ -142,13 +142,13 @@ var testEventWithId = {
               'opacity':0.3
            }
         },
-        'actions':[  
-
-        ]
+        'actions':[ {'name': 'updateregAction1Name',
+        'action_data': 'updated 1 time'
+      }]
      },
      {  
         'region_name':'regName2',
-        'region_id':3,
+        'region_id':4,
         'region_attr':{ 
           // 'cor':'adsf' 
            'coordinates':[  
@@ -175,43 +175,43 @@ var testEventWithId = {
               'opacity':0.3
            }
         },
-        'actions':[  
-
-        ]
+        'actions':[ {'name': 'updateregAction2Name',
+        'action_data': 'sale! update 2 time'
+      }]
      },
-     {  
-        'region_name':'regName3',
-        'region_id':null,
-        'region_attr':{ 
-          // 'anotherrgcor':'addddsf' 
-           'coordinates':[  
-              {  
-                 'latitude':37.79024344937056,
-                 'longitude':-122.42571830749512
-              },
-              {  
-                 'latitude':37.78997213484954,
-                 'longitude':-122.41936683654785
-              },
-              {  
-                 'latitude':37.78434213374121,
-                 'longitude':-122.42168426513672
-              }
-           ],
-           'fill':{  
-              'color':'#40E989 ',
-              'opacity':0.3
-           },
-           'stroke':{  
-              'color':'#40E989 ',
-              'weight':3,
-              'opacity':0.3
-           }
-        },
-        'actions':[  
+     // {  
+     //    'region_name':'regName3',
+     //    'region_id':null,
+     //    'region_attr':{ 
+     //      // 'anotherrgcor':'addddsf' 
+     //       'coordinates':[  
+     //          {  
+     //             'latitude':37.79024344937056,
+     //             'longitude':-122.42571830749512
+     //          },
+     //          {  
+     //             'latitude':37.78997213484954,
+     //             'longitude':-122.41936683654785
+     //          },
+     //          {  
+     //             'latitude':37.78434213374121,
+     //             'longitude':-122.42168426513672
+     //          }
+     //       ],
+     //       'fill':{  
+     //          'color':'#40E989 ',
+     //          'opacity':0.3
+     //       },
+     //       'stroke':{  
+     //          'color':'#40E989 ',
+     //          'weight':3,
+     //          'opacity':0.3
+     //       }
+     //    },
+     //    'actions':[  
 
-        ]
-     }
+     //    ]
+     // }
   ]
 };
 
@@ -240,7 +240,6 @@ describe('webApiRouter Integration Tests', function() {
         .send(testEventNoId)
         .set('Cookie', ['email=test%40org.com'])
         .end(function(err, res) {
-          console.log('qewr',res.request._data);
           assert.equal(res.request._data.name, 'musicFestival', 'should be same');
           done();
         });
@@ -252,9 +251,22 @@ describe('webApiRouter Integration Tests', function() {
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
           var events = res.body;
-          // console.log(events);
+          console.log('work!!!!',events[2]);
           assert.isObject(events[0]);
           assert.isObject(events[1]);
+          done();
+        });
+    });
+
+    
+     it('should return array of all events when GET /api/web/organizer/events', function(done) {
+      request(app)
+        .get('/api/web/organizer/actions/1')
+        .set('Cookie', ['email=test@org.com'])
+        .end(function(err, res) {
+          var actions = res.body;
+          console.log('found actions',actions);
+          assert.isObject(actions[0]);
           done();
         });
     });
@@ -267,11 +279,14 @@ describe('webApiRouter Integration Tests', function() {
         .set('Cookie', ['email=test@org.com'])
         .end(function(err, res) {
           assert.equal(res.request._data.name, 'musicFest2', 'should be same');
-          assert.equal(res.request._data.regions[0].region_id, 2, 'should be same');
+          assert.equal(res.request._data.regions[0].region_id, 3, 'should be same');
 
           done();
         });
     });
+
+
+
 
     it('should not be able to POST to /api/web/organizer/events when not logged in', function(done) {
       request(app)
