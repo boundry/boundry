@@ -35,37 +35,36 @@
         padding: 5px;
         border: 1px solid #999;
       }
-      #slider {
+      #slider, #slider-range {
         width: 500px;
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
-    <script>
 
-
-    </script>
 
 
   </head>
 
   <body>
     <h1>Data Analytics</h1>
-    <div id="example"></div>
 
-    <p>
-      <label for="heatmapSlider">Time Interval:</label>
-      <input type="text" id="heatmapSlider" readonly>
-    </p>
-    <div id="slider"></div>
-
-    <p>
-      <label for="timeIntervalSlider">Time Interval:</label>
-      <input type="text" id="timeIntervalSlider" readonly>
-    </p>
-    <div id="slider-range"></div>
 
     <div ng-app="boundry.analytics">
       <div ng-controller="analyticsCtrl">
+
+        <div ng-show="dataViewSelection.name === 'Heat Map'">
+          <label for="heatmapSlider">Time Interval:</label>
+          <input type="text" id="heatmapSlider" readonly>
+          <div id="slider"></div>
+        </div>
+
+        <div ng-show="dataViewSelection.name === 'Line Chart'">
+          <label for="timeIntervalSlider">Time Interval:</label>
+          <input type="text" id="timeIntervalSlider" readonly>
+          <div id="slider-range"></div>
+        </div>
+
+
           <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
           <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
           <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
