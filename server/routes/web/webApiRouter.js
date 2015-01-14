@@ -72,25 +72,55 @@ var postEvent = function(req,res) {
             regions.forEach(function(region) {
               //existing region
               if (region.id !== null) {
-                console.log('UPDATING REGION', region);
+                // console.log('UPDATING REGION', region.region_id);
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.id})
-                .update({region_name:region.region_name, region_attr: JSON.stringify(region.region_attr)
-                })
+                .where({ event_id: eventId,id: region.region_id})
+                .update({region_name:region.region_name,
+                 region_attr: JSON.stringify(region.region_attr)})
                 .then(function(reg) {
-                  console.log('UPDATED REGION', reg);
+                  var regionActionObj = region.actions;
+                  collections.Actions.query()
+                  .where({id:region.region_id})
+                  .update({name:regionActionObj[0].name, action_data:JSON.stringify(regionActionObj[0].action_data)})
+                  .then(function(actionUpdated) {
+                    // console.log('actionUpdated', actionUpdated);
+                  })
+                  .catch(function(err) {
+                    console.log('update reg error',err);
+                  });
                   // res.status(300).send('updated');
                 });
               //new region
               } else {
-                console.log('SAVING NEW REGION', region);
                 new models.Region({
                   region_name: region.region_name,
                   region_attr: JSON.stringify(region.region_attr),
                   event_id: eventId
                 }).save()
                 .then(function(savedReg) {
-                  // res.status(200).send('saved ev and region');
+                  collections.Regions.query()
+                  .where({id:savedReg.id})
+                  .then(function(foundReg) {
+                    if (foundReg.length > 0) {
+                      var regId = foundReg[0].id;
+                      if (region.actions.length > 0 && region.actions !== undefined) {
+                        region.actions.forEach(function(action) {
+                          action.region_id = savedReg.Id;
+                          new models.Action({
+                            name: action.name,
+                            action_data: action.action_data,
+                            region_id: regId
+                          }).save()
+                          .then(function(savedAction) {
+                            console.log('saved an action!', savedAction);
+                          })
+                          .catch(function(err) {
+                            console.log('error!!!',err);
+                          });
+                        });
+                      }
+                    }
+                  });
                 })
                 .catch(function(err) {
                   throw(err);
@@ -125,9 +155,30 @@ var postEvent = function(req,res) {
                       event_id: evId
                     }).save()
                     .then(function(savedReg) {
-                    })
-                    .catch(function(err) {
-                      throw(err);
+                      collections.Regions.query()
+                      .where({id:savedReg.id})
+                      .then(function(foundReg) {
+                        // console.log('colReg',foundReg);
+                        if (foundReg.length > 0) {
+                          var regId = foundReg[0].id;
+                          if (region.actions.length > 0 && region.actions !== undefined) {
+                            region.actions.forEach(function(action) {
+                              action.region_id = savedReg.Id;
+                              new models.Action({
+                                name: action.name,
+                                action_data: action.action_data,
+                                region_id: regId
+                              }).save()
+                              .then(function(savedAction) {
+                                // console.log('saved an action!', savedAction);
+                              })
+                              .catch(function(err) {
+                                console.log('error!!!',err);
+                              });
+                            });
+                          }
+                        }
+                      });
                     });
                 });
               }
@@ -145,8 +196,25 @@ var postEvent = function(req,res) {
   }
 };
 
+var getActions = function(req,res) {
+  if (util.isLoggedIn(req,res)) {
+    var regId = req.params.regionId;
+    console.log(regId + 'regId');
+    collections.Actions.query()
+    .where({region_id: regId})
+    .then(function(foundActions) {
+      res.status(200).send(foundActions);
+    })
+    .catch(function(err) {
+      console.log('cant get actions', err);
+    });
+  } else {
+    res.status(400).send('not logged in. cannot post.');
+  }
+};
+
 webApiRouter.get('/organizer/:email/events', getEvents);
 webApiRouter.post('/organizer/:email/events', postEvent);
-
+webApiRouter.get('/organizer/actions/:regionId', getActions);
 
 module.exports = webApiRouter;

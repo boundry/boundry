@@ -6,6 +6,9 @@
 .evSpan {
   float: left;
 }
+.eventsMap {
+  float: left;
+}
 input {
   margin-right: 10px;
 }
