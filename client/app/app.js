@@ -4,6 +4,7 @@ angular
     'boundry.eventEditor',
     'boundry.auth',
     'boundry.navbar',
+    'boundry.analytics',
     'ui.router',
     'uiGmapgoogle-maps'
   ])
@@ -30,9 +31,9 @@ angular
       controller: 'EventEditorCtrl',
     })
     .state('analytics', {
+      url:'/analytics',
       templateUrl: 'app/analytics/analytics.html',
-      controller: 'analytics',
-      url:'/analytics'
+      controller: 'AnalyticsCtrl'
     });
 
   //send base url to either login or dashboard depending if user is authenticated

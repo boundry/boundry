@@ -12,3 +12,17 @@
 input {
   margin-right: 10px;
 }
+
+#map, #dataView {
+  height: 500px;
+  width: 500px;
+}
+#panel {
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+}
+#slider, #slider-range {
+  width: 500px;
+}
