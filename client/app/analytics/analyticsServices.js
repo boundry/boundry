@@ -1,5 +1,5 @@
 angular
-  .module('boundry.analyticsServices', [])
+  .module('boundry.analytics')
   .factory('HeatMapFactory', HeatMapFactory)
   .factory('AnalyticsFactory', AnalyticsFactory);
 
@@ -12,6 +12,7 @@ function AnalyticsFactory(HeatMapFactory) {
 
 	function prepareData() {
 		var objectOfRegionData = filterDataByRegion(preprocessedSampleData);
+    console.log('objectOfRegionData', objectOfRegionData);
 		updateAllLineChartData(objectOfRegionData);
 	}
 
@@ -31,23 +32,62 @@ function AnalyticsFactory(HeatMapFactory) {
     for (var region in dataObject) {
       lineChartData[region] = generateLineChartData(dataObject[region]);
     }
+    console.log('lineChartData', lineChartData);
   }
 
-	function generateLineChartData(dataArray) {
-		var processedArray = [];
-		for (var i = 0; i < 24; i++) {
-			var temp = [];
-			var users = {};
+	// function generateLineChartData(dataArray) {
+	// 	var processedArray = [];
+	// 	for (var i = 0; i < 24 * 60; i++) {
+	// 		var temp = [];
+	// 		var users = {};
 
-			var timeFiltered = _.filter(dataArray, function(element) {
-				return i <= element.timestamp && element.timestamp < (i+1);
-			});
-			temp.push(i);
-			temp.push(numberOfUniqueUsers(timeFiltered));
-			processedArray.push(temp);
-		}
-		return processedArray;
-	}
+	// 		var timeFiltered = _.filter(dataArray, function(element) {
+	// 			return i <= element.timestamp && element.timestamp < (i+1);
+	// 		});
+	// 		temp.push(i);
+	// 		temp.push(numberOfUniqueUsers(timeFiltered));
+	// 		processedArray.push(temp);
+	// 	}
+	// 	return processedArray;
+	// }
+
+  function generateLineChartData(dataArray) {
+    var objectOfEachTime = {};
+    var processedArray = [];
+
+    _.each(dataArray, function(element) {
+      if (objectOfEachTime[element.timestamp]) {
+        objectOfEachTime[element.timestamp]++;
+      } else {
+        objectOfEachTime[element.timestamp] = 1;
+      }
+    });
+
+    for (var time in objectOfEachTime) {
+      var temp = [];
+      temp.push(parseInt(time));
+      temp.push(objectOfEachTime[time]);
+      processedArray.push(temp);
+    }
+
+    return processedArray;
+
+
+    // var processedArray = [];
+    // for (var i = 0; i < 24 * 60; i++) {
+    //     var temp = [];
+    //     var users = {};
+
+    //     var timeFiltered = _.filter(dataArray, function(element) {
+    //         return i <= element.timestamp && element.timestamp < (i+1);
+    //     });
+    //     temp.push(i);
+    //     temp.push(numberOfUniqueUsers(timeFiltered));
+    //     processedArray.push(temp);
+    // }
+    // return processedArray;
+
+  }
 
 	function numberOfUniqueUsers(dataArray) {
 		var users = {};
@@ -75,7 +115,7 @@ function AnalyticsFactory(HeatMapFactory) {
 
     for (var i = 0; i < finalData.length; i++) {
       var filteredData = _.filter(lineChartData[finalData[i].key], function(tuple) {
-        var time = tuple[0] * 60; // turn into minutes
+        var time = tuple[0];
         return (min <= time && time <= max);
       });
       finalData[i].values = filteredData;
@@ -254,28 +294,28 @@ function HeatMapFactory() {
 	  {
 	  	latitude: 37.782842,
 	  	longitude: -122.443688,
-	  	timestamp: 5,
+	  	timestamp: 100,
 	  	region: 'sampleRegion1',
 	  	userId: 2
 	  	},
 	  {
 	  	latitude: 37.782919,
 	  	longitude: -122.442815,
-	  	timestamp: 4,
+	  	timestamp: 200,
 	  	region: 'sampleRegion1',
 	  	userId: 1
 	  	},
 	  {
 	  	latitude: 37.782992,
 	  	longitude: -122.442112,
-	  	timestamp: 4,
+	  	timestamp: 400,
 	  	region: 'sampleRegion1',
 	  	userId: 1
 	  	},
 	  {
 	  	latitude: 37.783100,
 	  	longitude: -122.441461,
-	  	timestamp: 4,
+	  	timestamp: 300,
 	  	region: 'sampleRegion1',
 	  	userId: 1
 	  	},
@@ -283,7 +323,7 @@ function HeatMapFactory() {
 	  	latitude: 37.783206,
 	  	longitude: -122.440829,
 	  	timestamp: 4,
-	  	region: 'sampleRegion1',
+	  	region: 'sampleRegion2',
 	  	userId: 1
 	  	},
 	  {
@@ -296,14 +336,14 @@ function HeatMapFactory() {
 	  {
 	  	latitude: 37.783316,
 	  	longitude: -122.440023,
-	  	timestamp: 17,
+	  	timestamp: 170,
 	  	region: 'sampleRegion1',
 	  	userId: 1
 	  	},
 	  {
 	  	latitude: 37.783357,
 	  	longitude: -122.439794,
-	  	timestamp: 17,
+	  	timestamp: 1070,
 	  	region: 'sampleRegion1',
 	  	userId: 1
 	  	},

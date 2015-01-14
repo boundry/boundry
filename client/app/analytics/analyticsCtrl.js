@@ -1,10 +1,10 @@
 angular
-  .module('boundry.analytics', ['nvd3', 'boundry.analyticsServices'])
-  .controller('analyticsCtrl', analyticsCtrl);
+  .module('boundry.analytics', ['nvd3'])
+  .controller('AnalyticsCtrl', AnalyticsCtrl);
 
-  analyticsCtrl.$inject = ['$scope', '$http', 'AnalyticsFactory', 'HeatMapFactory'];
+  AnalyticsCtrl.$inject = ['$scope', '$http', 'AnalyticsFactory', 'HeatMapFactory'];
 
-  function analyticsCtrl ($scope, $http, AnalyticsFactory, HeatMapFactory) {
+  function AnalyticsCtrl ($scope, $http, AnalyticsFactory, HeatMapFactory) {
 
     $scope.views = AnalyticsFactory.views;
     $scope.events = [{name: 'event1'}, {name: 'event2'}];
@@ -115,6 +115,7 @@ angular
 
           $scope.$apply(function () {
             //rerender line chart with each value
+            console.log(ui.values);
             AnalyticsFactory.renderLineChart([ui.values[0], ui.values[1]]);
           });
 
