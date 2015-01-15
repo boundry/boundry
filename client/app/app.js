@@ -47,7 +47,7 @@ angular
 
    uiGmapGoogleMapApiProvider.configure({
      v: '3.18',
-     libraries: 'drawing, geometry, places'
+     libraries: 'drawing, geometry, places, visualization'
    });
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
