@@ -1,16 +1,15 @@
 <div>
-  <span>
-    <div ng-navbar></div>
-  </span>
-  <h1>My Enormous San Fran Event</h1>
-  <form> 
-    <input id="addressInput" type="textbox" placeholder="enter address"></input>
-    <input type="button" value="Find" ng-click="getAddresses()">
-  </form>
+    <div ng-navbar id='nav'></div>
+  <h1>Outside Lands 2019</h1>
+  <!--<form> -->
+    <!--<input id="addressInput" type="textbox" placeholder="enter address"></input>-->
+    <!--<input type="button" value="Find" ng-click="getAddresses()">-->
+  <!--</form>-->
 
   <!--<script type="text/ng-template" id="searchBox.template.html">-->
     <!--<input type="text"  placeholder="Search Address"/>-->
   <!--</script>-->
+  <ng-region-editor></ng-region-editor>
 
   <ui-gmap-google-map center='basicOptions.center' 
   zoom='basicOptions.zoom'
@@ -45,5 +44,4 @@
 
   <button ng-click="sendEventDataToServer()">SAVE</button>
   <div ng-model="currEventData">{{ currEventData }}</div>
-
 </div>

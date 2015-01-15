@@ -64,7 +64,11 @@ describe('Database Unit Tests', function () {
       name: 'My Event',
       start_time: '2004-05-23T14:25:10',
       end_time: '2004-05-23T14:25:10',
-      organizer_id: 1
+      organizer_id: 1,
+      event_center: JSON.stringify({ 
+        'latitude': 37.7665211,
+        'longitude': -122.480687
+      }),
     }).save()
     .then(function(model) {
       new models.Event({ name: 'My Event' })

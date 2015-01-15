@@ -15,7 +15,6 @@ angular
       getEvents: getEvents,
       setEventData: setEventData,
       getEventData: getEventData
-      // populateMap: populateMap
     };
 
 
@@ -24,7 +23,6 @@ angular
       eventData = data;
     }
     function getEventData () {
-      console.log('in here');
       return eventData;
     }
     //TODO: This smells bad. Data should be resolved in the factory, not the in
@@ -37,10 +35,4 @@ angular
       var url = '/api/web/organizer/' + organizerEmail + '/events';
       return $http.get(url);
     }
-
-
-    // function populateMap(eventId) {
-    //   console.log('qwer',eventId);
-    // }
-
   }

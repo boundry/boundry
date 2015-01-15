@@ -8,7 +8,7 @@ angular
     //TODO: Break all these options into a separate config file
     var polygonOptions = {
       fillColor: '#ffff00',
-      fillOpacity: 0.3,
+      fillOpacity: 0.6,
       strokeWeight: 3,
       clickable: true,
       zIndex: 1,
@@ -30,22 +30,6 @@ angular
       streetViewControl: false
     };
 
-    var polygonEvents = {
-      'click': function ( polygon, eventName, model, args ) {
-        //Everything within this handler function gets called TWICE per event,
-        //for some stupid reason. This timeout crap is a hacky workaround.
-        //Outer 'this' is the internal angular-google-maps model used to gen
-        //the GoogleMaps Polygon object
-        //Clear the first setTimeout before it has a chance to run
-        clearTimeout(this.doNotTriggerTwiceTimeout); 
-        //The second setTimeout will run, 50ms after the dumb second
-        //invocation of this whole handler.
-        this.doNotTriggerTwiceTimeout = setTimeout(function(){
-          //This stuff will get called once per click
-          console.log('POLYGON CLICKED', model.$parent.poly); //Polygon object from server
-        }, 50);         
-      }
-    };
 
     //EXPORTS
     return {
@@ -53,7 +37,6 @@ angular
       extraOptions: extraOptions,
 
       polygonOptions: polygonOptions,
-      polygonEvents: polygonEvents,
       Polygon: Polygon,
 
       savePolygons: savePolygons,
@@ -76,7 +59,6 @@ angular
           fill: null,
           stroke: null
         }, 
-        actions: []
       };
       pathArray.forEach(function(latlong) {
         polygon.region_attr.coordinates.push({
@@ -89,12 +71,12 @@ angular
       var color = getRandomColor();
       polygon.region_attr.fill = {
         color: color,
-        opacity: 0.3
+        opacity: 0.6
       };
       polygon.region_attr.stroke = {
         color: color,
         weight: 3,
-        opacity: 0.3
+        opacity: 0.2
       };
       return polygon;
     }
@@ -129,6 +111,9 @@ angular
 
     function sendEventDataToServer () {
       var scope = this;
+      //TODO: This is bad. Factory shouldn't be grabbing stuff from controller.
+      //Clicking a save button should just update the data in the factory (model) 
+      //and a watcher should detect a change and send the new data.
       var data = scope.currEventData;
       var organizerEmail = EventDashboardFactory.currentOrganizerEmail;
 

@@ -22,7 +22,7 @@ var getEvents = function(req,res) {
               events.models.forEach(function(ev) {
                 // console.log('55',ev.attributes);
                 ev.attributes.event_center = JSON.parse(ev.attributes.event_center);
-                console.log('attr!!',ev.attributes.event_center);
+                console.log('Event_center', ev.attributes.event_center);
                 ev.attributes.regions = [];
                 //for every region, push region attr to event.regions
                 ev.relations.regions.models.forEach(function(reg) {
@@ -72,23 +72,24 @@ var postEvent = function(req,res) {
             regions.forEach(function(region) {
               //existing region
               if (region.id !== null) {
-                // console.log('UPDATING REGION', region.region_id);
+                // console.log('UPDATING REGION', region.id);
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.region_id})
-                .update({region_name:region.region_name,
+                .where({ event_id: eventId,id: region.id})
+                .update({region_name: region.region_name,
                  region_attr: JSON.stringify(region.region_attr)})
                 .then(function(reg) {
-                  var regionActionObj = region.actions;
-                  collections.Actions.query()
-                  .where({id:region.region_id})
-                  .update({name:regionActionObj[0].name, action_data:JSON.stringify(regionActionObj[0].action_data)})
-                  .then(function(actionUpdated) {
-                    // console.log('actionUpdated', actionUpdated);
-                  })
-                  .catch(function(err) {
-                    console.log('update reg error',err);
-                  });
-                  // res.status(300).send('updated');
+                  if (region.actions !== undefined) {
+                    var regionActionObj = region.actions;
+                    collections.Actions.query()
+                      .where({region_id: region.id})
+                      .update({name:regionActionObj[0].name, action_data: regionActionObj[0].action_data})
+                      .then(function(actionUpdated) {
+                        console.log('actionUpdated', actionUpdated);
+                      })
+                    .catch(function(err) {
+                      console.log('update reg error',err);
+                    });
+                  }
                 });
               //new region
               } else {
