@@ -1,37 +1,36 @@
 <div>
-    <h1>Data Analytics</h1>
+  <h1>Data Analytics</h1>
 
-    <div ng-app="boundry.analytics">
-      <div ng-controller="AnalyticsCtrl">
+  <div ng-app="boundry.analytics">
+    <div ng-controller="AnalyticsCtrl">
 
-        <div ng-show="dataViewSelection.name === 'Heat Map'">
-          <label for="heatmapSlider">Time Interval:</label>
-          <input type="text" id="heatmapSlider" readonly>
-          <div id="slider"></div>
-        </div>
-
-        <div ng-show="dataViewSelection.name === 'Line Chart'">
-          <label for="timeIntervalSlider">Time Interval:</label>
-          <input type="text" id="timeIntervalSlider" readonly>
-          <div id="slider-range"></div>
-        </div>
-
-
-          <!-- <select ng-model="eventSelection" ng-options="event.name for event in events"></select> -->
-          <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
-          <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
-          <div ng-show='dataViewSelection.name === "Heat Map"'>
-            <div id="panel">
-              <button ng-click="toggleHeatmap()">Toggle Heatmap</button>
-              <button ng-click="changeGradient()">Change gradient</button>
-              <button ng-click="changeRadius()">Change radius</button>
-              <button ng-click="changeOpacity()">Change opacity</button>
-            </div>
-            <div id="map"></div>
-          </div>
+      <div ng-show="dataViewSelection.name === 'Heat Map'">
+        <label for="heatmapSlider">Time Interval:</label>
+        <input type="text" id="heatmapSlider" readonly>
+        <div id="slider"></div>
       </div>
-    </div>
 
+      <div ng-show="dataViewSelection.name === 'Line Chart'">
+        <label for="timeIntervalSlider">Time Interval:</label>
+        <input type="text" id="timeIntervalSlider" readonly>
+        <div id="slider-range"></div>
+      </div>
+
+
+        <!-- <select ng-model="eventSelection" ng-options="event.name for event in events"></select> -->
+        <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
+        <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
+        <div ng-show='dataViewSelection.name === "Heat Map"'>
+          <div id="panel">
+            <button ng-click="toggleHeatmap()">Toggle Heatmap</button>
+            <button ng-click="changeGradient()">Change gradient</button>
+            <button ng-click="changeRadius()">Change radius</button>
+            <button ng-click="changeOpacity()">Change opacity</button>
+          </div>
+          <div id="map"></div>
+        </div>
+    </div>
+  </div>
 </div>
 
 
