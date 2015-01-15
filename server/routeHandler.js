@@ -10,9 +10,12 @@ var authRouter = require('./routes/web/authRouter');
 
 //serve signup page as default
 routeHandler.get('/', function(req, res) {
-  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+  res.sendFile(path.resolve(__dirname + '/../client'));
 });
 
+routeHandler.get('/analytics', function(req, res) {
+  res.sendFile(path.resolve(__dirname + '/../client/app/analytics/analytics.html'));
+});
 
 routeHandler.use('/api/mobile', mobileApiRouter);
 routeHandler.use('/api/web', webApiRouter);
