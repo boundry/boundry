@@ -8,19 +8,13 @@ angular
   ];
 
   function EventDashboardCtrl ($scope, EventDashboardFactory, uiGmapGoogleMapApi) {
+    $scope.init = function() {
+      var el = document.getElementsByClassName('angular-google-map-container');
+      el[0].classList.add('dashboardMap');
+    };
     angular.extend($scope, EventDashboardFactory);
      
       $scope.options = {scrollwheel: false}; 
-    //    $scope.map = {
-    //   center: {latitude: 51.219053, longitude: 4.404418 },
-    //   zoom: 14 
-    // };
-      //fix map size
-      $scope.styleTest = {
-        'width' : '500px',
-        // 'height' : '200px',
-        'background' : 'gray'
-      };
 
     //TODO: Move this into an activate function
     $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in email pulled from dashboard factory which is pulled from auth factory 
