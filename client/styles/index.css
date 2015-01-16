@@ -1,21 +1,106 @@
-#vertices {
-  width: 100%;
+html {
+  background-color: #ffffff;
+  /*1F2831*/
 }
-.angular-google-map-container { height: 600px; }
+body {
+  margin: 0px;
+}
 
-.evSpan {
-  float: left;
+.editBtn {
+  float: right;
+  display: inline-block;
+
 }
-.eventsMap {
-  float: left;
+
+#boundryName {
+  color: #ffffff;
+  font-size: 16px;
 }
+
+#evDash {
+  padding: 20px 0 20px 0;
+  margin-left: 10px;
+  font-size: 35px;
+  color: #3A4C5E;
+  font-weight: 700;
+}
+#yourEvTitle {
+  color: #58697A;
+  margin-bottom: 15px;
+  /*padding: 5px;*/
+  font-weight: 700;
+  border-bottom: 2px solid #58697A;
+  width: 100%;
+  font-size: 25px;
+}
+
+#evSpan {
+  float: left;
+  font-size: 10px;
+  list-style:none;
+  padding-left: 0px;
+  width: 100%;
+  padding: 0 0 10px 0;
+  border-bottom: 1px #B5B5B5 solid;
+
+}
+
+#yourEvents {
+  padding: 10px;
+  height: 500px;
+  background-color: #E8E8E8;
+  margin: 15px;
+  width: 25%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;   
+}
+
+
+#eventName {
+  float: left;
+  color: #698A96;
+  padding: 0px 13.6px;
+  margin: 5px;
+  font-family: Montserrat, sans-serif;
+  /*border-left: 2px #479DC8 solid;*/
+  font-size: 17px;
+  /*padding: 10px;*/
+  /*margin-bottom: 1em;*/
+  margin-right: 25px;
+  margin-left: 0px;
+  /*padding: 20px 0;*/
+  text-align: left;
+  width: 100px;
+}
+
 input {
   margin-right: 10px;
 }
 
-#map, #dataView {
+
+#vertices {
+  width: 100%;
+}
+
+/*.angular-google-map-container { 
+  height:100%; 
+  width:100%; 
+  position:absolute;
+  top:0;
+  left:0; 
+}*/
+
+#map {
+  float: right;
+}
+ #dataView {
   height: 500px;
   width: 500px;
+  float: left;
+  padding-bottom: 50px;
 }
 #panel {
   z-index: 5;
@@ -27,15 +112,65 @@ input {
   width: 500px;
 }
 
-*{font-family:'Trebuchet MS';}
+*{
+  /*font-family:'Trebuchet MS';*/
+  /*font-family: 'Montserrat', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
+}
 
 div[ng-navbar]{
-  background-color: #99CCFF;
-  padding: 20px 10px;
-  margin: 0;
-  color: white;
+  background-color: #637485;
+  padding: 20px 20px;
+  font-size: 12px;
 }
 a {
     text-decoration: none;
-    color: white;
+    color: #ffffff;
+    margin-left: 25px;
+    font-size: 16px;
+
+}
+
+
+#btn {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition-property: background;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+/*  color: #ffffff;
+  background-color: #BBBBBB;*/
+  background-color: #545E66;
+  color: #ffffff;
+  text-shadow: none;
+  border: none;
+  height: 20px;
+  line-height: 20px;
+  padding: 0px 13.6px;
+  font-weight: 300;
+  font-size: 13px;
+  /*border: 1px #969595 solid;*/
+  /*font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  margin: 5px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;     
+}
+
+/* The next blocks of code are for user actions on the buttons. */
+#btn:hover {
+  text-decoration: none;
+  color: #545E66;
+  background-color: #ffffff;
 }
