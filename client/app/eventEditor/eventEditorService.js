@@ -40,7 +40,7 @@ angular
       Polygon: Polygon,
 
       savePolygons: savePolygons,
-      sendEventDataToServer: sendEventDataToServer,
+      sendEventDataToServerAndRefresh: sendEventDataToServerAndRefresh,
       getPolygonsFromServer: getPolygonsFromServer,
 
       grabEventData: grabEventData
@@ -109,7 +109,7 @@ angular
       console.log('Could not get event data for event id: ', eventId);
     }
 
-    function sendEventDataToServer () {
+    function sendEventDataToServerAndRefresh () {
       var scope = this;
       //TODO: This is bad. Factory shouldn't be grabbing stuff from controller.
       //Clicking a save button should just update the data in the factory (model) 
@@ -118,7 +118,20 @@ angular
       var organizerEmail = EventDashboardFactory.currentOrganizerEmail;
 
       $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
-        .success(logSuccess)
+        .success(function(data, status) {
+          logSuccess(data, status);
+
+          //Get the fresh data from the server, with the server-generated IDs
+          //for newly created regions
+          EventDashboardFactory.getEvents(organizerEmail)
+            .success(function(data) {
+              //Set it on the factory
+              EventDashboardFactory.setEventData(data);
+            }) 
+            .error(function(error) {
+              console.log(error);
+            });
+        })
         .error(logError);
     }
 

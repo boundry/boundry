@@ -23,6 +23,19 @@ angular
     $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
     console.log('currEventData', $scope.currEventData);
 
+    //Listen to data changes on the factory and reset the scope data to match.
+    //This is lets us grab the region IDs that the server generates for newly
+    //created polygons and set them on the scope so we don't keep saving them
+    //with null IDs
+    var unbind = $rootScope.$on('eventDataUpdated', function (event) {
+      event.stopPropagation();
+
+      $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
+      console.log('updatedCurrEventData', $scope.currEventData);
+    });
+
+    $scope.$on('$destroy', unbind);
+
     //Save event listeners to scope for use by polygon directive. Used to live
     //in factory but the handler needs to call something on the scope.
     $scope.polygonEvents = {

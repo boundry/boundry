@@ -2,9 +2,9 @@ angular
   .module('boundry.eventDashboard', [])
   .factory('EventDashboardFactory', EventDashboardFactory);
 
-  EventDashboardFactory.$inject = ['$http', 'AuthFactory'];
+  EventDashboardFactory.$inject = ['$rootScope', '$http', 'AuthFactory'];
 
-  function EventDashboardFactory ($http, AuthFactory) {
+  function EventDashboardFactory ($rootScope, $http, AuthFactory) {
     var eventData; //Set by controller after promise returns
     //TODO: This should be called anew from the controller, so the email doesn't
     //persist here after the user logs out. 
@@ -21,6 +21,7 @@ angular
     //Getter/setter for eventData
     function setEventData (data) {
       eventData = data;
+      $rootScope.$emit('eventDataUpdated');
     }
     function getEventData () {
       return eventData;

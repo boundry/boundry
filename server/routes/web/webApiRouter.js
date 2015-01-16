@@ -129,7 +129,7 @@ var postEvent = function(req,res) {
 
               }
             });
-              res.status(300).send('updated');
+              res.status(200).send('updated');
           });
         } else {
           //save new event to event table
