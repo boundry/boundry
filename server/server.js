@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(morgan('tiny'));
-console.log(path.join(__dirname, '/../client'));
 app.use(express.static(path.join(__dirname, '/../client/')));
 
 //Application
