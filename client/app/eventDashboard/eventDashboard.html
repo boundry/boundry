@@ -1,14 +1,16 @@
 <div>
-  <span>
     <div ng-navbar></div>
-  </span>
   <h1>Event Dashboard</h1>
   <div><input type="button" value="Create New Event" ui-sref='eventEditor()'></div>
   <h3>Your Events</h3>
 
 
   <div ng-repeat='event in eventData'>
-    <div ng-click='populateMap($index)'> <span id='evSpan'><input type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>{{ event.name }}</span></div>
+    <div ng-click='populateMap($index)'> 
+      <span id='evSpan'>
+        <input type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>{{ event.name }}
+      </span>
+    </div>
   </div>
   <div><input type="button" value="Data Analytics" ui-sref='analytics()'></div>
 

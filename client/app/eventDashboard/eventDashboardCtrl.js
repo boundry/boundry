@@ -22,6 +22,7 @@ angular
         'background' : 'gray'
       };
 
+    //TODO: Move this into an activate function
     $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in email pulled from dashboard factory which is pulled from auth factory 
       .success(function(data) {
         $scope.setEventData(data); //Set data on factory
@@ -31,7 +32,9 @@ angular
       .error(function(error) {
         console.log(error);
       });
-    //create regions on map
+
+    //TODO: Move this to factory
+    //render regions on map preview
     $scope.populateMap = function(ind) {
       $scope.polygons = [];
       // $scope.getPolygons(ind);

@@ -3,6 +3,7 @@
     // See http://jshint.com/docs/ for more details
 
     "-W082"         : false,    // disable: Function decarations should not be placed in blocks
+    "-W069"         : false,    // disable: Properties should be accessed via dot notation
 
     "maxerr"        : 50,       // {int} Maximum error before stopping
 

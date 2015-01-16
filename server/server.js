@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var cors = require('cors');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var path = require('path');
 
 var routeHandler = require('./routeHandler');
 
@@ -19,6 +20,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(morgan('tiny'));
+console.log(path.join(__dirname, '/../client'));
+app.use(express.static(path.join(__dirname, '/../client/')));
 
 //Application
 var port = process.env.PORT || 8000;

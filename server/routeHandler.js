@@ -13,9 +13,6 @@ routeHandler.get('/', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 });
 
-//serve all static files
-routeHandler.use(express.static(__dirname + './../client'));
-
 
 routeHandler.use('/api/mobile', mobileApiRouter);
 routeHandler.use('/api/web', webApiRouter);
