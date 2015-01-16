@@ -1,33 +1,35 @@
-<div>
+<div ng-init="init()">
   <span>
     <div ng-navbar></div>
 
-  <div id="evDash">Event Dashboard</div>
+  <div id="evDash">EVENT DASHBOARD</div>
 
   <div id="yourEvents">
     <div id="yourEvTitle">Your Events</div>
-    <div ng-repeat='event in eventData'>
-      <div ng-click='populateMap($index)'> 
-        <ul id='evSpan'>
-          <input id="btn" class="editBtn" type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
-          <li id='eventName'>{{ event.name }}</div>
-        </ul>
+
+    <div id="eventsAndMap">
+      <div id="leftCol">
+        <div id="createEvBtn"><input id="btn" type="button" value="Create Event" ui-sref='eventEditor()'></div>
+
+        <div id="eventList" ng-repeat='event in eventData'>
+            <ul id='evSpan'>
+              <input id="btn" class="editBtn" type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
+              <li id='eventName' ng-click='populateMap($index)'>{{ event.name }}</li>
+            </ul>
+        </div>
+
+      </div>
+      <div id="map"> 
+          <ui-gmap-google-map 
+            center="map.center" 
+            zoom="map.zoom" 
+            draggable="true" 
+            options="options" >
+             <ui-gmap-polygon static="true" ng-repeat="p in polygons" path="p.coordinates" stroke="p.stroke" visible="p.visible"
+              geodesic="p.geodesic" fill="p.fill" fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polygon>
+          </ui-gmap-google-map>
       </div>
     </div>
-
-  <div><input id="btn" type="button" value="Create Event" ui-sref='eventEditor()'></div>
-
-    <!-- <div><input id="btn" type="button" value="Data Analytics" ui-sref='analytics()'></div> -->
   </div>
 
-  <section class="map" ng-style="styleTest">
-      <ui-gmap-google-map 
-        center="map.center" 
-        zoom="map.zoom" 
-        draggable="true" 
-        options="options" >
-         <ui-gmap-polygon static="true" ng-repeat="p in polygons" path="p.coordinates" stroke="p.stroke" visible="p.visible"
-                   geodesic="p.geodesic" fill="p.fill" fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polygon>
 
-      </ui-gmap-google-map>
-  </section>

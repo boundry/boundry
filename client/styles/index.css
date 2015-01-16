@@ -26,11 +26,12 @@ body {
 }
 #yourEvTitle {
   color: #58697A;
-  margin-bottom: 15px;
+
+  padding: 10px 0 10px 10px;
+  margin-bottom: 30px;
   /*padding: 5px;*/
   font-weight: 700;
   border-bottom: 2px solid #58697A;
-  width: 100%;
   font-size: 25px;
 }
 
@@ -49,8 +50,7 @@ body {
   padding: 10px;
   height: 500px;
   background-color: #E8E8E8;
-  margin: 15px;
-  width: 25%;
+  margin: 20px 50px 0 50px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -58,6 +58,37 @@ body {
   border-radius: 5px;   
 }
 
+#eventsAndMap {
+  margin: 30px;
+}
+#eventList {
+  width: 30%;
+  border-right: 1px solid black;
+}
+
+#map {
+  display: inline-block;
+  width: 70%;
+
+}
+
+.angular-google-map-container {
+height: 600px;
+}
+/*.angular-google-map-container {*/
+.dashboardMap {
+  /*display: inline-block;*/
+  background-color: gray;
+  float: left;
+  width: 80%;
+  height: 350px;
+  margin-left: 100px;
+}
+
+.angular-google-map {
+    top: 80px;
+
+}
 
 #eventName {
   float: left;
@@ -85,17 +116,6 @@ input {
   width: 100%;
 }
 
-/*.angular-google-map-container { 
-  height:100%; 
-  width:100%; 
-  position:absolute;
-  top:0;
-  left:0; 
-}*/
-
-#map {
-  float: right;
-}
  #dataView {
   height: 500px;
   width: 500px;
@@ -131,6 +151,10 @@ a {
 
 }
 
+
+#createEvBtn {
+  padding-bottom: 10px;
+}
 
 #btn {
   -webkit-border-radius: 2px;
