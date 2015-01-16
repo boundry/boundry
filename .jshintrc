@@ -28,7 +28,7 @@
                                 //   true     : ensure whatever is used is consistent
                                 //   "single" : require single quotes
                                 //   "double" : require double quotes
-    "undef"         : true,     // true: Require all non-global variables to be declared (prevents global leaks)
+    "undef"         : false,     // true: Require all non-global variables to be declared (prevents global leaks)
     "unused"        : false,     // true: Require all defined variables be used
     "strict"        : false,    // true: Requires all functions run in ES5 Strict Mode
     "maxparams"     : false,    // {int} Max number of formal params allowed per function
@@ -90,6 +90,7 @@
         "google": true,
         "angular": true,
         "d3": true,
-        "_": true
+        "_": true,
+        "preprocessedData": true
     }
 }
