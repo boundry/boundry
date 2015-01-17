@@ -71,8 +71,8 @@ body {
   border-right: 1px solid black;
 }
 #noEventMessage {
-  display: inline-block;
-  font-size: 12px;
+  float: left;
+  font-size: 20px;
   color: black;
   width: 30%;
   height: 300px;
@@ -81,12 +81,56 @@ body {
 #map {
   display: inline-block;
   width: 70%;
-
+  /*float: right;*/
 }
 
 .angular-google-map-container {
-height: 600px;
+height: 800px;
 }
+#overlay {
+  margin: auto;
+  position: absolute;
+  top: 50px;
+  height: 100%; 
+  left: 0px;
+  /*bottom: 50px; */
+  /*right: 50px;*/
+  opacity: 0.88;
+  width: 185px;
+  background-color: #4e5b69;
+  color: #ffffff;
+  font-size: 15px;
+  z-index: 5;
+  padding-left: 30px;
+}
+
+#region-editor {
+  /*padding-left: 15px;*/
+  font-size: 13px;
+}
+#regName,#actName, #actData {
+   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
+  outline: none;
+  background-color:white;
+  color: #637485;
+  height: 5px;
+  width: 120px;
+  border: 1px solid gray;
+  /*padding: 15px;*/
+  /*margin: 10px auto 10px 20px;*/
+  font-size: 15px;
+  text-align: center;
+}
+
+#regName:focus,#actName:focus, #actData:focus, #regName.focus.hover.active,#actName.focus.hover.active, #actData.focus.hover.active {
+  background-color: white;
+  color: #637485;
+}
+
 /*.angular-google-map-container {*/
 .dashboardMap {
   /*display: inline-block;*/
@@ -99,7 +143,6 @@ height: 600px;
 
 .angular-google-map {
     top: 80px;
-
 }
 
 #eventName {
@@ -122,7 +165,6 @@ height: 600px;
 input {
   margin-right: 10px;
 }
-
 
 #vertices {
   width: 100%;
@@ -168,8 +210,59 @@ div[ng-navbar]{
   text-decoration: none;
 }
 
-#createEvBtn {
+#createEvDiv {
   padding-bottom: 10px;
+}
+
+#saveButton,#createButton {
+   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
+  background-color: #637485;
+  color: white;
+  font-size: 13px;
+  width: 80px;
+  height: 26px !important;
+  border: 1px solid white;
+  margin: 25px auto 5px 0px;
+  text-align: center;
+  min-width: 50px;
+  line-height:13px;
+  outline: none;
+  float:left;
+}
+
+#createButton {
+  background-color: #698A96;
+   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
+  font-size: 13px;
+  width: 100px;
+  height: 30px !important;
+  border: 1px solid white;
+  margin: 0px auto 5px 0px;
+  text-align: center;
+  min-width: 50px;
+  line-height:15px;
+  outline: none;
+  float:left;
+}
+#createButton:hover {
+  background-color: #89B0BE;
+}
+
+#saveButton:hover {
+  background-color: white;
+  color:#4E5B69;
+}
+#errMessage {
+  font-size: 12px;
+  color: white;
 }
 
 #btn {

@@ -26,6 +26,10 @@ angular
     };
 
     var extraOptions = {
+      zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.LARGE,
+                    position: google.maps.ControlPosition.RIGHT_CENTER
+                },
       panControl: false,
       streetViewControl: false
     };

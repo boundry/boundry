@@ -27,6 +27,11 @@ input[type="text"], input[type="email"], input[type="password"]{
   margin: 10px auto 10px auto;
   font-size: 15px;
   text-align: center;
+   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
 }
 
 input[type="text"]:focus, input[type="text"].focus.hover.active,
@@ -37,6 +42,11 @@ input[type="email"].focus.hover.active, input[type="password"].focus.hover.activ
 }
 
 #loginSubmit, #signUpSubmit {
+   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;   
   font-size: 15px;
   width: 100px;
   height: 30px !important;

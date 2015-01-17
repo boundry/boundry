@@ -1,6 +1,12 @@
 <div>
     <div ng-navbar id='nav'></div>
-  <h1>Outside Lands 2019</h1>
+
+    <div id="overlay">
+      <h1>Outside Lands 2019</h1>
+      <ng-region-editor></ng-region-editor>
+      <button id="saveButton" ng-click="sendEventDataToServerAndRefresh(currEventData)">SAVE</button>
+    </div>
+
   <!--<form> -->
     <!--<input id="addressInput" type="textbox" placeholder="enter address"></input>-->
     <!--<input type="button" value="Find" ng-click="getAddresses()">-->
@@ -9,8 +15,6 @@
   <!--<script type="text/ng-template" id="searchBox.template.html">-->
     <!--<input type="text"  placeholder="Search Address"/>-->
   <!--</script>-->
-  <button ng-click="sendEventDataToServerAndRefresh(currEventData)">SAVE</button>
-  <ng-region-editor></ng-region-editor>
 
   <ui-gmap-google-map center='basicOptions.center' 
   zoom='basicOptions.zoom'
@@ -43,5 +47,5 @@
 
   </ui-gmap-google-map>
 
-  <div ng-model="currEventData">{{ currEventData }}</div>
+  <!-- <div ng-model="currEventData">{{ currEventData }}</div> -->
 </div>
