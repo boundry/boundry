@@ -10,9 +10,12 @@ angular
   ];
 
   function EventDashboardCtrl ($rootScope, $scope, AuthFactory, EventDashboardFactory, uiGmapGoogleMapApi) {
+    $scope.hasEvent = false;
+    $scope.eventMessage = '';
     $scope.init = function() {
       var ngS = document.getElementsByClassName('ng-scope');
       ngS[0].classList.remove('loginHtml');
+      ngS[0].classList.remove('signupHtml');
       var el = document.getElementsByClassName('angular-google-map-container');
       el[0].classList.add('dashboardMap'); 
     };
@@ -33,6 +36,12 @@ angular
         $scope.setEventData(data); //Set data on factory
         $scope.eventData = $scope.getEventData();
         console.log('evdat', $scope.eventData);
+
+        if(data.length === 0) {
+          console.log('no data');
+          $scope.hasEvent = true;
+          $scope.eventMessage = 'No events';
+        }
       })
       .error(function(error) {
         console.log(error);

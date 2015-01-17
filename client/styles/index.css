@@ -1,11 +1,10 @@
 html {
-  background-color: #ffffff;
+  background-color: #637485;
 }
 
 body {
   margin: 0px;
 }
-
 
 .editBtn {
   float: right;
@@ -24,17 +23,17 @@ body {
   padding: 20px 0 20px 0;
   margin-left: 10px;
   font-size: 35px;
-  color: #3A4C5E;
+  color: #DBDBDB;
   font-weight: 700;
 }
 #yourEvTitle {
-  color: #58697A;
+  color: #637485;
 
   padding: 10px 0 10px 10px;
-  margin-bottom: 30px;
-  /*padding: 5px;*/
+  margin: 0 15px;
+  /* padding: 5px; */
   font-weight: 700;
-  border-bottom: 2px solid #58697A;
+  border-bottom: 1px solid #637485;
   font-size: 25px;
 }
 
@@ -45,28 +44,38 @@ body {
   padding-left: 0px;
   width: 100%;
   padding: 0 0 10px 0;
-  border-bottom: 1px #B5B5B5 solid;
+  border-bottom: 1px #637485 solid;
 
 }
 
 #yourEvents {
   padding: 10px;
   height: 500px;
-  background-color: #E8E8E8;
+  background-color: #FFFFFF; /*#E8E8E8;*/
+  border: 1px white solid;
   margin: 20px 50px 0 50px;
-  -webkit-border-radius: 5px;
+/*  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
-  border-radius: 5px;   
+  border-radius: 5px;   */
 }
 
 #eventsAndMap {
   margin: 30px;
 }
+
 #eventList {
   width: 30%;
+  height: 100%;
   border-right: 1px solid black;
+}
+#noEventMessage {
+  display: inline-block;
+  font-size: 12px;
+  color: black;
+  width: 30%;
+  height: 300px;
 }
 
 #map {
@@ -142,13 +151,13 @@ input {
 }
 
 div[ng-navbar]{
-  background-color: #637485;
+  background-color: #4E5B69;
   padding: 20px 20px;
   font-size: 12px;
 }
-a {
+#navAna, #navLogout, a {
     text-decoration: none;
-    color: #ffffff;
+    color: #d8d8d8;
     margin-left: 25px;
     font-size: 16px;
 }
