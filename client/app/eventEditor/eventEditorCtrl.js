@@ -32,12 +32,17 @@ angular
     //This is lets us grab the region IDs that the server generates for newly
     //created polygons and set them on the scope so we don't keep saving them
     //with null IDs
-    var unbind = $rootScope.$on('eventDataUpdated', function (event) {
+    var dataUpdateListener = $rootScope.$on('eventDataUpdated', function (event) {
       $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
       console.log('updatedCurrEventData', $scope.currEventData);
     });
 
-    $scope.$on('$destroy', unbind);
+    //Clear polygon from scope immediately and then send delete request to server
+    var deleteRegionListener = $rootScope.$on('deleteRegion', function (event, currEventId, currRegionIndex, currRegionId) {
+      event.stopPropagation();
+      $scope.currEventData.regions.splice(currRegionIndex, 1); //Remove region from scope
+      $scope.deletePolygon(currRegionId);
+    });
 
     //Save event listeners to scope for use by polygon directive. Used to live
     //in factory but the handler needs to call something on the scope.
@@ -70,7 +75,6 @@ angular
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
           drawingModes:[
             google.maps.drawing.OverlayType.POLYGON
           ]
@@ -88,8 +92,10 @@ angular
         }
         //When a new polygon is drawn, make a new Polygon object and store it
         google.maps.event.addListener($scope.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function (polygon) {
-          console.log('polygon', polygon);
-          $scope.currEventData.regions.push($scope.Polygon(polygon.overlay.getPath().getArray()));
+          var newPolygon = new $scope.Polygon(polygon.overlay.getPath().getArray());
+          console.log('New Polygon: ', newPolygon);
+
+          $scope.currEventData.regions.push(newPolygon);
           //Here, polygon belongs to the Drawing Manager. Empty the path so we
           //don't display it in addition to our newly constructed polygon.
           polygon.overlay.setPath([]);           
@@ -101,6 +107,10 @@ angular
     .catch(function(err) {
       console.log('Could not load api', err);
     });
-  }
+
+  //Remove listeners when controller is destroyed to avoid adding multiple
+  $scope.$on('$destroy', dataUpdateListener);
+  $scope.$on('$destroy', deleteRegionListener);
+}
 
 

@@ -212,7 +212,7 @@ var deleteEvent = function (req, res) {
       })
       .catch(function(error) {
         res.status(500).send(error);
-        console.log(error);
+        console.log('Failed to delete event because ', error);
       });
   } else {
     res.status(400).send('Not logged in. Cannot delete event');
@@ -220,12 +220,34 @@ var deleteEvent = function (req, res) {
 
 };
 
+//Deletes a region and its related actions
 var deleteRegion = function (req, res) {
-/*  if (util.isLoggedIn(req, res)) {*/
-    
-  //} else {
-    //res.status(400).send('Not logged in. Cannot delete event');
-  /*}*/
+  if (util.isLoggedIn(req, res)) {
+    var regionId = req.params.regionId;
+
+    new models.Region({id: regionId})
+      .fetch({withRelated: ['actions']})
+      .then(function(region) {
+        //Promise to destroy all the region's actions
+        return region.related('actions').invokeThen('destroy') 
+          .then(function(resp) {
+            console.log('actions destroyed', resp.attributes);
+            //Destroy the region itself
+            return region.destroy().then(function(resp) {
+              console.log('region destroyed', resp.attributes);
+            });
+          });
+      })
+    .then(function() {
+      res.status(204).send('Deleted data for region id: ', regionId);
+    })
+    .catch(function(error) {
+      res.status(500).send(error);
+      console.log('Failed to delete region because: ', error);
+    });
+  } else {
+    res.status(400).send('Not logged in. Cannot delete event');
+  }
 };
 
 webApiRouter.get('/organizer/:email/events', getEvents);

@@ -43,6 +43,7 @@ angular
       polygonOptions: polygonOptions,
       Polygon: Polygon,
 
+      deletePolygon: deletePolygon, //TODO: We use region / polygon interchangeably; we should be consistent
       grabEventData: grabEventData
     };
 
@@ -51,36 +52,36 @@ angular
     //Should generate unique hash ID
     function Polygon (pathArray) {
       //Convert keys to 'latitude' and 'longitude', from 'k' and 'B' (gmaps)
-      var polygon = {
-        region_name: null, //TODO: User sets this
-        id: null,
-        region_attr: {
-          coordinates: [],
-          fill: null,
-          stroke: null
-        }, 
-      };
+      this.region_name = null; //TODO: User sets this
+      this.id = null;
+
+      var coordinates = [];
       pathArray.forEach(function(latlong) {
-        polygon.region_attr.coordinates.push({
+        coordinates.push({
           'latitude': latlong.k, //TODO: Brittle. What if 'k' and 'B', change?
           'longitude': latlong.B
         });
       });
 
+      this.region_attr = {
+        coordinates: coordinates,
+        fill: null,
+        stroke: null
+      };
+
       //Generate a random color
       var color = getRandomColor();
-      polygon.region_attr.fill = {
+      this.region_attr.fill = {
         color: color,
         opacity: 0.6
       };
-      polygon.region_attr.stroke = {
+      this.region_attr.stroke = {
         color: color,
         weight: 3,
         opacity: 0.2
       };
-      return polygon;
     }
-
+    
     //Gets event data for specific event from Dashboard Factory
     function grabEventData(eventId) {
       //Grab all event data from Dashboard Service
@@ -93,6 +94,22 @@ angular
         }
       }
       console.log('Could not get event data for event id: ', eventId);
+    }
+
+    function deletePolygon(regionId) {
+      console.log('deleting ', regionId);
+      //If regionId is not null, then make server request
+      if (regionId === undefined || regionId === null) {
+        console.log('No need to delete region with null ID');
+      } else {
+        $http.delete('api/web/organizer/regions/' + regionId)
+          .success(function(data, status) {
+            console.log('Deleted Region, ', regionId);
+          })
+          .error(function(error) {
+            console.log(error);
+          });
+      }
     }
     
     function getRandomColor() {
