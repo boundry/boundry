@@ -1,37 +1,44 @@
-<div ng-init="init()">
-  <span ng-init="init()">
+<div ng-init='init()'>
+  <span ng-init='init()'>
     <div ng-navbar></div>
 
-  <div id="evDash">EVENT DASHBOARD</div>
+  <div id='evDash'>EVENT DASHBOARD</div>
 
-  <div id="yourEvents">
-    <div id="yourEvTitle">Your Events</div>
+  <div id='yourEvents'>
+    <div id='yourEvTitle'>Your Events</div>
 
+<!-- <<<<<<< HEAD
     <div id="eventsAndMap">
       <div id="leftCol">
         <div id="createEvBtn"><input id="btn" type="button" value="Create Event"
           ng-click="createNewEvent()"></div>
+======= -->
+    <div id='eventsAndMap'>
+      <div id='leftCol'>
+        <div id='createEvBtn'><input id='btn' type='button' value='Create Event' ui-sref='eventEditor()'></div>
+        <div id="noEventMessage" ng-show='hasEvent'>{{eventMessage}}</div>
+<!-- >>>>>>> (feat) styling of login/signup. Change color theme -->
 
-        <div id="eventList" ng-repeat='event in eventData'>
+        <div id='eventList' ng-repeat='event in eventData'>
             <ul id='evSpan'>
-              <input id="btn" class="editBtn" type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
+              <input id='btn' class='editBtn' type='button' value='Edit' ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
               <li id='eventName' ng-class='{evNameInList: hover}' ng-mouseenter='populateMap($index); hover = true' ng-mouseleave='hover = false'>
           {{ event.name }}</li>
             </ul>
         </div>
 
-        <!-- ng-click="edit($index); open()" -->
+        <!-- ng-click='edit($index); open()' -->
 
 
       </div>
-      <div id="map"> 
+      <div id='map'> 
           <ui-gmap-google-map 
-            center="map.center" 
-            zoom="map.zoom" 
-            draggable="true" 
-            options="options" >
-             <ui-gmap-polygon static="true" ng-repeat="p in polygons" path="p.coordinates" stroke="p.stroke" visible="p.visible"
-              geodesic="p.geodesic" fill="p.fill" fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polygon>
+            center='map.center' 
+            zoom='map.zoom' 
+            draggable='true' 
+            options='options' >
+             <ui-gmap-polygon static='true' ng-repeat='p in polygons' path='p.coordinates' stroke='p.stroke' visible='p.visible'
+              geodesic='p.geodesic' fill='p.fill' fit='false' editable='p.editable' draggable='p.draggable'></ui-gmap-polygon>
           </ui-gmap-google-map>
       </div>
     </div>

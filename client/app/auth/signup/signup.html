@@ -1,20 +1,16 @@
-<!doctype html>
-<html>
-<head>
-  <title>Signup</title>
-</head>
-<body>
-  <h1>Signup</h1>
-    <div>
+<div id='signupBody'>
+  <div id='signupHeader'>SIGN UP</div>
     <form>
-      <div>name: <input type="text" ng-model="name"></div>
-      <div>email: <input type="email" ng-model="email"></div>
-      <div>password: <input type="password" ng-model="firstPassword"></div>
-      <div>re-enter password: <input type="password" ng-model="secondPassword"><span ng-hide="arePasswordsEqual(firstPassword, secondPassword)">Passwords are not the same</span></div>
-      <div><button ng-click="submitSignup(name, email, firstPassword, secondPassword)">Submit</button></div>
+      <div><input id='signupNameBorder' type="text" placeholder='name' ng-model="name"></div>
+      <div><input id='signupEmailBorder' class='focus' placeholder='email' type="email" ng-model="email"></div>
+      <div><input type="password" placeholder='password' ng-model="firstPassword"></div>
+      <div><input type="password" placeholder='re-enter password' ng-model="secondPassword"></div>
+      <div id="errMessage" ng-show="hasError">{{errorMessage}}</div>
+      <span id="errMessage" ng-hide="arePasswordsEqual(firstPassword, secondPassword)">Passwords are not the same</span>
     </form>
 
-    <div ng-show="hasError">{{errorMessage}}</div>
-    <a id="authLink" ng-href="/#/login">Login</a>
-</body>
-</html>
+    <div id="bottomSignup">
+      <a class="authLink" id='loginLink' ng-href="/#/login">LOGIN</a>
+      <div id="signupSubDiv"><button id='signUpSubmit' ng-click="submitSignup(name, email, firstPassword, secondPassword)">SUBMIT</button></div>
+    </div>
+</div>
