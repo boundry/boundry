@@ -7,21 +7,15 @@
   <div id='yourEvents'>
     <div id='yourEvTitle'>Your Events</div>
 
-<!-- <<<<<<< HEAD
-    <div id="eventsAndMap">
-      <div id="leftCol">
-        <div id="createEvBtn"><input id="btn" type="button" value="Create Event"
-          ng-click="createNewEvent()"></div>
-======= -->
     <div id='eventsAndMap'>
       <div id='leftCol'>
-        <div id='createEvBtn'><input id='btn' type='button' value='Create Event' ui-sref='eventEditor()'></div>
+        <div id='createEvBtn'><input id='btn' type='button' value='Create Event' ng-click='createNewEvent()'></div>
         <div id="noEventMessage" ng-show='hasEvent'>{{eventMessage}}</div>
-<!-- >>>>>>> (feat) styling of login/signup. Change color theme -->
 
         <div id='eventList' ng-repeat='event in eventData'>
             <ul id='evSpan'>
-              <input id='btn' class='editBtn' type='button' value='Edit' ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
+              <input id="btn" class="editBtn" type="button" value="Del" ng-click="deleteEvent(event.id)">
+              <input id="btn" class="editBtn" type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
               <li id='eventName' ng-class='{evNameInList: hover}' ng-mouseenter='populateMap($index); hover = true' ng-mouseleave='hover = false'>
           {{ event.name }}</li>
             </ul>
