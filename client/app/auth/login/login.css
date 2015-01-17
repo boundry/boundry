@@ -1,0 +1,64 @@
+.loginHtml {
+  background-color: #4B5763;
+  height: 100%;
+}
+#loginBody {
+  margin-top: 15%;
+  padding: 20px;
+  text-align: center;
+}
+#loginHeader {
+  color: white;
+  border-bottom: 1px solid white;
+  width: 300px;
+  font-size: 25px;
+  margin: auto auto 20px auto;
+  padding-bottom: 10px;
+}
+
+#loginForm {
+
+}
+
+#loginEmailBorder, #loginPasswordBorder {
+  /*background-color:  white;*/
+  background-color: #4B5763;
+  height: 20px;
+  width: 200px;
+  border: 1px solid white;
+  padding: 16px;
+  margin: 5px auto 5px auto;
+  font-size: 15px;
+
+}
+
+#loginSubmit {
+  background-color: #4B5763;
+  color: white;
+  font-size: 15px;
+  width: 100px;
+  height: 50px;
+  border: 1px solid white;
+  padding: 8px;
+  margin: 5px auto 5px auto;
+  text-align: center;
+  min-width: 50px;
+  line-height:30px;
+
+}
+
+*::-webkit-input-placeholder {
+    color: gray;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: gray;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: gray;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: gray;
+}

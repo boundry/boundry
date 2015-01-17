@@ -1,5 +1,5 @@
 <div ng-init="init()">
-  <span>
+  <span ng-init="init()">
     <div ng-navbar></div>
 
   <div id="evDash">EVENT DASHBOARD</div>
@@ -14,9 +14,13 @@
         <div id="eventList" ng-repeat='event in eventData'>
             <ul id='evSpan'>
               <input id="btn" class="editBtn" type="button" value="Edit" ui-sref='eventEditor({eventId: event.id, regions: event.regions})'>
-              <li id='eventName' ng-click='populateMap($index)'>{{ event.name }}</li>
+              <li id='eventName' ng-class='{evNameInList: hover}' ng-mouseenter='populateMap($index); hover = true' ng-mouseleave='hover = false'>
+          {{ event.name }}</li>
             </ul>
         </div>
+
+        <!-- ng-click="edit($index); open()" -->
+
 
       </div>
       <div id="map"> 

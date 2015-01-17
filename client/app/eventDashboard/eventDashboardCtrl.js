@@ -9,8 +9,10 @@ angular
 
   function EventDashboardCtrl ($scope, EventDashboardFactory, uiGmapGoogleMapApi) {
     $scope.init = function() {
+      var ngS = document.getElementsByClassName('ng-scope');
+      ngS[0].classList.remove('loginHtml');
       var el = document.getElementsByClassName('angular-google-map-container');
-      el[0].classList.add('dashboardMap');
+      el[0].classList.add('dashboardMap'); 
     };
     angular.extend($scope, EventDashboardFactory);
      
