@@ -1,16 +1,11 @@
-<!doctype html>
-<html>
-<head>
-  <title>Login</title>
-</head>
-<body>
-  <h1>Login</h1>
-  <form>  
-    <div>email: <input type="email" ng-model="email"></div>
-    <div>password: <input type="password" ng-model="password"></div>
-    <div><button ng-click="submitLogin(email, password)">Submit</button></div>
+<div id="loginBody">
+  <div id="loginHeader">LOGIN</div>
+  <form id="loginForm">  
+    <div ><input id='loginEmailBorder' type="email" placeholder="enter email" ng-model="email"></div>
+    <div ><input id='loginPasswordBorder' type="password" placeholder="enter password" ng-model="password"></div>
+    
     <div ng-show="hasError">{{errorMessage}}</div>
   </form>
-  <a ng-href="/#/signup">Signup</a>
-</body>
-</html>
+  <a id="authLink" ng-href="/#/signup">Signup</a>
+  <div><button id='loginSubmit' ng-click="submitLogin(email, password)">SUBMIT</button></div>
+</div>
