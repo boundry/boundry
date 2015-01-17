@@ -2,9 +2,9 @@ angular
   .module('boundry.eventEditor', [])
   .factory('EventEditorFactory', EventEditorFactory);
   
-  EventEditorFactory.$inject = ['$http', 'EventDashboardFactory'];
+  EventEditorFactory.$inject = ['AuthFactory', '$http', 'EventDashboardFactory'];
 
-  function EventEditorFactory ($http, EventDashboardFactory) {
+  function EventEditorFactory (AuthFactory, $http, EventDashboardFactory) {
     //TODO: Break all these options into a separate config file
     var polygonOptions = {
       fillColor: '#ffff00',
@@ -38,10 +38,6 @@ angular
 
       polygonOptions: polygonOptions,
       Polygon: Polygon,
-
-      savePolygons: savePolygons,
-      sendEventDataToServerAndRefresh: sendEventDataToServerAndRefresh,
-      getPolygonsFromServer: getPolygonsFromServer,
 
       grabEventData: grabEventData
     };
@@ -81,20 +77,6 @@ angular
       return polygon;
     }
 
-    //Retrieves all polygons for a given eventId
-    function getPolygonsFromServer (eventId) {
-      var scope = this;
-
-      //$http.get('/polygontest')
-      $http.get('/api/web/organizer/test@org.com/events')
-        .success(function(data) {
-          data.forEach(function(polygon) {
-            scope.polygons.push(polygon);
-          });
-        })
-        .error(logError);
-    }
-
     //Gets event data for specific event from Dashboard Factory
     function grabEventData(eventId) {
       //Grab all event data from Dashboard Service
@@ -108,44 +90,6 @@ angular
       }
       console.log('Could not get event data for event id: ', eventId);
     }
-
-    function sendEventDataToServerAndRefresh () {
-      var scope = this;
-      //TODO: This is bad. Factory shouldn't be grabbing stuff from controller.
-      //Clicking a save button should just update the data in the factory (model) 
-      //and a watcher should detect a change and send the new data.
-      var data = scope.currEventData;
-      var organizerEmail = EventDashboardFactory.currentOrganizerEmail;
-
-      $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
-        .success(function(data, status) {
-          logSuccess(data, status);
-
-          //Get the fresh data from the server, with the server-generated IDs
-          //for newly created regions
-          EventDashboardFactory.getEvents(organizerEmail)
-            .success(function(data) {
-              //Set it on the factory
-              EventDashboardFactory.setEventData(data);
-            }) 
-            .error(function(error) {
-              console.log(error);
-            });
-        })
-        .error(logError);
-    }
-
-    //POSTs polygon data to server for saving
-    //Needs Event ID and user auth
-    function savePolygons () {
-      var scope = this;
-      var data = JSON.stringify(scope.polygons);
-
-      $http.post('/polygontest', data)
-        .success(logSuccess)
-        .error(logError);
-    }
-
     
     function getRandomColor() {
       var letters = '0123456789ABCDEF'.split('');
@@ -154,11 +98,5 @@ angular
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
-    }
-    function logSuccess (data, status) {
-      console.log(data, status);
-    } 
-    function logError (error) {
-      console.log(error);
     }
 }

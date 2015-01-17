@@ -8,16 +8,21 @@ angular
     '$http',
     '$stateParams',
     'EventEditorFactory',
+    'EventDashboardFactory',
     'uiGmapGoogleMapApi',
     'uiGmapLogger'
   ];
 
-  function EventEditorCtrl ($rootScope, $scope, $http, $stateParams, EventEditorFactory, uiGmapGoogleMapApi, uiGmapLogger) {
+  function EventEditorCtrl ($rootScope, $scope, $http, $stateParams, EventEditorFactory, EventDashboardFactory, uiGmapGoogleMapApi, uiGmapLogger) {
 
     uiGmapLogger.doLog = true;
     
     //Expose factory functions and data to scope
     angular.extend($scope, EventEditorFactory);
+
+    //Had to store this on dash factory to avoid circular dependency. 
+    //TODO: refactor that
+    $scope.sendEventDataToServerAndRefresh = EventDashboardFactory.sendEventDataToServerAndRefresh;
 
     //Take data from EventDashboard (via EventEditorFactory) and save to scope
     $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
@@ -28,8 +33,6 @@ angular
     //created polygons and set them on the scope so we don't keep saving them
     //with null IDs
     var unbind = $rootScope.$on('eventDataUpdated', function (event) {
-      event.stopPropagation();
-
       $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
       console.log('updatedCurrEventData', $scope.currEventData);
     });

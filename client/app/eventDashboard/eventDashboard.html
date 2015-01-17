@@ -9,7 +9,8 @@
 
     <div id="eventsAndMap">
       <div id="leftCol">
-        <div id="createEvBtn"><input id="btn" type="button" value="Create Event" ui-sref='eventEditor()'></div>
+        <div id="createEvBtn"><input id="btn" type="button" value="Create Event"
+          ng-click="createNewEvent()"></div>
 
         <div id="eventList" ng-repeat='event in eventData'>
             <ul id='evSpan'>
