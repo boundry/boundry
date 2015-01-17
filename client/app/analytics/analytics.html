@@ -18,12 +18,48 @@
     <script type="text/javascript" src="app/analytics/analyticsCtrl.js"></script>
     <script type="text/javascript" src="app/analytics/analyticsServices.js"></script>
 
+    <script type="text/javascript" src="app/analytics/navbarCtrl.js"></script>
+    <script type="text/javascript" src="app/analytics/navbarDirective.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
+
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel_packed.js"></script>
 <!-- googlemaps stuff -->
 
     <style>
+      html {
+        background-color: #ffffff;
+        /*1F2831*/
+      }
+      body {
+        margin: 0px;
+      }
+      *{
+        /*font-family:'Trebuchet MS';*/
+        /*font-family: 'Montserrat', sans-serif;*/
+        font-family: 'Raleway', sans-serif;
+      }
+      div[ng-navbar]{
+        background-color: #637485;
+        padding: 20px 20px;
+        font-size: 12px;
+      }
+      #boundryName {
+        color: #ffffff;
+        font-size: 16px;
+      }
+      a {
+          text-decoration: none;
+          color: #ffffff;
+          margin-left: 25px;
+          font-size: 16px;
+
+      }
       #map {
         height: 500px;
-        width: 500px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
         /*margin: 0px;*/
         /*padding: 0px*/
       }
@@ -33,56 +69,218 @@
         padding: 5px;
         border: 1px solid #999;
       }
-      #slider, #slider-range {
-        width: 500px;
+
+      #btn {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        -o-border-radius: 2px;
+        border-radius: 2px;   
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition-property: background;
+        -moz-transition-property: background;
+        -o-transition-property: background;
+        transition-property: background;
+        -webkit-transition-duration: 0.3s;
+        -moz-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+      /*  color: #ffffff;
+        background-color: #BBBBBB;*/
+        background-color: #545E66;
+        color: #ffffff;
+        text-shadow: none;
+        border: none;
+        height: 20px;
+        line-height: 20px;
+        padding: 0px 13.6px;
+        font-weight: 300;
+        font-size: 13px;
+        /*border: 1px #969595 solid;*/
+        /*font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+        margin: 5px;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;     
       }
+
+      /* The next blocks of code are for user actions on the buttons. */
+      #btn:hover {
+        text-decoration: none;
+        color: #545E66;
+        background-color: #ffffff;
+      }
+
+      .styled-select {
+        margin: 20px;
+        background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+        height: 29px;
+        overflow: hidden;
+        width: 240px;
+      }
+      .styled-select select {
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        height: 29px;
+        padding: 5px; /* If you add too much padding here, the options won't show in IE */
+        width: 268px;
+      }
+      .semi-square {
+         -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+         border-radius: 5px;
+      }
+      .blue {
+        background-color: #637485;
+      }
+      .blue select {
+        margin-left: 65px;
+        color: #ffffff;
+      }
+
+
+      .slider .ui-slider-range {
+        background: #637485;
+      }
+      .slider .ui-slider-handle { 
+        background: #ffffff;
+        border-color: #637485; 
+        border-width: 3px;
+      }
+      .slider {
+        width: 700px;
+        margin-left: 80px;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        padding: 20px 0 20px 0;
+        margin-left: 20px;
+        font-size: 35px;
+        color: #3A4C5E;
+        font-weight: 700;
+      }
+
+      .select-boxes {
+        /*border: 1px solid black;*/
+        overflow: hidden; /* will contain if #first is longer than #second */
+        padding: 0px;
+        padding-left: 20px;
+        margin-bottom: 20px;
+      }
+      .event-selector {
+        margin: 0px;
+        margin-right: 20px;
+        float:left; /* add this */
+      }
+      .view-selector {
+        margin: 0px;
+        float: left;
+        /*overflow: hidden;  if you don't want #second to wrap below #first */
+      }
+
+      .slider-text{
+        border:0;
+        color:#637485;
+        font-weight:bold;
+        font-size: 25px;
+        margin-bottom: 10px;
+      }
+      .time-text{
+        margin-left: 80px;
+      }
+
+      #panel {
+        width: 550px;
+        margin-left: 50px;
+        margin-right: 70px;
+        float: right;
+        overflow: hidden; /* if you don't want #second to wrap below #first */
+      }
+
+      .view {
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .labels {
+         color: red;
+         background-color: white;
+         font-family: "Lucida Grande", "Arial", sans-serif;
+         font-size: 10px;
+         font-weight: bold;
+         text-align: center;
+         width: 80px;     
+         border: 2px solid black;
+         white-space: nowrap;
+       }
+
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
 
   </head>
 
   <body>
 
-    <div>
-      <h1>Data Analytics</h1>
+    <div ng-app="boundry.analytics">
+      <div ng-navbar></div>
+      <div class='title'>DATA ANALYTICS</div>
 
-      <div ng-app="boundry.analytics">
         <div ng-controller="AnalyticsCtrl">
 
+          <div class="select-boxes">
+            <div class="styled-select blue semi-square event-selector">
+              <select ng-init="eventSelection = events[2]" ng-model="eventSelection" ng-options="event.name for event in events"></select>
+            </div>
+
+            <div class="styled-select blue semi-square view-selector">
+            <select ng-init="init()"ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
+            </div>
+
+            <div id="panel" ng-show='dataViewSelection.name === "Heat Map"'>
+              <button id="btn" ng-click="toggleHeatmap()">Toggle Heatmap</button>
+              <button id="btn" ng-click="changeGradient()">Change gradient</button>
+              <button id="btn" ng-click="changeRadius()">Change radius</button>
+              <button id="btn" ng-click="changeOpacity()">Change opacity</button>
+            </div>
+          </div>
+
           <div ng-show="dataViewSelection.name === 'Heat Map'">
-            <label for="heatmapSlider">Time:</label>
-            <input type="text" id="heatmapSlider" readonly>
-            <div id="slider"></div>
+            <div class="time-text">
+              <!-- <label class="slider-text" for="heatmapSlider">Time:</label> -->
+              <input type="text" class="slider-text" id="heatmapSlider" readonly>
+            </div>
+            <div class="slider" id="slider"></div>
           </div>
 
           <div ng-show="dataViewSelection.name === 'Line Chart'">
-            <label for="timeIntervalSlider">Time Interval:</label>
-            <input type="text" id="timeIntervalSlider" readonly>
-            <div id="slider-range"></div>
+            <div class="time-text">
+              <!-- <label class="slider-text" for="timeIntervalSlider">Time Interval:</label> -->
+              <input type="text" class="slider-text" id="timeIntervalSlider" readonly>
+            </div>
+            <div class="slider" id="slider-range"></div>
           </div>
 
           <div ng-show="dataViewSelection.name === 'Bar Chart'">
-            <label for="barChartSlider">Time:</label>
-            <input type="text" id="barChartSlider" readonly>
-            <div id="bar-slider-range"></div>
+            <div class="time-text">
+              <!-- <label class="slider-text" for="barChartSlider">Time:</label> -->
+              <input type="text" class="slider-text" id="barChartSlider" readonly>
+            </div>
+            <div class="slider" id="bar-slider-range"></div>
           </div>
 
-
-            <select ng-model="eventSelection" ng-options="event.name for event in events"></select>
-            <select ng-model="dataViewSelection" ng-options="view.name for view in views" ng-change="changeView()"></select>
+          <div class="view">
             <nvd3 options="dataViewSelection.options" data="dataViewSelection.data" refreshDataOnly="true"></nvd3>
-            <div ng-show='dataViewSelection.name === "Heat Map"'>
-              <div id="panel">
-                <button ng-click="toggleHeatmap()">Toggle Heatmap</button>
-                <button ng-click="changeGradient()">Change gradient</button>
-                <button ng-click="changeRadius()">Change radius</button>
-                <button ng-click="changeOpacity()">Change opacity</button>
-              </div>
-              <div id="map"></div>
-            </div>
+          </div>
+
+          <div ng-show='dataViewSelection.name === "Heat Map"'>
+            <div id="map"></div>
+          </div>
         </div>
       </div>
-    </div>
 
   </body>
 </html>
