@@ -15,6 +15,7 @@ angular
 
     return {
       createNewEvent: createNewEvent,
+      deleteEvent: deleteEvent,
       sendEventDataToServerAndRefresh: sendEventDataToServerAndRefresh,
       getEvents: getEvents,
       setEventData: setEventData,
@@ -35,6 +36,23 @@ angular
       sendEventDataToServerAndRefresh(newEvent);
     }
 
+    function deleteEvent(eventId) {
+      $http.delete('api/web/organizer/events/' + eventId)
+        .success(function(data, status) {
+          var organizerEmail = AuthFactory.getEmail();
+          getEvents(organizerEmail)
+          .success(function(data) {
+            //Set it on the factory
+            setEventData(data);
+          }) 
+          .error(function(error) {
+            console.log(error);
+          });
+        })
+      .error(function(error) {
+        console.log(error);
+      });
+    }
 
     //Takes an event data object, sends it to server, then refreshes dashboard
     //factory with the latest data (and newly server-generated IDs)

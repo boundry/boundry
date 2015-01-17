@@ -145,53 +145,6 @@ var postEvent = function(req,res) {
           .then(function(savedEvent) {
             res.status(200).send('New Event Saved');
           })
-
-          //.then(function(savedEvent) {
-            ////get event_id for region just saved and store region data to table
-            //collections.Events.query()
-            //.where({organizer_id:found.attributes.id, name:eventName})
-            //.then(function(foundEv) {
-              //if (foundEv.length > 0) {
-                //var evId = foundEv[0].id;
-                ////save to region table region attr
-                //regions.forEach(function(region) {
-                  ////check if have regionId (existing)
-                    //new models.Region({
-                      //region_name: region.region_name,
-                      //region_attr: JSON.stringify(region.region_attr),
-                      //event_id: evId
-                    //}).save()
-                    //.then(function(savedReg) {
-                      //collections.Regions.query()
-                      //.where({id:savedReg.id})
-                      //.then(function(foundReg) {
-                        //// console.log('colReg',foundReg);
-                        //if (foundReg.length > 0) {
-                          //var regId = foundReg[0].id;
-                          //if (region.actions.length > 0 && region.actions !== undefined) {
-                            //region.actions.forEach(function(action) {
-                              //action.region_id = savedReg.Id;
-                              //new models.Action({
-                                //name: action.name,
-                                //action_data: action.action_data,
-                                //region_id: regId
-                              //}).save()
-                              //.then(function(savedAction) {
-                                //// console.log('saved an action!', savedAction);
-                              //})
-                              //.catch(function(err) {
-                                //console.log('error!!!',err);
-                              //});
-                            //});
-                          //}
-                        //}
-                      //});
-                    //});
-                //});
-              //}
-            //});
-          //res.status(200).send('saved ev and region');
-          //})
           .catch(function(err) {
             console.log('error:', err);
           }); 
@@ -220,8 +173,65 @@ var getActions = function(req,res) {
   }
 };
 
+//Deletes an event after deleting its related regions and actions (in reverse
+//order to preserve FK constraints)
+var deleteEvent = function (req, res) {
+  console.log('DELETE REQUEST');
+
+  if (util.isLoggedIn(req, res)) {
+    var eventId = req.params.eventId;
+    console.log('DELEETING FOR EVENT', eventId);
+    new models.Event({id: eventId})
+      .fetch({withRelated: ['regions']})
+      .then(function(event) {
+        var regions = event.related('regions');
+        //Promse to map through regions
+        regions.mapThen(function(region) {
+          return region
+          //Get each region's actions
+          .fetch({withRelated: ['actions']})
+          .then(function(region) {
+            //Promise to destroy all the region's actions
+            return region.related('actions').invokeThen('destroy') 
+            .then(function(resp) {
+              console.log('actions destroyed', resp);
+              //Destroy the region itself
+              return region.destroy().then(function(resp) {
+                console.log('region destroyed', resp);
+              });
+            });
+          });
+        })
+        .then(function(resp) {
+          //Destroy event
+          return event.destroy().then(function(resp) {
+            res.status(204).send('Deleted data for event id: ', eventId);
+            console.log('EVENT DESTROYED', resp);
+          });
+        });
+      })
+      .catch(function(error) {
+        res.status(500).send(error);
+        console.log(error);
+      });
+  } else {
+    res.status(400).send('Not logged in. Cannot delete event');
+  }
+
+};
+
+var deleteRegion = function (req, res) {
+/*  if (util.isLoggedIn(req, res)) {*/
+    
+  //} else {
+    //res.status(400).send('Not logged in. Cannot delete event');
+  /*}*/
+};
+
 webApiRouter.get('/organizer/:email/events', getEvents);
 webApiRouter.post('/organizer/:email/events', postEvent);
 webApiRouter.get('/organizer/actions/:regionId', getActions);
+webApiRouter.delete('/organizer/events/:eventId', deleteEvent);
+webApiRouter.delete('/organizer/regions/:regionId', deleteRegion);
 
 module.exports = webApiRouter;
