@@ -64,7 +64,7 @@ var postEvent = function(req,res) {
     new models.Organizer({email: orgEmail}).fetch().then(function(found) { //TODO: Do we actually need this orgEmail check?
       if (found) {
         //existing event
-        if (eventId !== null) {
+        if (eventId !== undefined) {
           collections.Events.query()
           .where({organizer_id:found.attributes.id, id: eventId})
           .update({name:eventName, event_center: eventCenter})
@@ -132,6 +132,7 @@ var postEvent = function(req,res) {
               res.status(200).send('updated');
           });
         } else {
+          console.log('SAVING NEW EVENT');
           //save new event to event table
           new models.Event({
             name: eventName,
@@ -139,53 +140,58 @@ var postEvent = function(req,res) {
             end_time: startTime,
             event_center: eventCenter,
             organizer_id: found.attributes.id
-          }).save()
-          .then(function(savedEvent) {
-            //get event_id for region just saved and store region data to table
-            collections.Events.query()
-            .where({organizer_id:found.attributes.id, name:eventName})
-            .then(function(foundEv) {
-              if (foundEv.length > 0) {
-                var evId = foundEv[0].id;
-                //save to region table region attr
-                regions.forEach(function(region) {
-                  //check if have regionId (existing)
-                    new models.Region({
-                      region_name: region.region_name,
-                      region_attr: JSON.stringify(region.region_attr),
-                      event_id: evId
-                    }).save()
-                    .then(function(savedReg) {
-                      collections.Regions.query()
-                      .where({id:savedReg.id})
-                      .then(function(foundReg) {
-                        // console.log('colReg',foundReg);
-                        if (foundReg.length > 0) {
-                          var regId = foundReg[0].id;
-                          if (region.actions.length > 0 && region.actions !== undefined) {
-                            region.actions.forEach(function(action) {
-                              action.region_id = savedReg.Id;
-                              new models.Action({
-                                name: action.name,
-                                action_data: action.action_data,
-                                region_id: regId
-                              }).save()
-                              .then(function(savedAction) {
-                                // console.log('saved an action!', savedAction);
-                              })
-                              .catch(function(err) {
-                                console.log('error!!!',err);
-                              });
-                            });
-                          }
-                        }
-                      });
-                    });
-                });
-              }
-            });
-          res.status(200).send('saved ev and region');
           })
+          .save()
+          .then(function(savedEvent) {
+            res.status(200).send('New Event Saved');
+          })
+
+          //.then(function(savedEvent) {
+            ////get event_id for region just saved and store region data to table
+            //collections.Events.query()
+            //.where({organizer_id:found.attributes.id, name:eventName})
+            //.then(function(foundEv) {
+              //if (foundEv.length > 0) {
+                //var evId = foundEv[0].id;
+                ////save to region table region attr
+                //regions.forEach(function(region) {
+                  ////check if have regionId (existing)
+                    //new models.Region({
+                      //region_name: region.region_name,
+                      //region_attr: JSON.stringify(region.region_attr),
+                      //event_id: evId
+                    //}).save()
+                    //.then(function(savedReg) {
+                      //collections.Regions.query()
+                      //.where({id:savedReg.id})
+                      //.then(function(foundReg) {
+                        //// console.log('colReg',foundReg);
+                        //if (foundReg.length > 0) {
+                          //var regId = foundReg[0].id;
+                          //if (region.actions.length > 0 && region.actions !== undefined) {
+                            //region.actions.forEach(function(action) {
+                              //action.region_id = savedReg.Id;
+                              //new models.Action({
+                                //name: action.name,
+                                //action_data: action.action_data,
+                                //region_id: regId
+                              //}).save()
+                              //.then(function(savedAction) {
+                                //// console.log('saved an action!', savedAction);
+                              //})
+                              //.catch(function(err) {
+                                //console.log('error!!!',err);
+                              //});
+                            //});
+                          //}
+                        //}
+                      //});
+                    //});
+                //});
+              //}
+            //});
+          //res.status(200).send('saved ev and region');
+          //})
           .catch(function(err) {
             console.log('error:', err);
           }); 

@@ -2,21 +2,62 @@ angular
   .module('boundry.eventDashboard', [])
   .factory('EventDashboardFactory', EventDashboardFactory);
 
-  EventDashboardFactory.$inject = ['$rootScope', '$http', 'AuthFactory'];
+  EventDashboardFactory.$inject = [
+    '$rootScope',
+    '$http',
+    'AuthFactory',
+  ];
 
   function EventDashboardFactory ($rootScope, $http, AuthFactory) {
     var eventData; //Set by controller after promise returns
-    //TODO: This should be called anew from the controller, so the email doesn't
-    //persist here after the user logs out. 
-    var currentOrganizerEmail = AuthFactory.getEmail(); 
+    //TODO: This should be watching the value in AuthFactory, updating whenever
+    //it changes
 
     return {
-      currentOrganizerEmail: currentOrganizerEmail,
+      createNewEvent: createNewEvent,
+      sendEventDataToServerAndRefresh: sendEventDataToServerAndRefresh,
       getEvents: getEvents,
       setEventData: setEventData,
       getEventData: getEventData
     };
 
+    //Makes a new event, saves to server to generate an ID, gets back the ID,
+    //and then routes to editor control passing ID along in $stateParams
+    function createNewEvent() {
+      var newEvent = {
+        name: 'New Event',
+        start_time: null,
+        event_center: {
+          latitude: 37.789174,
+          longitude: -122.419292
+        }
+      };
+      sendEventDataToServerAndRefresh(newEvent);
+    }
+
+
+    //Takes an event data object, sends it to server, then refreshes dashboard
+    //factory with the latest data (and newly server-generated IDs)
+    function sendEventDataToServerAndRefresh (data) {
+      var organizerEmail = AuthFactory.getEmail();
+
+      $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
+        .success(function(data, status) {
+          //Get the fresh data from the server, with the server-generated IDs
+          //for newly created regions
+          getEvents(organizerEmail)
+            .success(function(data) {
+              //Set it on the factory
+              setEventData(data);
+            }) 
+          .error(function(error) {
+            console.log(error);
+          });
+        })
+      .error(function(error) {
+        console.log(error);
+      });
+    }
 
     //Getter/setter for eventData
     function setEventData (data) {

@@ -3,12 +3,13 @@ angular
   .controller('EventDashboardCtrl', EventDashboardCtrl);
 
   EventDashboardCtrl.$inject = [
+    '$rootScope',
     '$scope',
     'AuthFactory',
     'EventDashboardFactory'
   ];
 
-  function EventDashboardCtrl ($scope, AuthFactory, EventDashboardFactory, uiGmapGoogleMapApi) {
+  function EventDashboardCtrl ($rootScope, $scope, AuthFactory, EventDashboardFactory, uiGmapGoogleMapApi) {
     $scope.init = function() {
       var ngS = document.getElementsByClassName('ng-scope');
       ngS[0].classList.remove('loginHtml');
@@ -18,6 +19,13 @@ angular
     angular.extend($scope, EventDashboardFactory);
      
     $scope.options = {scrollwheel: false}; 
+
+    //Listen for event data changes and update data on scope
+    var unbind = $rootScope.$on('eventDataUpdated', function (event) {
+      $scope.eventData = $scope.getEventData();
+      //$scope.$apply();
+    });
+    $scope.$on('$destroy', unbind);
 
     //TODO: Move this into an activate function
     $scope.getEvents(AuthFactory.getEmail()) //Get events for organizer, passing in email pulled from auth factory 
