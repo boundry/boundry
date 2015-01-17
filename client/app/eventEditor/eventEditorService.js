@@ -2,9 +2,9 @@ angular
   .module('boundry.eventEditor', [])
   .factory('EventEditorFactory', EventEditorFactory);
   
-  EventEditorFactory.$inject = ['$http', 'EventDashboardFactory'];
+  EventEditorFactory.$inject = ['AuthFactory', '$http', 'EventDashboardFactory'];
 
-  function EventEditorFactory ($http, EventDashboardFactory) {
+  function EventEditorFactory (AuthFactory, $http, EventDashboardFactory) {
     //TODO: Break all these options into a separate config file
     var polygonOptions = {
       fillColor: '#ffff00',
@@ -115,7 +115,7 @@ angular
       //Clicking a save button should just update the data in the factory (model) 
       //and a watcher should detect a change and send the new data.
       var data = scope.currEventData;
-      var organizerEmail = EventDashboardFactory.currentOrganizerEmail;
+      var organizerEmail = AuthFactory.getEmail();
 
       $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
         .success(function(data, status) {

@@ -4,10 +4,11 @@ angular
 
   EventDashboardCtrl.$inject = [
     '$scope',
+    'AuthFactory',
     'EventDashboardFactory'
   ];
 
-  function EventDashboardCtrl ($scope, EventDashboardFactory, uiGmapGoogleMapApi) {
+  function EventDashboardCtrl ($scope, AuthFactory, EventDashboardFactory, uiGmapGoogleMapApi) {
     $scope.init = function() {
       var ngS = document.getElementsByClassName('ng-scope');
       ngS[0].classList.remove('loginHtml');
@@ -16,10 +17,10 @@ angular
     };
     angular.extend($scope, EventDashboardFactory);
      
-      $scope.options = {scrollwheel: false}; 
+    $scope.options = {scrollwheel: false}; 
 
     //TODO: Move this into an activate function
-    $scope.getEvents($scope.currentOrganizerEmail) //Get events for organizer, passing in email pulled from dashboard factory which is pulled from auth factory 
+    $scope.getEvents(AuthFactory.getEmail()) //Get events for organizer, passing in email pulled from auth factory 
       .success(function(data) {
         $scope.setEventData(data); //Set data on factory
         $scope.eventData = $scope.getEventData();
