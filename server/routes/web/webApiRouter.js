@@ -74,20 +74,20 @@ var postEvent = function(req,res) {
               if (region.id !== null) {
                 // console.log('UPDATING REGION', region.id);
                 collections.Regions.query()
-                .where({ event_id: eventId,id: region.id})
+                .where({event_id: eventId, id: region.id})
                 .update({region_name: region.region_name,
                  region_attr: JSON.stringify(region.region_attr)})
                 .then(function(reg) {
-                  if (region.actions !== undefined) {
-                    var regionActionObj = region.actions;
-                    collections.Actions.query()
-                      .where({region_id: region.id})
-                      .update({name:regionActionObj[0].name, action_data: regionActionObj[0].action_data})
-                      .then(function(actionUpdated) {
-                        console.log('actionUpdated', actionUpdated);
-                      })
-                    .catch(function(err) {
-                      console.log('update reg error',err);
+                  if (region.actions !== undefined && region.actions.length > 0) {
+                    //Loop through actions associated with each region
+                    region.actions.forEach(function(action) {
+                      //Updates if exists, creates if it doesn't. action.id can
+                      //be null; it is in the latter case.
+                      new models.Action({id: action.id})
+                        .save({name: action.name, action_data: action.action_data, region_id: region.id})
+                        .catch(function(error) {
+                          console.log(error);
+                        });
                     });
                   }
                 });
@@ -104,7 +104,7 @@ var postEvent = function(req,res) {
                   .then(function(foundReg) {
                     if (foundReg.length > 0) {
                       var regId = foundReg[0].id;
-                      if (region.actions.length > 0 && region.actions !== undefined) {
+                      if (region.actions !== undefined && region.actions.length > 0) {
                         region.actions.forEach(function(action) {
                           action.region_id = savedReg.Id;
                           new models.Action({
