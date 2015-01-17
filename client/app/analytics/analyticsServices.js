@@ -219,23 +219,29 @@ function AnalyticsFactory(HeatMapFactory) {
         },
       data: [
             {
-                key: 'Lands End Stage',
+                key: 'First Stage',
                 values: [
                 ],
                 mean: 7
             },
             {
-                key: 'McLaren Pass',
+                key: 'Second Stage',
                 values: [
                 ],
                 mean: 12
             },
             {
-                key: 'Twin Peaks Stage',
+                key: 'Entrance',
                 values: [
                 ],
                 mean: 12
-            }
+            },
+            {
+                key: 'Concessions',
+                values: [
+                ],
+                mean: 12
+            },
         ]
     },
     {
