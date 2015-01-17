@@ -6,9 +6,6 @@ angular
 AnalyticsFactory.$inject = ['HeatMapFactory'];
 
 function AnalyticsFactory(HeatMapFactory) {
-  console.log(google.maps);
-  console.log(google.maps.drawing);
-  console.log(google.maps.visualization);
   var lineChartData = {};
   var barChartData = {};
   var preprocessedSampleData = HeatMapFactory.preprocessedSampleData;
@@ -16,13 +13,11 @@ function AnalyticsFactory(HeatMapFactory) {
 
 	function prepareLineChartData() {
 		var objectOfRegionData = filterDataByRegion(preprocessedSampleData);
-    console.log('objectOfRegionData', objectOfRegionData);
 		updateAllLineChartData(objectOfRegionData);
 	}
 
   function prepareBarChartData() {
     var objectOfRegionData = filterDataByRegion(preprocessedSampleData);
-    console.log('objectOfRegionData', objectOfRegionData);
     updateAllBarChartData(objectOfRegionData);
   }
 
@@ -42,14 +37,12 @@ function AnalyticsFactory(HeatMapFactory) {
     for (var region in dataObject) {
       lineChartData[region] = generateLineChartData(dataObject[region]);
     }
-    console.log('lineChartData', lineChartData);
   }
 
   function updateAllBarChartData(dataObject) {
     for (var region in dataObject) {
       barChartData[region] = generateBarChartData(dataObject[region]);
     }
-    console.log('barChartData', barChartData);
   }
 
   function generateLineChartData(dataArray) {
@@ -114,19 +107,16 @@ function AnalyticsFactory(HeatMapFactory) {
     var finalData = views[0].data;
 
     for (var i = 0; i < finalData.length; i++) {
-      console.log('thing to filter', lineChartData[finalData[i].key]);
       var filteredData = _.filter(lineChartData[finalData[i].key], function(tuple) {
         var time = tuple[0];
         return (min <= time && time <= max);
       });
       finalData[i].values = filteredData;
     }
-    console.log('finalData', finalData);
   }
 
   function renderBarChart(time) {
     var finalData = views[1].data[0].values;
-    console.log('finalDatafinalData', finalData);
     for (var i = 0; i < finalData.length; i++) {
       finalData[i].value = barChartData[finalData[i].label][time];
     }
@@ -264,11 +254,15 @@ function AnalyticsFactory(HeatMapFactory) {
           },
           transitionDuration: 50,
           xAxis: {
-              axisLabel: 'X Axis'
+              axisLabel: 'Regions'
           },
           yAxis: {
-              axisLabel: 'Y Axis',
-              axisLabelDistance: 30
+              tickFormat: function(d){
+                  return d3.format('')(d);
+              },
+              axisLabel: 'Number of People',
+              axisLabelDistance: 30,
+              showMaxMin: false
           }
         }
       },
@@ -300,6 +294,36 @@ function HeatMapFactory() {
 	var map, heatmap, pointArray;
 
 	var sampleData = processData(preprocessedSampleData);
+
+  var regionLatLongs = {
+    firstStage: {
+      latMin: 37.768643,
+      latMax: 37.767727,
+      longMin: -122.495531,
+      longMax: -122.493814
+    },
+
+    concessions: {
+      latMin: 37.769593,
+      latMax: 37.767235,
+      longMin: -122.49375,
+      longMax: -122.491883
+    },
+
+    entrance: {
+      latMin: 37.769627,
+      latMax: 37.768745,
+      longMin: -122.492012,
+      longMax: -122.491046
+    },
+
+    secondStage: {
+      latMin: 37.768728,
+      latMax: 37.767269,
+      longMin: -122.491883,
+      longMax: -122.490188
+    }
+  };
 
 // fetch data for event
 
@@ -339,25 +363,103 @@ function HeatMapFactory() {
 
 
 	function initialize() {
+    var region1, region2, region3, region4;
+    var filteredData = filterDataByTime(1020, preprocessedSampleData); //1020 is starting point
+    var processedData = processData(filteredData);
+
 	  var mapOptions = {
-	    zoom: 15,
-	    center: new google.maps.LatLng(37.769696, -122.489298),
+	    zoom: 17,
+	    center: new google.maps.LatLng(37.768066, -122.492953),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	  };
 
 	  map = new google.maps.Map(document.getElementById('map'),
 	      mapOptions);
 
-	  pointArray = new google.maps.MVCArray(sampleData);
+    //set polygons on map
+    setPolygons(regionLatLongs);
 
-	  heatmap = new google.maps.visualization.HeatmapLayer({
-	    data: pointArray
-	  });
 
-	  heatmap.setMap(map);
+    //set heat map
+    pointArray = new google.maps.MVCArray(processedData);
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: pointArray
+    });
+
+    heatmap.setMap(map);
+
+
 	}
 
 	var initializeOnce = _.once(initialize);
+
+  function setPolygons(latLongsObject) {
+    var colors = ['blue', 'red', 'green', 'purple', 'orange', 'yellow'];
+    for (var region in latLongsObject) {
+      var latMin = latLongsObject[region].latMin,
+          latMax = latLongsObject[region].latMax,
+          longMin = latLongsObject[region].longMin,
+          longMax = latLongsObject[region].longMax;
+
+      var tempCoords = [
+        new google.maps.LatLng(latMax, longMin),
+        new google.maps.LatLng(latMax, longMax),
+        new google.maps.LatLng(latMin, longMax),
+        new google.maps.LatLng(latMin, longMin),
+        new google.maps.LatLng(latMax, longMin)
+      ];
+
+      var tempLabel = region;
+
+      makePolygon(tempCoords, tempLabel);
+    }
+
+      function makePolygon(polyCoords, polyLabel) {
+        var marker = new MarkerWithLabel({
+         position: new google.maps.LatLng(0,0),
+         draggable: false,
+         raiseOnDrag: false,
+         map: map,
+         labelContent: polyLabel,
+         labelAnchor: new google.maps.Point(30, 20),
+         labelClass: 'labels', // the CSS class for the label
+         labelStyle: {opacity: 1.0},
+         icon: 'http://placehold.it/1x1',
+         visible: false
+        });
+
+        var tempRegion = new google.maps.Polygon({
+          paths: polyCoords,
+          strokeColor: randomUniqueColor(),
+          strokeOpacity: 0.6,
+          strokeWeight: 2,
+          fillColor: randomUniqueColor(),
+          fillOpacity: 0.1,
+          map: map
+        });
+
+        console.log(tempRegion, marker);
+        google.maps.event.addListener(tempRegion, 'mousemove', function(event) {
+          marker.setPosition(event.latLng);
+          marker.setVisible(true);
+        });
+
+        console.log(tempRegion, marker);
+        google.maps.event.addListener(tempRegion, 'mouseout', function(event) {
+          marker.setVisible(false);
+        });
+        
+        function randomUniqueColor() {
+          var index = Math.floor(Math.random() * colors.length);
+          console.log(colors);
+          var color = colors.splice(1, 1);
+          console.log(colors, color);
+          return color[0];
+        }
+      }
+
+  }
 
 	function toggleHeatmap() {
 	  heatmap.setMap(heatmap.getMap() ? null : map);

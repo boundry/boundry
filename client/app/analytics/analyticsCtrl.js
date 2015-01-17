@@ -3,13 +3,16 @@ angular
   .controller('AnalyticsCtrl', AnalyticsCtrl);
 
   AnalyticsCtrl.$inject = ['$scope', '$http', 'AnalyticsFactory', 'HeatMapFactory'];
-  // AnalyticsCtrl.$inject = ['$scope', '$http', 'AnalyticsFactory', 'HeatMapFactory', 'EventDashboardFactory'];
 
   function AnalyticsCtrl ($scope, $http, AnalyticsFactory, HeatMapFactory) {
 
     $scope.views = AnalyticsFactory.views;
-    $scope.events = [{name: 'event1'}, {name: 'event2'}];
+    $scope.events = [{name: 'My Event'}, {name: 'musicFest2'}, {name: 'musicFestival'}];
     $scope.regions = AnalyticsFactory.regions;
+    $scope.init = function(){
+      $scope.dataViewSelection = $scope.views[2];
+      $scope.changeView();
+    };
 
     $scope.changeView = function() {
       if($scope.dataViewSelection.name === 'Heat Map') {
@@ -20,7 +23,6 @@ angular
         $scope.renderLineChartSlider();
         AnalyticsFactory.renderLineChart([$('#slider-range').slider('values', 0), $('#slider-range').slider('values', 1)]);
       } else if ($scope.dataViewSelection.name === 'Bar Chart') {
-        console.log('hi');
         AnalyticsFactory.prepareBarChartData();
         $scope.renderBarChartSlider();
         AnalyticsFactory.renderBarChart($('#bar-slider-range').slider('value'));
@@ -34,10 +36,13 @@ angular
       var step = 1; //minutes
 
       $('#slider').slider({
-        min: startTime + bucketSize/2,
+        min: 1021,
+        // min: startTime + bucketSize/2,
         max: endTime - bucketSize/2,
         step: step,
-        animate: 'fast'
+        animate: 'fast',
+        range: 'min',
+        value: 1020
       });
 
       $('#slider').slider({
@@ -46,7 +51,7 @@ angular
           $('#heatmapSlider').val( 
             changeToModTwelve( Math.floor(( ui.value - bucketSize/2 )/60) ) + //hour
             ':' +
-            pad( ( ui.value - bucketSize/2 ) % 60 ) + //minutes
+            pad( Math.floor(( ui.value - bucketSize/2 ) % 60 )) + //minutes
             determineAmOrPm( Math.floor(( ui.value - bucketSize/2 )/60) )
           );
 
@@ -61,7 +66,7 @@ angular
       $('#heatmapSlider').val( 
         changeToModTwelve( Math.floor(( $('#slider').slider('value') - bucketSize/2 )/60) ) + //hour
         ':' +
-        pad( ( $('#slider').slider('value') - bucketSize/2 ) % 60 ) + //minutes
+        pad( Math.floor(( $('#slider').slider('value') - bucketSize/2 ) % 60 )) + //minutes
         determineAmOrPm( Math.floor(( $('#slider').slider('value') - bucketSize/2 )/60) )
       );
 
@@ -91,10 +96,11 @@ angular
       $('#slider-range').slider({
         animate: true,
         range: true,
-        min: 0,
+        min: 1020,
+        // min: 0,
         max: 24 * 60,
         step: 1,
-        values: [ 17 * 60, 20 * 60 ],
+        values: [ 17 * 60, 24 * 60 ],
         slide: function( event, ui ) {
 
           $('#timeIntervalSlider').val( 
@@ -111,7 +117,6 @@ angular
 
           $scope.$apply(function () {
             //rerender line chart with each value
-            console.log(ui.values);
             AnalyticsFactory.renderLineChart([ui.values[0], ui.values[1]]);
           });
 
@@ -155,11 +160,13 @@ angular
     $scope.renderBarChartSlider = function() {
 
       $('#bar-slider-range').slider({
-        min: 0,
+        min: 1021,
+        // min: 0,
         max: 24 * 60,
         step: 1,
         animate: 'fast',
-        value: 1100
+        range: 'min',
+        value: 1021
       });
 
       $('#bar-slider-range').slider({
@@ -178,6 +185,9 @@ angular
           });
         }
       });
+
+      $('#barChartSlider').val('5:00PM'
+      );
 
       // $('#barChartSlider').val( 
       //   changeToModTwelve( Math.floor(( $('#slider').slider('value') )/60) ) + //hour
