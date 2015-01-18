@@ -6,11 +6,10 @@
 
   <div id='yourEvents'>
     <div id='yourEvTitle'>Your Events</div>
-
     <div id='eventsAndMap'>
       <div id='leftCol'>
-        <div id='createEvBtn'><input id='btn' type='button' value='Create Event' ng-click='createNewEvent()'></div>
-        <div id="noEventMessage" ng-show='hasEvent'>{{eventMessage}}</div>
+        <!-- <div id="noEventMessage" ng-show='hasEvent'>{{eventMessage}}</div> -->
+        <div id='createEvDiv'><input id="createButton"  type='button' value='Create Event' ng-click='createNewEvent()'></div>
 
         <div id='eventList' ng-repeat='event in eventData'>
             <ul id='evSpan'>

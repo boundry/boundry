@@ -41,7 +41,8 @@ angular
           console.log('no data');
           $scope.hasEvent = true;
           $scope.eventMessage = 'No events';
-        }
+          $scope.createNewEvent();
+        } 
       })
       .error(function(error) {
         console.log(error);
