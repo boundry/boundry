@@ -24,50 +24,42 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
 
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel_packed.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400' rel='stylesheet' type='text/css'>
 <!-- googlemaps stuff -->
 
     <style>
       html {
-        background-color: #ffffff;
-        /*1F2831*/
+        background-color: #637485;
+        /*background-color: #ffffff;*/
       }
       body {
         margin: 0px;
       }
-      *{
-        /*font-family:'Trebuchet MS';*/
-        /*font-family: 'Montserrat', sans-serif;*/
-        font-family: 'Raleway', sans-serif;
-      }
+
       div[ng-navbar]{
-        background-color: #637485;
+        background-color: #4E5B69;
         padding: 20px 20px;
         font-size: 12px;
+      }
+      #navAna, #navLogout, a {
+          text-decoration: none;
+          color: #d8d8d8;
+          margin-left: 25px;
+          font-size: 16px;
       }
       #boundryName {
         color: #ffffff;
         font-size: 16px;
       }
-      a {
-          text-decoration: none;
-          color: #ffffff;
-          margin-left: 25px;
-          font-size: 16px;
-
-      }
       #map {
         height: 500px;
-        width: 90%;
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
         /*margin: 0px;*/
         /*padding: 0px*/
-      }
-      #panel {
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
       }
 
       #btn {
@@ -92,18 +84,20 @@
         background-color: #545E66;
         color: #ffffff;
         text-shadow: none;
-        border: none;
+        border: 0;
         height: 20px;
         line-height: 20px;
-        padding: 0px 13.6px;
+        padding: 6px 15px 25px 15px;
         font-weight: 300;
         font-size: 13px;
         /*border: 1px #969595 solid;*/
         /*font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
-        margin: 5px;
+        margin: 0px;
+        margin-left: 20px;
+        float: right;
         text-decoration: none;
         text-align: center;
-        display: inline-block;     
+        /*display: inline-block;     */
       }
 
       /* The next blocks of code are for user actions on the buttons. */
@@ -112,6 +106,7 @@
         color: #545E66;
         background-color: #ffffff;
       }
+
 
       .styled-select {
         margin: 20px;
@@ -134,7 +129,7 @@
          border-radius: 5px;
       }
       .blue {
-        background-color: #637485;
+        background-color: #545E66;
       }
       .blue select {
         margin-left: 65px;
@@ -143,81 +138,131 @@
 
 
       .slider .ui-slider-range {
-        background: #637485;
+        background: #ffffff;
       }
       .slider .ui-slider-handle { 
         background: #ffffff;
-        border-color: #637485; 
-        border-width: 3px;
-      }
-      .slider {
-        width: 700px;
-        margin-left: 80px;
-        margin-bottom: 20px;
+        border-color: #545E66; 
+        border-width: 4px;
       }
 
-      .title {
+
+      #title {
         padding: 20px 0 20px 0;
-        margin-left: 20px;
+        margin-left: 140px;
+        /*font-family: Montserrat, sans-serif;*/
         font-size: 35px;
-        color: #3A4C5E;
+        color: #ffffff;
         font-weight: 700;
       }
 
+
       .select-boxes {
         /*border: 1px solid black;*/
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
         overflow: hidden; /* will contain if #first is longer than #second */
         padding: 0px;
-        padding-left: 20px;
+        padding-bottom: 10px;
         margin-bottom: 20px;
       }
       .event-selector {
         margin: 0px;
         margin-right: 20px;
+        margin-bottom: 4px;
+        /*margin-left: 120px;*/
+        padding-bottom: 0px;
         float:left; /* add this */
       }
       .view-selector {
         margin: 0px;
         float: left;
+        padding-bottom: 0px;
         /*overflow: hidden;  if you don't want #second to wrap below #first */
       }
-
-      .slider-text{
-        border:0;
-        color:#637485;
-        font-weight:bold;
-        font-size: 25px;
-        margin-bottom: 10px;
-      }
-      .time-text{
-        margin-left: 80px;
-      }
-
       #panel {
-        width: 550px;
-        margin-left: 50px;
-        margin-right: 70px;
+        /*border: 1px solid black;*/
+        margin: 0;
+        /*width: 600px;*/
+        padding: 0px;
         float: right;
         overflow: hidden; /* if you don't want #second to wrap below #first */
       }
 
+      .text-wrapper {
+        /*border: 1px solid black;*/
+        width: 80%;
+        margin: 0;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 20px;
+        overflow: hidden; /* will contain if #first is longer than #second */
+        padding: 0px;
+      }
+      .slider {
+        width: 700px;
+        margin: 0px;
+        margin-top: 11px;
+        margin-left: 10px;
+        margin-right: 90px;
+        /*margin-bottom: 20px;*/
+        /*margin-left: 130px;*/
+        float:left; /* add this */
+      }
+      .time-text{
+        /*margin-left: 80px;*/
+        margin: 0px;
+        float: left;
+      }
+      .slider-text{
+        border:0;
+        width: 240px;
+        /*border: 2px solid black;*/
+        color:#ffffff;
+        font-weight:bold;
+        font-size: 25px;
+        margin-bottom: 10px;
+        padding-right: 0;
+        margin-right: 0;
+        background-color: #637485;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+      }
+
+
+
+
       .view {
+        background-color: #ffffff;
         width: 80%;
         margin-right: auto;
         margin-left: auto;
       }
 
       .labels {
-         color: red;
-         background-color: white;
-         font-family: "Lucida Grande", "Arial", sans-serif;
-         font-size: 10px;
-         font-weight: bold;
-         text-align: center;
-         width: 80px;     
-         border: 2px solid black;
-         white-space: nowrap;
+        color: #637485;
+        background-color: white;
+        /*font-family: "Lucida Grande", "Arial", sans-serif;*/
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
+        /*width: 95px;     */
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border: 2px solid black;
+        white-space: nowrap;
        }
+
+      *{
+        font-family: 'Raleway', sans-serif;
+      }
+
+      .footer {
+        margin-bottom: 100px;
+      }
 
     </style>
 
@@ -227,7 +272,7 @@
 
     <div ng-app="boundry.analytics">
       <div ng-navbar></div>
-      <div class='title'>DATA ANALYTICS</div>
+      <div id='title'>DATA ANALYTICS</div>
 
         <div ng-controller="AnalyticsCtrl">
 
@@ -248,28 +293,28 @@
             </div>
           </div>
 
-          <div ng-show="dataViewSelection.name === 'Heat Map'">
+          <div class='text-wrapper' ng-show="dataViewSelection.name === 'Heat Map'">
+            <div class="slider" id="slider"></div>
             <div class="time-text">
               <!-- <label class="slider-text" for="heatmapSlider">Time:</label> -->
               <input type="text" class="slider-text" id="heatmapSlider" readonly>
             </div>
-            <div class="slider" id="slider"></div>
           </div>
 
-          <div ng-show="dataViewSelection.name === 'Line Chart'">
+          <div class='text-wrapper' ng-show="dataViewSelection.name === 'Line Chart'">
+            <div class="slider" id="slider-range"></div>
             <div class="time-text">
               <!-- <label class="slider-text" for="timeIntervalSlider">Time Interval:</label> -->
               <input type="text" class="slider-text" id="timeIntervalSlider" readonly>
             </div>
-            <div class="slider" id="slider-range"></div>
           </div>
 
-          <div ng-show="dataViewSelection.name === 'Bar Chart'">
+          <div class='text-wrapper' ng-show="dataViewSelection.name === 'Bar Chart'">
+            <div class="slider" id="bar-slider-range"></div>
             <div class="time-text">
               <!-- <label class="slider-text" for="barChartSlider">Time:</label> -->
               <input type="text" class="slider-text" id="barChartSlider" readonly>
             </div>
-            <div class="slider" id="bar-slider-range"></div>
           </div>
 
           <div class="view">
@@ -281,6 +326,7 @@
           </div>
         </div>
       </div>
+      <div class="footer"></div> 
 
   </body>
 </html>
