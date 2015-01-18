@@ -269,9 +269,10 @@ function AnalyticsFactory(HeatMapFactory) {
       data: [{
         key: 'Cumulative Return',
         values: [
-            { 'label' : 'Lands End Stage' , 'value' : 22 },
-            { 'label' : 'McLaren Pass' , 'value' : 4 },
-            { 'label' : 'Twin Peaks Stage' , 'value' : 28 }
+            { 'label' : 'First Stage' , 'value' : 0 },
+            { 'label' : 'Second Stage' , 'value' : 0 },
+            { 'label' : 'Entrance' , 'value' : 0 },
+            { 'label' : 'Concessions' , 'value' : 0 }
             ]
         }]
     },
@@ -306,14 +307,14 @@ function HeatMapFactory() {
     concessions: {
       latMin: 37.769593,
       latMax: 37.767235,
-      longMin: -122.49375,
+      longMin: -122.493814,
       longMax: -122.491883
     },
 
     entrance: {
       latMin: 37.769627,
       latMax: 37.768745,
-      longMin: -122.492012,
+      longMin: -122.491883,
       longMax: -122.491046
     },
 
@@ -395,7 +396,7 @@ function HeatMapFactory() {
 	var initializeOnce = _.once(initialize);
 
   function setPolygons(latLongsObject) {
-    var colors = ['blue', 'red', 'green', 'purple', 'orange', 'yellow'];
+    // var colors = ['blue', 'red', 'green', 'purple', 'orange', 'yellow'];
     for (var region in latLongsObject) {
       var latMin = latLongsObject[region].latMin,
           latMax = latLongsObject[region].latMax,
@@ -431,32 +432,30 @@ function HeatMapFactory() {
 
         var tempRegion = new google.maps.Polygon({
           paths: polyCoords,
-          strokeColor: randomUniqueColor(),
-          strokeOpacity: 0.6,
-          strokeWeight: 2,
-          fillColor: randomUniqueColor(),
+          strokeColor: 'black',
+          strokeOpacity: 0.2,
+          strokeWeight: 4,
+          fillColor: 'red',
           fillOpacity: 0.1,
           map: map
         });
 
-        console.log(tempRegion, marker);
         google.maps.event.addListener(tempRegion, 'mousemove', function(event) {
           marker.setPosition(event.latLng);
           marker.setVisible(true);
         });
 
-        console.log(tempRegion, marker);
         google.maps.event.addListener(tempRegion, 'mouseout', function(event) {
           marker.setVisible(false);
         });
         
-        function randomUniqueColor() {
-          var index = Math.floor(Math.random() * colors.length);
-          console.log(colors);
-          var color = colors.splice(1, 1);
-          console.log(colors, color);
-          return color[0];
-        }
+        // function randomUniqueColor() {
+        //   var index = Math.floor(Math.random() * colors.length);
+        //   console.log(colors);
+        //   var color = colors.splice(1, 1);
+        //   console.log(colors, color);
+        //   return color[0];
+        // }
       }
 
   }

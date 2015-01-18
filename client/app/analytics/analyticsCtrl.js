@@ -32,7 +32,7 @@ angular
     $scope.renderHeatmapSlider = function() {
       var bucketSize = 1; //turn hours to minutes
       var startTime = 0;
-      var endTime = 24 * 60; //turn hours to minutes
+      var endTime = 24 * 60 + 2; //turn hours to minutes
       var step = 1; //minutes
 
       $('#slider').slider({
@@ -132,7 +132,7 @@ angular
         changeToModTwelve( Math.floor( $('#slider-range').slider('values', 1) /60) ) + //hour
         ':' +
         pad( $('#slider-range').slider('values', 1) % 60 ) + //minutes
-        determineAmOrPm( Math.floor( $('#slider-range').slider('values', 0) /60) )
+        determineAmOrPm( Math.floor( $('#slider-range').slider('values', 1) /60) )
       );
   
       function pad(n) {
