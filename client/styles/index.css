@@ -21,9 +21,9 @@ body {
 
 #evDash {
   padding: 20px 0 20px 0;
-  margin-left: 10px;
+  margin-left: 70px;
   font-size: 35px;
-  color: #DBDBDB;
+  color: #ffffff;
   font-weight: 700;
 }
 #yourEvTitle {
@@ -53,7 +53,7 @@ body {
   height: 500px;
   background-color: #FFFFFF; /*#E8E8E8;*/
   border: 1px white solid;
-  margin: 20px 50px 0 50px;
+  margin: 20px 70px 0 70px;
 /*  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -282,7 +282,7 @@ div[ng-navbar]{
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  background-color: #969696;
+  background-color: #545E66;
   color: #ffffff;
   text-shadow: none;
   border: none;
@@ -302,6 +302,17 @@ div[ng-navbar]{
 /* The next blocks of code are for user actions on the buttons. */
 #btn:hover {
   text-decoration: none;
-  color: #545E66;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #969696;
+}
+
+.delete-btn {
+  float: right;
+  margin: 0;
+  padding: 0;
+  margin-right: 15px;
+
+}
+.nav-btn {
+  margin-right: 20px;
 }
