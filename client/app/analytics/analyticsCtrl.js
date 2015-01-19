@@ -7,7 +7,7 @@ angular
   function AnalyticsCtrl ($scope, $http, AnalyticsFactory, HeatMapFactory) {
 
     $scope.views = AnalyticsFactory.views;
-    $scope.events = [{name: 'My Event'}, {name: 'musicFest2'}, {name: 'musicFestival'}];
+    $scope.events = [{name: 'Outside Lands 2012'}, {name: 'Outside Lands 2013'}, {name: 'Outside Lands 2014'}];
     $scope.regions = AnalyticsFactory.regions;
     $scope.init = function(){
       $scope.dataViewSelection = $scope.views[2];

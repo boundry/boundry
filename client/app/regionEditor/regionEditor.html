@@ -4,6 +4,6 @@
   <div>Action Data <input type="text" id="actData" ng-model="currEventData.regions[currRegionIndex].actions[0].action_data"/></div>
 </div>
 
-
-  <input id="saveButton" class="editBtn" type="button" value="Del Region" ng-click="deleteRegion(currEventData.id, currRegionIndex, currRegionId)">
-
+<div class='delete-btn'>
+  <input id="saveButton" class="editBtn" type="button" value="DELETE" ng-click="deleteRegion(currEventData.id, currRegionIndex, currRegionId)">
+</div>
