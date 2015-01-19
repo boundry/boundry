@@ -100,6 +100,7 @@ angular
           //Here, polygon belongs to the Drawing Manager. Empty the path so we
           //don't display it in addition to our newly constructed polygon.
           polygon.overlay.setPath([]);           
+          $rootScope.$emit('regionClicked', newPolygon); //Load new polygon's action data for editing
           $scope.$apply(); //Re-render map from newly updated scope storage
         });
       });

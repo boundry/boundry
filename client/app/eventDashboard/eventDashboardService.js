@@ -80,7 +80,6 @@ angular
     //Getter/setter for eventData
     function setEventData (data) {
       eventData = data;
-      console.log('data:',data);
       if (data.length === 0) {
         createNewEvent();
       }
