@@ -205,7 +205,7 @@ var deleteEvent = function (req, res) {
         .then(function(resp) {
           //Destroy event
           return event.destroy().then(function(resp) {
-            res.status(204).send('Deleted data for event id: ', eventId);
+            res.status(204).send('Event deleted');
             console.log('EVENT DESTROYED', resp);
           });
         });
