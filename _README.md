@@ -1,52 +1,36 @@
-# Project Name
+# Boundry
 
-> Pithy project description!
+> Boundry is a platform that uses map editing technology and mobile user location data to transform how event organizers interact with their participants.
 
-## Team
+### Team
+  *Full-Stack Engineers*: &nbsp;[Caroline Wong](http://github.com/caro5), &nbsp;[Grant Wu](http://github.com/grantbot), &nbsp;[Jonathan Ng](http://github.com/programng), &nbsp;[Mike Hart](http://github.com/noodle)  
+  *Scrum Master*: &nbsp;[Mike Hart](http://github.com/noodle)
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+### Usage
 
-## Table of Contents
+Event organizers can use the web-based map editor to divide their venue into multiple regions of any size and shape. They can then associate each region with specific information or notifications.
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
+When a mobile app user enters a region, they automatically receive the most up-to-date information and alerts for the area they’re in. 
 
-## Usage
+#### Web App
+Front-end built with AngularJS  
+Back-end built with Node.js/Express  
+Database built with mySQL  
 
-> Some usage instructions
+#### Mobile app
+iOS application built natively with Swift  
+Source code can be found at https://github.com/boundry/boundry-mobile  
 
-## Requirements
+### Development
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
-
-## Development
-
-### Installing Dependencies
-
+#### Installing Dependencies
 From within the root directory:
 
-```sh
+```
 sudo npm install -g bower
 npm install
 bower install
 ```
 
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
-
-## Contributing
-
+### Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
