@@ -298,6 +298,7 @@ function HeatMapFactory() {
 
   var regionLatLongs = {
     firstStage: {
+      name: 'First Stage',
       latMin: 37.768643,
       latMax: 37.767727,
       longMin: -122.495531,
@@ -305,6 +306,7 @@ function HeatMapFactory() {
     },
 
     concessions: {
+      name: 'Concessions',
       latMin: 37.769593,
       latMax: 37.767235,
       longMin: -122.493814,
@@ -312,6 +314,7 @@ function HeatMapFactory() {
     },
 
     entrance: {
+      name: 'Entrance',
       latMin: 37.769627,
       latMax: 37.768745,
       longMin: -122.491883,
@@ -319,6 +322,7 @@ function HeatMapFactory() {
     },
 
     secondStage: {
+      name: 'Second Stage',
       latMin: 37.768728,
       latMax: 37.767269,
       longMin: -122.491883,
@@ -411,7 +415,7 @@ function HeatMapFactory() {
         new google.maps.LatLng(latMax, longMin)
       ];
 
-      var tempLabel = region;
+      var tempLabel = latLongsObject[region].name;
 
       makePolygon(tempCoords, tempLabel);
     }
