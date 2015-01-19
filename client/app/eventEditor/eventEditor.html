@@ -2,7 +2,8 @@
     <div ng-navbar id='nav'></div>
 
     <div id="overlay">
-      <h1>Outside Lands 2019</h1>
+
+      <div>Event Name<input type="text" id="eventBox" ng-model="currEventData.name"/></div>
       <ng-region-editor></ng-region-editor>
       <div class='save-btn'>
         <button id="saveButton" ng-click="sendEventDataToServerAndRefresh(currEventData)">SAVE</button>
