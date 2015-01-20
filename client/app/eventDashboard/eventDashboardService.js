@@ -61,6 +61,7 @@ angular
 
       $http.post('/api/web/organizer/' + organizerEmail + '/events', data)
         .success(function(data, status) {
+          $rootScope.$emit('eventDataSaved');
           //Get the fresh data from the server, with the server-generated IDs
           //for newly created regions
           getEvents(organizerEmail)
