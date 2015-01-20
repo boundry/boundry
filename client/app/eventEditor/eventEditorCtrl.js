@@ -28,6 +28,14 @@ angular
     $scope.currEventData = EventEditorFactory.grabEventData($stateParams.eventId);
     console.log('currEventData', $scope.currEventData);
 
+    var eventDataSavedListener = $rootScope.$on('eventDataSaved', function (event) {
+      var savedAlert = angular.element(document.getElementById('savedAlert'));
+      savedAlert.removeClass('invisible');
+      setTimeout(function() {
+        savedAlert.addClass('invisible');
+      }, 5000);
+    });
+
     //Listen to data changes on the factory and reset the scope data to match.
     //This is lets us grab the region IDs that the server generates for newly
     //created polygons and set them on the scope so we don't keep saving them
@@ -113,6 +121,7 @@ angular
   //Remove listeners when controller is destroyed to avoid adding multiple
   $scope.$on('$destroy', dataUpdateListener);
   $scope.$on('$destroy', deleteRegionListener);
+  $scope.$on('$destroy', eventDataSavedListener);
 }
 
 
