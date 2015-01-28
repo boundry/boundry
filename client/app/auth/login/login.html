@@ -1,10 +1,10 @@
 <div id='loginBody'>
   <div id='loginHeader'>LOGIN</div>
-  <form>  
+  <form ng-submit='submitLogin(email, password)'>  
     <div ><input id='loginEmailBorder' class='focus' type='email' placeholder='email' ng-model='email'></div>
     <div ><input id='loginPasswordBorder' class='focus' type='password' placeholder='password' ng-model='password'></div>
-    
-    <div id="errMessage" ng-show='hasError'>{{errorMessage}}</div>
+    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    <div id='errMessage' ng-show='hasError'>{{errorMessage}}</div>
   </form>
   <div id="bottomLogin">
 <!--     <div id="signUpLink" ><button id='signUpSubmit' ng-click='submitPressed()'>SIGN UP</button></div> -->
