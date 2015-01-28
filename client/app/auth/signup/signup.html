@@ -1,10 +1,11 @@
 <div id='signupBody'>
   <div id='signupHeader'>SIGN UP</div>
-    <form>
+    <form ng-submit='submitSignup(name, email, firstPassword, secondPassword)'>
       <div><input id='signupNameBorder' type="text" placeholder='name' ng-model="name"></div>
       <div><input id='signupEmailBorder' class='focus' placeholder='email' type="email" ng-model="email"></div>
       <div><input type="password" placeholder='password' ng-model="firstPassword"></div>
       <div><input type="password" placeholder='re-enter password' ng-model="secondPassword"></div>
+    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
       <div id="errMessage" ng-show="hasError">{{errorMessage}}</div>
       <span id="errMessage" ng-hide="arePasswordsEqual(firstPassword, secondPassword)">Passwords are not the same</span>
     </form>
